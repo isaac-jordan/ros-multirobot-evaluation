@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\subsection{Experiment 7 - Vertical Scaling}
+\section{Experiment 7 - Vertical Scaling}
 \label{experiment7-vertical-scaling}
 
 Prior experiments have been setting the groundwork for these scaling experiments. It is now understood how a communication intensive ROS application behaves in the simple case (2 hosts, 2 nodes), and how switching to a wireless network affects the performance.
@@ -15,7 +15,7 @@ Increasing numbers of nodes will be added to each host, and message times record
 
 The data used will be the sensor data stream used in previous experiments.
 
-\subsubsection{Results}
+\subsection{Results}
 
 Figure \ref{exp7-100hz-allnodes} displays the averaged (across 3 runs) data for the 100Hz message frequency. This figure shows that performance degrades very rapidly for high node counts. At 100Hz using 8 total nodes (4 senders) results in poor performance with a message latency of 5 seconds by the end of the stream.
 
@@ -58,7 +58,7 @@ $CSLV = N \cdot f_m \cdot S_m$
 
 Using this equation, we can calculate the CSLV for our particular platform (Raspberry Pi 3 Model B, running ROS Kinetic) using experimental data. However, in order to demonstrate the robustness of this hypothesis, further experiments in varying the $S_m$ (the message size) would be required.
 
-\subsubsection{Further Investigation}
+\subsection{Further Investigation}
 
 In order to get a clearer idea of how adding more ROS nodes affects the system, it is clear that we must use a lower message frequency which allows for sustainable performance at higher node counts.
 

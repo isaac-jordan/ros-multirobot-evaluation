@@ -3,25 +3,31 @@
 \begin{document}
 
 \chapter{Introduction}
+\label{introduction-chapter}
 
 \section{Context}
 
-Robotics is the field of creating physical systems to automate tasks. As a concept, automation dates back hundreds of years - however the idea of replicating biological systems seen in nature (for example, humans) was not first seen until the 20th century. Robotics was mainly considered a theoretical or fictitious fantasy, however the main discussers of the concept (such as Isaac Asimov) assumed technological capability would inevitably reach the level where robotics would either be inseperable from society, or be banned due to it's impact.
+With the increase in availability of commodity computing hardware it is becoming more feasible to experiment with robotics at home. This increase in hobbyist roboticists is one plausible reason for the increase in open source robotics development. These community driven development projects are generally very flexible and extensible, given the large number of types of users wishing to use them in different ways: students, hobbyists, researchers, and enterprises. One such project is ROS (Robot Operating System). ROS describes itself as ``a collection of tools, libraries, and conventions that aim to simplify the task of creating complex and robust robot[s]''\cite{rosaboutpage}. Much of the knowledge on ROS and it's performance is anecdotally acquired and shared on sites such as StackOverflow, here we present a more formal analysis of the performance and scalability of ROS both in an isolated system, and in a real robot car kit platform.
 
-In the 19th century the beginnings of robotics could be seen in the creation of vehicles which could be remotely operated using electric signals. By the early 20th century, wireless radio guidance systems were advanced enough that remotely operated aircraft could be demonstrated in 1917 (by Archibald Low [citation needed]).
+In Chapter \ref{background-chapter} we present a walkthrough of the pertinent topics to understanding this research, as well as a review of a wide rage of software packages that compete with ROS, in order to understand where ROS places in the market. We also identify the major themes seen across the variety of middlewares, broken down in to communication, computation, configuration, and coordination. Next we present an overview of ROS's software architecture, as well as a overview of the robot car kit platform used.
 
-Technology advanced so rapidly during the 20th century that by the 1970s the Soviet Union could explore the surface of the moon using a remotely operated vehicle robot.
+In Chapter \ref{communication-chapter} we propose, execute, and evaluate the results of a series of experiments wit the goal of understanding the limitations of ROS in a simple 2 host situation, with 1 lone node on each host. The first of these experiments use a very simple message format (a string), while the later ones explore how using complex data recorded from real sensors (a laser sensor, and a video camera) affects the limits of ROS communication.
 
-However, these uses of robotics displayed no `intelligent behaviour' on behalf of the robotic system. Beginning in the 1980s, the growing field of Artificial Intelligence (A.I.) was revived and began creating systems which could intelligently answer domain-specific questions - called expert systems.
-
-Robotics is a fast-progressing field which has seen major advances the past decades. From obvious examples such as Amazon's item pickers, to more integrated applications such as autonomous cars - the scale of robotics is increasing.
+With the understanding gained in the previous experiments, Chapter \ref{host-scalability-chapter} explores how far ROS can scale on a single host (TODO: If horizontal scalig is completed, describe here), by vertically scaling the number of nodes on each host until performance degrades. This is first tested with simple Raspberry Pi's, and then repeated on the robot car kit platform. Chapter \ref{conclusion-chapter} concludes.
 
 \section{Aims and Objectives}
 
-If I had an aim it would go here.
+This project aims to provide an evaluation of ROS in a multi-robot situation, by first evaluating the simplest multi-robot case (2 robots/hosts communicating with each other, 1 node each) and looking at the limits of communication in this scenario - and attempt to identify possible causes for the limits. We them aim to vertically scale these hosts to run many more nodes each - in order to explore the upper bound of how much communication a single ROS host can sustain (whether in terms of messages-per-second, bytes-per-second, or number of sending/receiving processes).
+
+The intention of the research is to build a foundation of knowledge upon which further research in to communication systems of ROS can be conducted, so that future researchers need not depend on anecdotal performance estimations.
 
 \section{Achievements}
 
-If I had achieved anything it would go here.
+This project makes several key contributions:
+
+\begin{itemize}
+  \item A comprehensive review of existing robotic middlewares
+  \item 
+\end{itemize}
 
 \end{document}

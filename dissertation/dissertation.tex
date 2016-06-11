@@ -12,6 +12,9 @@
 \usepackage{hyperref}
 \usepackage{subfiles}
 \usepackage{color}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{epstopdf}
 
 
 \newcommand{\nc}[1]{\textcolor{magenta}{(\textbf{NC:} #1)}}
@@ -40,6 +43,7 @@ Robots, distributed systems, and middleware.
 
 \pagebreak
 \pagenumbering{arabic}
+
 \subfile{sections/introduction}
 
 %\vspace{-7mm}
@@ -52,6 +56,7 @@ Robots, distributed systems, and middleware.
 %\end{figure}
 
 \chapter{Background}
+\label{background-chapter}
 
 \subfile{sections/background-part1}
 
@@ -62,6 +67,7 @@ Robots, distributed systems, and middleware.
 \subfile{sections/background-part4}
 
 \chapter{Communication Scalability}
+\label{communication-chapter}
 
 The communication experiments look in to the scalability of communication in ROS. How well does it handle having to send high frequency work-loads of varying sizes.
 
@@ -94,10 +100,17 @@ Both data sets were acquired from the MIT Stata Center dataset \cite{mit-stata-c
 \subfile{sections/experiment6}
 
 \chapter{Host Scalability}
+\label{host-scalability-chapter}
 
 These scalability experiments look in to how well ROS scales when introduced to more nodes, or more hosts, or both.
 
 \subfile{sections/experiment7}
+
+\subfile{sections/experiment8}
+
+
+
+\subfile{sections/conclusion}
 
 
 
