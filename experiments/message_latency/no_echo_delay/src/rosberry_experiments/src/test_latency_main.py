@@ -15,7 +15,7 @@ def listener(msg):
     f.write(str(msg.id) + "," + str(sent_time) + "," + str(recv_time) + "\n")
 
 def talker():
-    pub = rospy.Publisher('chatter_m', StampedMessage, queue_size=RATE)
+    pub = rospy.Publisher('chatter_m', StampedMessage, queue_size=N)
     rospy.init_node('talker', anonymous=True)
     rate = rospy.Rate(RATE)
     for i in xrange(N):

@@ -10,8 +10,9 @@ def listener(msg, args):
     pub.publish(msg)
 
 def main():
+    N = int(sys.argv[2])
     rospy.init_node('talker1', anonymous=True)
-    pub = rospy.Publisher('chatter_s', StampedMessage, queue_size=RATE)
+    pub = rospy.Publisher('chatter_s', StampedMessage, queue_size=N)
     sub = rospy.Subscriber("chatter_m", StampedMessage, listener, callback_args=[pub])
     try:
         rospy.spin()
