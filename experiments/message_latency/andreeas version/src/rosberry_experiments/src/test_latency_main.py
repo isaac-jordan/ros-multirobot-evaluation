@@ -37,7 +37,7 @@ def talker():
         #timestamp = str(time.time())
         timestamp = rospy.get_rostime()
         pub.publish(id=i, t=timestamp ,message=hello_str )
-        #pub.publish(id=i, t=rospy.get_rostime(),message=hello_str )
+#       pub.publish(id=i, t=rospy.get_rostime(),message=hello_str )
         rate.sleep()
 
 def main():

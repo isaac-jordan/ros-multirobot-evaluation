@@ -4,3 +4,5 @@
 *.log
 *.toc
 *.pdg
+build/
+devel/
