@@ -15,6 +15,26 @@ data = {
     "recv_time" : [None] * N_MESSAGES
 }
 
+# Utility
+def writeToCsv(currentFrequency):
+    if os.path.isfile("results.csv"):
+        with open("results.csv", "rb") as csv_in:
+            csvReader = csv.reader(csv_in)
+            with open("results_temp.csv", "wb") as csv_out:
+                csvWriter = csv.writer(csv_out)
+                csvWriter.writerow(next(csvReader) + ['sent_time' + str(currentFrequency), "recv_time" + str(currentFrequency)])
+                for msg_id, sent_time, recv_time in itertools.izip_longest(xrange(len(data["sent_time"])), data["sent_time"], data["recv_time"]):
+                    csvWriter.writerow(next(csvReader) + [sent_time, recv_time])
+                csv_out.flush()
+        os.rename("results_temp.csv", "results.csv")
+    else:
+        with open("results.csv", "wb") as csv_out:
+            csvWriter = csv.writer(csv_out)
+            csvWriter.writerow(["id", "sent_time" + str(currentFrequency), "recv_time" + str(currentFrequency)])
+            for msg_id, sent_time, recv_time in itertools.izip_longest(xrange(len(data["sent_time"])), data["sent_time"], data["recv_time"]):
+                csvWriter.writerow([msg_id, sent_time, recv_time])
+            csv_out.flush()
+
 def listener(msg):
     recv_time = rospy.get_rostime()
     sent_time = msg.t
@@ -64,23 +84,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# Utility
-def writeToCsv(currentFrequency):
-    if os.path.isfile("results.csv"):
-        with open("results.csv", "rb") as csv_in:
-            csvReader = csv.reader(csv_in)
-            with open("results_temp.csv", "wb") as csv_out:
-                csvWriter = csv.writer(csv_out)
-                csvWriter.writerow(next(csvReader) + ['sent_time' + str(currentFrequency), "recv_time" + str(currentFrequency)])
-                for msg_id, sent_time, recv_time in itertools.izip_longest(xrange(len(data["sent_time"])), data["sent_time"], data["recv_time"]):
-                    csvWriter.writerow(next(csvReader) + [sent_time, recv_time])
-                csv_out.flush()
-        os.rename("results_temp.csv", "results.csv")
-    else:
-        with open("results.csv", "wb") as csv_out:
-            csvWriter = csv.writer(csv_out)
-            csvWriter.writerow(["id", "sent_time" + str(currentFrequency), "recv_time" + str(currentFrequency)])
-            for msg_id, sent_time, recv_time in itertools.izip_longest(xrange(len(data["sent_time"])), data["sent_time"], data["recv_time"]):
-                csvWriter.writerow([msg_id, sent_time, recv_time])
-            csv_out.flush()
