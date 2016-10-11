@@ -7,7 +7,7 @@
 %
 
 \begin{document}
-\title{How to Produce a Level 4 Project Report}
+\title{On The Scalability of ROS}
 \author{Isaac Jordan}
 \date{\today}
 \maketitle
@@ -26,27 +26,10 @@ Robots, distributed systems, and middleware.
 
 \chapter{Introduction}
 \pagenumbering{arabic}
-The first page, abstract and table of contents are numbered using Roman numerals. From now on pages are numbered
-using Arabic numerals. Therefore, immediately after the first call to $\backslash$chapter we need the call
-$\backslash$pagenumbering$\{$arabic$\}$ and this should be called once only in the document. 
 
-The first Chapter should then be on page 1. You are allowed 50 pages for a 30 credit project and 35 pages for a 
-20 credit report. This includes everything up to but excluding the appendices and bibliograph, i.e. this is a limit on
-the body of the report.
+Robotics is a fast-progressing field which has seen major advances the past decades. From obvious examples such as Amazon's item pickers, to more integrated applications such as autonomous cars - the scale of robotics is increasing.
 
-You are not allowed to alter text size (it is currently 11pt) neither are you allowed to alter the margins.
 
-Note that in this example, and some of the others, you need to execute the following commands the first time you process the files.
-Multiple calls to pdflatex are required to resolve references to labels and citations. The file bib.bib is the bibliography file.
-
-\begin{verbatim}
-
-            > pdflatex example0
-            > bibtex example0
-            > pdflatex example0
-            > pdflatex example0
-
-\end{verbatim}
 
 %\vspace{-7mm}
 %\begin{figure}
@@ -76,6 +59,26 @@ ROS is what I'll be testing out. (What is it)
 The robots used in this project are 9 identical robot cars with front-wheel steering. (What is their set up)
 
 
+\chapter{Experiment 1}
+
+The first experiment was designed to analyse the transfer time of messages between two machines at varying message frequencies. This would highlight whether there was some limit as to how often ROS could send and receive messages on it's topics.
+
+These two machines were Raspberry Pi 3 Model Bs connected via ethernet to an Asus router.
+
+The messages were sent and received using ROS Kinetic, running on the Raspbian OS.
+
+The experimental setup was that one Raspberry Pi would run a ROS master node, another Raspberry Pi runs a sender program that notes down the message-sent time, and sends it to a 3rd Raspberry Pi which merely echoes the message back to the sender. Upon receiving the message, the sender/receiver notes the current time, and writes `message X which was sent at Y, was received at Z' to a text file. The resulting Round Trip Time (RTT) for each message would therefore be the difference between the message-sent time and the message-received time.
+
+The expected result of the experiment was that message latency (RTT) would be the same across all lower frequencies, until some bottleneck was reached that would then cause message latencies to exponentially increase due to congestion.
+
+Code had been written prior to execute this experiment, so initially this was used\cite{Experiment1InitialCode}. However, this gave results that were contrary to the hypothesis. An increase in message frequency resulted in a reduction in message latency. A number of messages on higher frequencies were also dropped, and never received. As this was the opposite of the hypothesis, the first step was to critique the experiment code.
+
+This review highlighted two major issues, the first was the echoing machine had a delay similar to the sender when the experiment design mandated that the echoer always respond as fast as it can. The second issue was the the maximum message queue size in ROS (how many messages can be buffered at once to compensate for a slow subscriber) was set equal to the message frequency of that run. 
+
+These issues were resolved by removing the code that executed the delay in the echoer, and by setting the maximum queue size to be equal to 1000 in every experiment (the number of messages expected to be sent).
+
+The experiment was then repeated using this code, and the results from these runs agreed with the hypothesis.
+
 %%%%%%%%%%%%%%%%
 %              %
 %  APPENDICES  %
@@ -84,9 +87,21 @@ The robots used in this project are 9 identical robot cars with front-wheel stee
 %\begin{appendices}
 
 \chapter{Running the Programs}
+
+To compile this dissertation:
+\begin{verbatim}
+
+	> pdflatex dissertation
+	> bibtex dissertation
+	> pdflatex dissertation
+    > pdflatex dissertation
+
+\end{verbatim}
+
+
 An example of running from the command line is as follows:
 \begin{verbatim}
-      > java MaxClique BBMC1 brock200_1.clq 14400
+	> java MaxClique BBMC1 brock200_1.clq 14400
 \end{verbatim}
 This will apply $BBMC$ with $style = 1$ to the first brock200 DIMACS instance allowing 14400 seconds of cpu time.
 
@@ -97,7 +112,7 @@ each edge is included in the graph with probability $p$ independent from every o
 a random graph in DIMACS format with vertices numbered 1 to $n$ inclusive. It can be run from the command line as follows to produce 
 a clq file
 \begin{verbatim}
-      > java RandomGraph 100 0.9 > 100-90-00.clq
+	> java RandomGraph 100 0.9 > 100-90-00.clq
 \end{verbatim}
 %\end{appendices}
 
