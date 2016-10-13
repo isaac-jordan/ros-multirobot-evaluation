@@ -51,30 +51,20 @@ def talker(numberOfMessages, frequency):
         rate.sleep()
 
 def main():
-    if os.path.isfile("results.csv"):
-        os.remove("results.csv")
+    N_MESSAGES = int(sys.argv[1])
+    FREQ = int(sys.argv[2])
+    print str(N_MESSAGES) + " msgs at " + str(FREQ) + " Hz."
 
-    currentFrequency = MIN_FREQ
-    while (currentFrequency <= MAX_FREQ):
-        print str(N_MESSAGES) + " msgs at " + str(currentFrequency) + " Hz."
-        try:
-            sub = rospy.Subscriber("chatter_s", StampedMessage, listener)
-            talker(N_MESSAGES, currentFrequency)
+    try:
+        sub = rospy.Subscriber("chatter_s", StampedMessage, listener)
+        talker(N_MESSAGES, FREQ)
 
-            rospy.sleep(10) # Sleep to allow for slow messages to catch up
-            rospy.signal_shutdown("Shutting down node for this frequency") # Shutdown node
-            rospy.spin() # Wait for node to shutdown
-        except rospy.ROSInterruptException:
-            print "Exception: ROSInterruptException"
+        rospy.sleep(5) # Sleep to allow for slow messages to catch up
+    except rospy.ROSInterruptException:
+        print "Exception: ROSInterruptException"
 
-        # Write out data
-        writeToCsv(currentFrequency)
-
-        # Reset data storage
-        SENT_TIMES = [None] * N_MESSAGES
-        RECV_TIMES = [None] * N_MESSAGES
-
-        currentFrequency += FREQ_STEP
+    # Write out data
+    writeToCsv(FREQ)
 
 
 if __name__ == '__main__':

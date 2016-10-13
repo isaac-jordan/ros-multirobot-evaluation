@@ -36,33 +36,29 @@ Steps needed to run message latency experiments under ROS for a pair of robots:
 	/al-internship/ROSberry_Experiments/rosberry_experiments/src/Line_Formation/Experiments/Scalability/NetworkTraffic
 
 7. Choose one of the robots to host the master (if not using a seprate master), open a separate ssh terminal to it and run:
-	
+
 		roscore
 
 	This will start the ROS master service.
 
 8. If you started a master on one of the experiment robots like in step 4, then, on the other robot, run:
-	
+
 	export ROS_MASTER_URI=http://**name_of_master**:11311/
 
 	**name_of_master** should be replaced with the hostname of the machine on which you ran "roscore" (e.g. masterpi). This will tell the other robot where to find the master.
 
 9. Going back to your initial robot terminals, on the pingback/echo robot run:
-	
-	rosrun rosberry_experiment test_latency_echo.py 10 1000
-	
+
+	rosrun rosberry_experiment test_latency_echo.py
+
 	Then, on the main robot, run:
 
-	rosrun rosberry_experiments test_latency_main.py 10 1000
-
-	10 in this case represents the publishing rate for the messages. It should be identical for both scripts, to ensure the pingback/echo robot sends the messages back no faster (and no slower) than the main robot sends them.
-
-	1000 is the number of messages to be sent over the network.
+	rosrun rosberry_experiments no_echo_delay_no_disk_write.sh
 
 10. Wait until the script running on the main robot exits and then Ctrl+C the script on the other robot if no longer needed (it will otherwise continue listening for messages and passing them back at the set rate).
 
-11. Run "ls" on the main robot. There should now be a file titled times_RATE.txt, where RATE is the set publishing rate. This contains N lines - corresponding to each of the N messages -, where each line is composed of:
- 
+11. Run "ls" on the main robot. There should now be a file titled results.csv. This contains N lines - corresponding to each of the N messages -, where each line is composed of:
+
 	ID(int),SendTime(float),RecvTime(float)
 
 	SendTime and RecvTime are Unix time values and thus represent the seconds (+fractions of a second to a two-decimal precision) that have passed since the start of the Unix epoch.
