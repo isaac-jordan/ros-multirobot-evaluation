@@ -1,0 +1,76 @@
+Steps needed to run message latency experiments under ROS for a pair of robots:
+
+1. Check that you are connected to the network RaspberryNetwork. The password is "raspberry".
+
+2. Associate the IP addresses of each robot with a hostname, by modifying the /etc/hosts file of your machine. The IP addresses are labelled on each robot. Alternatively, just use the IP addresses directly. Example hosts file:
+
+	::1     ip6-localhost ip6-loopback
+	fe00::0 ip6-localnet
+	ff00::0 ip6-mcastprefix
+	ff02::1 ip6-allnodes
+	ff02::2 ip6-allrouters
+
+	192.168.2.10	masterpi
+	192.168.2.102	mercurypi
+	192.168.2.104	venuspi
+	192.168.2.106	terrapi
+	192.168.2.108	marspi
+	192.168.2.110	jupiterpi
+	192.168.2.112	saturnpi
+	192.168.2.114	uranuspi
+	192.168.2.116	neptunepi
+	192.168.2.118	plutopi
+
+3. Boot up robots. They need maybe 30 or so seconds to start up once you put in the batteries.
+
+4. Using separate terminals, ssh into the robot pair you want to use in the experiment, by logging in as user pi with password "raspberry". Example:
+
+	ssh pi@masterpi
+	ssh pi@mercurypi
+
+5. Navigate to the main ROS workspace on each robot:
+
+	cd $ROSBERRY_EXPERIMENTS
+
+6. Choose which robot will set the timestamps and record the measurements and which robot will simply ping back the messages. On the measurement robot, make sure the script test_latency_main.py exists. On the pingback robot, make sure the script test_latency_echo.py exists. These scripts can be found in the repository, under:
+	/al-internship/ROSberry_Experiments/rosberry_experiments/src/Line_Formation/Experiments/Scalability/NetworkTraffic
+
+7. Choose one of the robots to host the master (if not using a seprate master), open a separate ssh terminal to it and run:
+	
+		roscore
+
+	This will start the ROS master service.
+
+8. If you started a master on one of the experiment robots like in step 4, then, on the other robot, run:
+	
+	export ROS_MASTER_URI=http://**name_of_master**:11311/
+
+	**name_of_master** should be replaced with the hostname of the machine on which you ran "roscore" (e.g. masterpi). This will tell the other robot where to find the master.
+
+9. Going back to your initial robot terminals, on the pingback/echo robot run:
+	
+	rosrun rosberry_experiment test_latency_echo.py 10 1000
+	
+	Then, on the main robot, run:
+
+	rosrun rosberry_experiments test_latency_main.py 10 1000
+
+	10 in this case represents the publishing rate for the messages. It should be identical for both scripts, to ensure the pingback/echo robot sends the messages back no faster (and no slower) than the main robot sends them.
+
+	1000 is the number of messages to be sent over the network.
+
+10. Wait until the script running on the main robot exits and then Ctrl+C the script on the other robot if no longer needed (it will otherwise continue listening for messages and passing them back at the set rate).
+
+11. Run "ls" on the main robot. There should now be a file titled times_RATE.txt, where RATE is the set publishing rate. This contains N lines - corresponding to each of the N messages -, where each line is composed of:
+ 
+	ID(int),SendTime(float),RecvTime(float)
+
+	SendTime and RecvTime are Unix time values and thus represent the seconds (+fractions of a second to a two-decimal precision) that have passed since the start of the Unix epoch.
+
+Notes:
+	* Make sure you save or copy the times_RATE.txt files before re-running the experiment with the same rate value, as the old values will be overwritten.
+	* You can copy over files from the robots to your machine by opening a terminal on your machine and running scp, like in the example:
+
+		scp pi@masterpi:/home/pi/ros_catkin_ws/src/rosberry_experiments/src/times_3.txt ./
+
+	* The main script will by default sleep for 5 seconds after the last message was sent and only then exit, to make sure the subscriber (which runs in a separate thread) has more than enough time to receive any messages that are still inbound.
