@@ -24,7 +24,7 @@ plot   "exp1-part3.txt" using 1:(time_ms($5)) with lines title '10K Hz' linecolo
 
 
 
-set output "exp1-msg-latency-partial-restart.eps"	# choose the output device
+set output "exp1-msg-latency-restart-partial.eps"	# choose the output device
 replot
 
 # sh run_one.sh

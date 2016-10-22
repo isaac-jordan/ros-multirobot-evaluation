@@ -1,0 +1,30 @@
+set terminal postscript eps monochrome enhanced 'Times,12'
+set ytics nomirror
+set pointsize 0.9
+set size 0.7,0.6
+set key below
+set style fill solid
+
+set title "Initial run"
+set xlabel "Index of messages"
+set ylabel "Latency (ms)"
+#set xtics (0, "50(1200)"50, "100(2400)"100, "150(3600)"150, "200(4800)"201, "250(6000)"250)
+#set ytics (0,4,8,12,16,18)
+set grid linetype 0 linewidth 0.5 
+#set xrange [0:710]
+#set yrange [0:350]
+
+#time_mks(x1) = x1 / 1000
+time_ms(x1) = x1 / 1000000
+
+plot   "exp1-part2.txt" using 1:(time_ms($2)) with lines title '10K Hz' linecolor 4 lt 1 lw 3, \
+       "exp1-part2.txt" using 1:(time_ms($3)) with lines title '100K Hz' linecolor 1 lt 1 lw 3, \
+       "exp1-part2.txt" using 1:(time_ms($4)) with lines title '1000K Hz' linecolor 7 lt 1 lw 3#, \
+
+
+
+
+set output "exp1-msg-latency-restart-init.eps"	# choose the output device
+replot
+
+# sh run_one.sh

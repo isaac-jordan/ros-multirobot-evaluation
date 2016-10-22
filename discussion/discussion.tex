@@ -63,20 +63,64 @@
 \begin{figure*}%[!t]
      \begin{center}
         \subfigure[10,000Hz]{%
-           \label{fig:exp1-msg-latency-10khz}
+           \label{fig:exp1-msg-latency-two-10khz}
            \includegraphics[width=0.49\textwidth]{gnuplot/exp1-msg-latency-two-10khz.pdf}
         }\hspace*{3mm}
         \subfigure[100,000Hz]{%
-            \label{fig:exp1-msg-latency-100khz}
+            \label{fig:exp1-msg-latency-two-100khz}
            \includegraphics[width=0.49\textwidth]{gnuplot/exp1-msg-latency-two-100khz.pdf}
         }\\
         \subfigure[1000,000Hz]{%
-            \label{fig:exp1-msg-latency-100khz}
+            \label{fig:exp1-msg-latency-two-1000khz}
            \includegraphics[width=0.49\textwidth]{gnuplot/exp1-msg-latency-two-1000khz.pdf}
         }
     \end{center}
-    \caption{Message Latency (Two ROS nodes on Pi-1)}
+    \caption{Message Latency (writing on disc, two ROS nodes on Pi-1)}
    \label{fig:exp1-msg-latency-two}
+\end{figure*}
+
+
+\begin{figure*}%[!t]
+     \begin{center}
+        \subfigure[10,000Hz]{%
+           \label{fig:exp1-msg-latency-restart-10khz}
+           \includegraphics[width=0.49\textwidth]{gnuplot/exp1-msg-latency-restart-10khz.pdf}
+        }\hspace*{3mm}
+        \subfigure[100,000Hz]{%
+            \label{fig:exp1-msg-latency-restart-100khz}
+           \includegraphics[width=0.49\textwidth]{gnuplot/exp1-msg-latency-restart-100khz.pdf}
+        }\\
+        \subfigure[1000,000Hz]{%
+            \label{fig:exp1-msg-latency-restart-1000khz}
+           \includegraphics[width=0.49\textwidth]{gnuplot/exp1-msg-latency-restart-1000khz.pdf}
+        }
+    \end{center}
+    \caption{Restart stratergies (writing on disc, two Pis, one ROS node per Pi)}
+   \label{fig:exp1-msg-latency-restart}
+\end{figure*}
+
+
+\begin{figure*}%[!t]
+     \begin{center}
+        \subfigure[Initial]{%
+           \label{fig:exp1-msg-latency-restart-init}
+           \includegraphics[width=0.49\textwidth]{gnuplot/exp1-msg-latency-restart-init.pdf}
+        }\hspace*{3mm}
+        \subfigure[Full restart]{%
+            \label{fig:exp1-msg-latency-restart-full}
+           \includegraphics[width=0.49\textwidth]{gnuplot/exp1-msg-latency-restart-full.pdf}
+        }\\
+        \subfigure[Partial restart]{%
+            \label{fig:exp1-msg-latency-restart-partial}
+           \includegraphics[width=0.49\textwidth]{gnuplot/exp1-msg-latency-restart-partial.pdf}
+        }\hspace*{3mm}
+        \subfigure[None]{%
+            \label{fig:exp1-msg-latency-restart-none}
+           \includegraphics[width=0.49\textwidth]{gnuplot/exp1-msg-latency-restart-none.pdf}
+        }
+    \end{center}
+    \caption{Restart stratergies (writing on disc, two Pis, one ROS node per Pi)}
+   \label{fig:exp1-msg-latency-restart-all}
 \end{figure*}
 
 

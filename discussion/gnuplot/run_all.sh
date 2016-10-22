@@ -34,11 +34,19 @@ command="gnuplot plotter_exp1_msg_latency_restart_1000khz.txt"
 echo ">>"$command"<<"
 $command
 
-command="gnuplot plotter_exp1_msg_latency_full_restart.txt"
+command="gnuplot plotter_exp1_msg_latency_restart_full.txt"
 echo ">>"$command"<<"
 $command
 
-command="gnuplot plotter_exp1_msg_latency_partial_restart.txt"
+command="gnuplot plotter_exp1_msg_latency_restart_partial.txt"
+echo ">>"$command"<<"
+$command
+
+command="gnuplot plotter_exp1_msg_latency_restart_none.txt"
+echo ">>"$command"<<"
+$command
+
+command="gnuplot plotter_exp1_msg_latency_restart_init.txt"
 echo ">>"$command"<<"
 $command
 
