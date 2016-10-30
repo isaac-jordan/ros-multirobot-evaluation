@@ -5,6 +5,7 @@
 %
 % put any packages here
 %
+\usepackage{float}
 
 \begin{document}
 \title{On The Scalability of ROS}
@@ -73,18 +74,88 @@ The expected result of the experiment was that message latency (RTT) would be th
 
 Code had been written prior to execute this experiment, so initially this was used\cite{Experiment1InitialCode}. However, this gave results that were contrary to the hypothesis. An increase in message frequency resulted in a reduction in message latency. A number of messages on higher frequencies were also dropped, and never received. As this was the opposite of the hypothesis, the first step was to critique the experiment code.
 
-This review highlighted two major issues, the first was the echoing machine had a delay similar to the sender when the experiment design mandated that the echoer always respond as fast as it can. The second issue was the the maximum message queue size in ROS (how many messages can be buffered at once to compensate for a slow subscriber) was set equal to the message frequency of that run. 
+This review highlighted two major issues, the first was the echoing machine had a delay similar to the sender when the experiment design mandated that the echoer always respond as fast as it can. The second issue was the the maximum message queue size in ROS (how many messages can be buffered at once to compensate for a slow subscriber) was set equal to the message frequency of that run.
 
 These issues were resolved by removing the code that executed the delay in the echoer, and by setting the maximum queue size to be equal to 1000 in every experiment (the number of messages expected to be sent).
 
 The experiment was then repeated using this code, and the results from these runs agreed with the hypothesis.
+
+\chapter{Experiment 2}
+
+Experiment 2 was an investigation in to whether the performance of ROS messages was affected by previous messages sent on the system. This was tested by comparing the performance of ROS messages of 5 consecutive message passing runs vs 5 message passing runs with system reboots between runs. This was repeated at 1KHz, 4KHz, 7KHz, and 10Khz frequencies for two reasons. The first was to investigate whether areas in which we observed consistent performance before would exhibit any difference between reboot and no reboot. Secondly, it would give further insight in to where the exact barrier between `good, consistent performance' and `poor, erratic performance' is.
+
+Rebooting the systems involved has the opportunity to affect performance by stopping any background processes, interrupting slow processing messages from previous runs, and resetting any message caches and buffers in memory.
+
+The result of the experiment was hypothesised to demonstrate no significant difference between rebooting and not-rebooting at any message frequency.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{images/no-reboot-1khz.png}
+\caption{Experiment 2 - No Reboot 1KHz Message Frequency}
+\label{exp2-noreboot-1khz}
+\end{figure}
+
+As Figure \ref{exp2-noreboot-1khz} shows, no reboot runs for a message frequency of 1KHz were consistently low across all runs, ~1.5ms for most messages and never peaking more than 5ms. Figure \ref{exp2-fullreboot-1khz} shows the corresponding graph for the full-reboot run which, except for run 2, was extremely similar - although with increased number of messages dropped at the start of every run.
+
+Results were similar for all other frequencies, although all other frequencies exhibited the generally inconsistent performance that was observed for high-frequency message frequencies.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{images/full-reboot-1khz.png}
+\caption{Experiment 2 - Full Reboot 1KHz Message Frequency}
+\label{exp2-fullreboot-1khz}
+\end{figure}
 
 %%%%%%%%%%%%%%%%
 %              %
 %  APPENDICES  %
 %              %
 %%%%%%%%%%%%%%%%
-%\begin{appendices}
+\begin{appendices}
+
+\chapter{Experiment 2 Other Graphs}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/no-reboot-4khz.png}
+\caption{Experiment 2 - No Reboot 4KHz Message Frequency}
+\label{exp2-noreboot-4khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/full-reboot-4khz.png}
+\caption{Experiment 2 - Full Reboot 4KHz Message Frequency}
+\label{exp2-fullreboot-4khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/no-reboot-7khz.png}
+\caption{Experiment 2 - No Reboot 7KHz Message Frequency}
+\label{exp2-noreboot-7khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/full-reboot-7khz.png}
+\caption{Experiment 2 - Full Reboot 7KHz Message Frequency}
+\label{exp2-fullreboot-7khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/no-reboot-10khz.png}
+\caption{Experiment 2 - No Reboot 10KHz Message Frequency}
+\label{exp2-noreboot-10khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/full-reboot-10khz.png}
+\caption{Experiment 2 - Full Reboot 10KHz Message Frequency}
+\label{exp2-fullreboot-10khz}
+\end{figure}
 
 \chapter{Running the Programs}
 
@@ -109,12 +180,12 @@ This will apply $BBMC$ with $style = 1$ to the first brock200 DIMACS instance al
 \label{sec:randomGraph}
 We generate Erd\'{o}s-R\"{e}nyi random graphs $G(n,p)$ where $n$ is the number of vertices and
 each edge is included in the graph with probability $p$ independent from every other edge. It produces
-a random graph in DIMACS format with vertices numbered 1 to $n$ inclusive. It can be run from the command line as follows to produce 
+a random graph in DIMACS format with vertices numbered 1 to $n$ inclusive. It can be run from the command line as follows to produce
 a clq file
 \begin{verbatim}
 	> java RandomGraph 100 0.9 > 100-90-00.clq
 \end{verbatim}
-%\end{appendices}
+\end{appendices}
 
 %%%%%%%%%%%%%%%%%%%%
 %   BIBLIOGRAPHY   %

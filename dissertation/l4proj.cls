@@ -24,7 +24,7 @@
 \usepackage{graphicx}
 \fi
 
-%\usepackage[toc,page]{appendix}
+\usepackage[toc,page]{appendix}
 \usepackage{times}
 \usepackage[top=3.5cm,bottom=4cm]{geometry}
 \setlength{\parskip}{11pt plus 2pt}
@@ -56,7 +56,7 @@
   \Large
   \vskip 6em%
   \noindent
-  Level 4 Project --- \@date 
+  Level 4 Project --- \@date
   \vfill
 \end{titlepage}%
 \setcounter{footnote}{0}%
@@ -78,7 +78,7 @@
 
 I hereby give my permission for this project to be shown to other
 University of Glasgow students and to be distributed in an electronic
-format.  \textbf{Please note that you are under no obligation to sign 
+format.  \textbf{Please note that you are under no obligation to sign
 this declaration, but doing so would help future students.}
 
 \begin{tabular}{@{}llll}
