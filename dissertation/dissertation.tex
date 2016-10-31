@@ -47,9 +47,17 @@ Robotics is a fast-progressing field which has seen major advances the past deca
 
 Robots are the future. (Why robots are important)
 
+Robotics is the field concerning autonomous computer systems, usually involving physical interaction with it's environment. Robotics lies at the intersection between computing science, eletrical and mechanical engineering. Robotics has been common in popular culture since the 1940s, however the physical realisation of these systems did not begin to be practical until the 2000s when increases in computing power, sensor accuracy, research investment, and software algorithms allowed for useful robotics systems to be created.
+
+Today's robotic systems generally consist of many small autonomous systems working together to form a coherent whole. For example, a particular sensor (say a camera) may be constantly recording data and storing it in some buffer (erasing the oldest when full). This subsystem does not depend on any others to complete it's task (recording the envionrment), but other subsystems may rely on it's output (such as a computer vision package which needs video frame inputs).
+
 \section{Robotic Middleware}
 
 Robot designers want to work at a high level. Sensors are low level. (Why is middleware needed, whats available)
+
+Robotic middleware is a software infrastructure that is intended to provide convenient abstraction and communication paradigms for facilitating this multi-subsystem approach. In general, a robotics middleware would provide interfaces for defining each subsystem, and defning how each subsystem communicates with others.
+
+Insert middlware overview here!
 
 \section{ROS (Robot Operating System)}
 
@@ -90,20 +98,18 @@ The result of the experiment was hypothesised to demonstrate no significant diff
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{images/no-reboot-1khz.png}
-\caption{Experiment 2 - No Reboot 1KHz Message Frequency}
-\label{exp2-noreboot-1khz}
+\includegraphics[width=\textwidth]{images/1khz-mean.png}
+\caption{Experiment 2 - Mean Message Latency 1KHz Message Frequency}
+\label{exp2-1khz-mean}
 \end{figure}
 
-As Figure \ref{exp2-noreboot-1khz} shows, no reboot runs for a message frequency of 1KHz were consistently low across all runs, ~1.5ms for most messages and never peaking more than 5ms. Figure \ref{exp2-fullreboot-1khz} shows the corresponding graph for the full-reboot run which, except for run 2, was extremely similar - although with increased number of messages dropped at the start of every run.
-
-Results were similar for all other frequencies, although all other frequencies exhibited the generally inconsistent performance that was observed for high-frequency message frequencies.
+Figure \ref{exp2-1khz-mean} demonstrates that for relatively low message frequencies the mean message latency was consistently 1 - 1.5ms (the peak around message 500 in the full reboot data was due to 1 erroneous run at that data point). Figure \ref{exp2-4khz-mean} is characteristic of the higher frequency runs - the no reboot runs generally gave equal or better performance compared to the full reboot runs. See Appendix \ref{exp2-appendix-results} for other mean graphs, and individual run graphs.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{images/full-reboot-1khz.png}
-\caption{Experiment 2 - Full Reboot 1KHz Message Frequency}
-\label{exp2-fullreboot-1khz}
+\includegraphics[width=\textwidth]{images/4khz-mean.png}
+\caption{Experiment 2 - Mean Message Latency 4KHz Message Frequency}
+\label{exp2-4khz-mean}
 \end{figure}
 
 %%%%%%%%%%%%%%%%
@@ -114,6 +120,21 @@ Results were similar for all other frequencies, although all other frequencies e
 \begin{appendices}
 
 \chapter{Experiment 2 Other Graphs}
+\label{exp2-appendix-results}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/no-reboot-1khz.png}
+\caption{Experiment 2 - No Reboot 1KHz Message Frequency}
+\label{exp2-noreboot-1khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/no-reboot-1khz.png}
+\caption{Experiment 2 - No Reboot 1KHz Message Frequency}
+\label{exp2-fullreboot-1khz}
+\end{figure}
 
 \begin{figure}
 \centering
