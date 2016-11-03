@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RESULTS_FOLDER="results/experiment_3_cpu"
+RESULTS_FOLDER="results/experiment_4_wifi"
 
 LOWEST_FREQ=200
 HIGHEST_FREQ=2000
