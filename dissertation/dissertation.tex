@@ -5,6 +5,7 @@
 %
 % put any packages here
 %
+\usepackage{float}
 
 \begin{document}
 \title{On The Scalability of ROS}
@@ -46,9 +47,17 @@ Robotics is a fast-progressing field which has seen major advances the past deca
 
 Robots are the future. (Why robots are important)
 
+Robotics is the field concerning autonomous computer systems, usually involving physical interaction with it's environment. Robotics lies at the intersection between computing science, eletrical and mechanical engineering. Robotics has been common in popular culture since the 1940s, however the physical realisation of these systems did not begin to be practical until the 2000s when increases in computing power, sensor accuracy, research investment, and software algorithms allowed for useful robotics systems to be created.
+
+Today's robotic systems generally consist of many small autonomous systems working together to form a coherent whole. For example, a particular sensor (say a camera) may be constantly recording data and storing it in some buffer (erasing the oldest when full). This subsystem does not depend on any others to complete it's task (recording the envionrment), but other subsystems may rely on it's output (such as a computer vision package which needs video frame inputs).
+
 \section{Robotic Middleware}
 
 Robot designers want to work at a high level. Sensors are low level. (Why is middleware needed, whats available)
+
+Robotic middleware is a software infrastructure that is intended to provide convenient abstraction and communication paradigms for facilitating this multi-subsystem approach. In general, a robotics middleware would provide interfaces for defining each subsystem, and defning how each subsystem communicates with others.
+
+Insert middlware overview here!
 
 \section{ROS (Robot Operating System)}
 
@@ -73,18 +82,101 @@ The expected result of the experiment was that message latency (RTT) would be th
 
 Code had been written prior to execute this experiment, so initially this was used\cite{Experiment1InitialCode}. However, this gave results that were contrary to the hypothesis. An increase in message frequency resulted in a reduction in message latency. A number of messages on higher frequencies were also dropped, and never received. As this was the opposite of the hypothesis, the first step was to critique the experiment code.
 
-This review highlighted two major issues, the first was the echoing machine had a delay similar to the sender when the experiment design mandated that the echoer always respond as fast as it can. The second issue was the the maximum message queue size in ROS (how many messages can be buffered at once to compensate for a slow subscriber) was set equal to the message frequency of that run. 
+This review highlighted two major issues, the first was the echoing machine had a delay similar to the sender when the experiment design mandated that the echoer always respond as fast as it can. The second issue was the the maximum message queue size in ROS (how many messages can be buffered at once to compensate for a slow subscriber) was set equal to the message frequency of that run.
 
 These issues were resolved by removing the code that executed the delay in the echoer, and by setting the maximum queue size to be equal to 1000 in every experiment (the number of messages expected to be sent).
 
 The experiment was then repeated using this code, and the results from these runs agreed with the hypothesis.
+
+\chapter{Experiment 2}
+
+Experiment 2 was an investigation in to whether the performance of ROS messages was affected by previous messages sent on the system. This was tested by comparing the performance of ROS messages of 5 consecutive message passing runs vs 5 message passing runs with system reboots between runs. This was repeated at 1KHz, 4KHz, 7KHz, and 10Khz frequencies for two reasons. The first was to investigate whether areas in which we observed consistent performance before would exhibit any difference between reboot and no reboot. Secondly, it would give further insight in to where the exact barrier between `good, consistent performance' and `poor, erratic performance' is.
+
+Rebooting the systems involved has the opportunity to affect performance by stopping any background processes, interrupting slow processing messages from previous runs, and resetting any message caches and buffers in memory.
+
+The result of the experiment was hypothesised to demonstrate no significant difference between rebooting and not-rebooting at any message frequency.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{images/1khz-mean.png}
+\caption{Experiment 2 - Mean Message Latency 1KHz Message Frequency}
+\label{exp2-1khz-mean}
+\end{figure}
+
+Figure \ref{exp2-1khz-mean} demonstrates that for relatively low message frequencies the mean message latency was consistently 1 - 1.5ms (the peak around message 500 in the full reboot data was due to 1 erroneous run at that data point). Figure \ref{exp2-4khz-mean} is characteristic of the higher frequency runs - the no reboot runs generally gave equal or better performance compared to the full reboot runs. See Appendix \ref{exp2-appendix-results} for other mean graphs, and individual run graphs.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{images/4khz-mean.png}
+\caption{Experiment 2 - Mean Message Latency 4KHz Message Frequency}
+\label{exp2-4khz-mean}
+\end{figure}
 
 %%%%%%%%%%%%%%%%
 %              %
 %  APPENDICES  %
 %              %
 %%%%%%%%%%%%%%%%
-%\begin{appendices}
+\begin{appendices}
+
+\chapter{Experiment 2 Other Graphs}
+\label{exp2-appendix-results}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/no-reboot-1khz.png}
+\caption{Experiment 2 - No Reboot 1KHz Message Frequency}
+\label{exp2-noreboot-1khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/no-reboot-1khz.png}
+\caption{Experiment 2 - No Reboot 1KHz Message Frequency}
+\label{exp2-fullreboot-1khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/no-reboot-4khz.png}
+\caption{Experiment 2 - No Reboot 4KHz Message Frequency}
+\label{exp2-noreboot-4khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/full-reboot-4khz.png}
+\caption{Experiment 2 - Full Reboot 4KHz Message Frequency}
+\label{exp2-fullreboot-4khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/no-reboot-7khz.png}
+\caption{Experiment 2 - No Reboot 7KHz Message Frequency}
+\label{exp2-noreboot-7khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/full-reboot-7khz.png}
+\caption{Experiment 2 - Full Reboot 7KHz Message Frequency}
+\label{exp2-fullreboot-7khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/no-reboot-10khz.png}
+\caption{Experiment 2 - No Reboot 10KHz Message Frequency}
+\label{exp2-noreboot-10khz}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/full-reboot-10khz.png}
+\caption{Experiment 2 - Full Reboot 10KHz Message Frequency}
+\label{exp2-fullreboot-10khz}
+\end{figure}
 
 \chapter{Running the Programs}
 
@@ -109,12 +201,12 @@ This will apply $BBMC$ with $style = 1$ to the first brock200 DIMACS instance al
 \label{sec:randomGraph}
 We generate Erd\'{o}s-R\"{e}nyi random graphs $G(n,p)$ where $n$ is the number of vertices and
 each edge is included in the graph with probability $p$ independent from every other edge. It produces
-a random graph in DIMACS format with vertices numbered 1 to $n$ inclusive. It can be run from the command line as follows to produce 
+a random graph in DIMACS format with vertices numbered 1 to $n$ inclusive. It can be run from the command line as follows to produce
 a clq file
 \begin{verbatim}
 	> java RandomGraph 100 0.9 > 100-90-00.clq
 \end{verbatim}
-%\end{appendices}
+\end{appendices}
 
 %%%%%%%%%%%%%%%%%%%%
 %   BIBLIOGRAPHY   %
