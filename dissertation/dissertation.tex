@@ -28,7 +28,17 @@ Robots, distributed systems, and middleware.
 \chapter{Introduction}
 \pagenumbering{arabic}
 
+\section{Context}
+
 Robotics is a fast-progressing field which has seen major advances the past decades. From obvious examples such as Amazon's item pickers, to more integrated applications such as autonomous cars - the scale of robotics is increasing.
+
+\section{Aims and Objectives}
+
+If I had an aim it would go here.
+
+\section{Achievements}
+
+If I had achieved anything it would go here.
 
 
 
@@ -50,6 +60,10 @@ Robots are the future. (Why robots are important)
 Robotics is the field concerning autonomous computer systems, usually involving physical interaction with it's environment. Robotics lies at the intersection between computing science, eletrical and mechanical engineering. Robotics has been common in popular culture since the 1940s, however the physical realisation of these systems did not begin to be practical until the 2000s when increases in computing power, sensor accuracy, research investment, and software algorithms allowed for useful robotics systems to be created.
 
 Today's robotic systems generally consist of many small autonomous systems working together to form a coherent whole. For example, a particular sensor (say a camera) may be constantly recording data and storing it in some buffer (erasing the oldest when full). This subsystem does not depend on any others to complete it's task (recording the envionrment), but other subsystems may rely on it's output (such as a computer vision package which needs video frame inputs).
+
+\section{Multi-Robot Systems}
+
+Insert multi-robot systems blurb here!
 
 \section{Robotic Middleware}
 
@@ -193,11 +207,11 @@ To compile this dissertation:
 
 An example of running from the command line is as follows:
 \begin{verbatim}
-	> java MaxClique BBMC1 brock200_1.clq 14400
+	> rosrun rosberry_experiments run_experiment.py
 \end{verbatim}
-This will apply $BBMC$ with $style = 1$ to the first brock200 DIMACS instance allowing 14400 seconds of cpu time.
 
-\chapter{Generating Random Graphs}
+
+\chapter{Generating Random Graphs (Example Appendix)}
 \label{sec:randomGraph}
 We generate Erd\'{o}s-R\"{e}nyi random graphs $G(n,p)$ where $n$ is the number of vertices and
 each edge is included in the graph with probability $p$ independent from every other edge. It produces
