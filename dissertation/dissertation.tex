@@ -30,6 +30,14 @@ Robots, distributed systems, and middleware.
 
 \section{Context}
 
+Robotics is the field of creating physical systems to automate tasks. As a concept, automation dates back hundreds of years - however the idea of replicating biological systems seen in nature (for example, humans) was not first seen until the 20th century. Robotics was mainly considered a theoretical or fictitious fantasy, however the main discussers of the concept (such as Isaac Asimov) assumed technological capability would inevitably reach the level where robotics would either be inseperable from society, or be banned due to it's impact.
+
+In the 19th century the beginnings of robotics could be seen in the creation of vehicles which could be remotely operated using electric signals. By the early 20th century, wireless radio guidance systems were advanced enough that remotely operated aircraft could be demonstrated in 1917 (by Archibald Low [citation needed]).
+
+Technology advanced so rapidly during the 20th century that by the 1970s the Soviet Union could explore the surface of the moon using a remotely operated vehicle robot.
+
+However, these uses of robotics displayed no `intelligent behaviour' on behalf of the robotic system. Beginning in the 1980s, the growing field of Artificial Intelligence (A.I.) was revived and began creating systems which could intelligently answer domain-specific questions - called expert systems. 
+
 Robotics is a fast-progressing field which has seen major advances the past decades. From obvious examples such as Amazon's item pickers, to more integrated applications such as autonomous cars - the scale of robotics is increasing.
 
 \section{Aims and Objectives}
@@ -63,7 +71,17 @@ Today's robotic systems generally consist of many small autonomous systems worki
 
 \section{Multi-Robot Systems}
 
-Insert multi-robot systems blurb here!
+Multi-robot systems are specific instances of mult-agent systems. They represent a joint problem space between robotics, artificial intelligence, and distributed systems. Multi-robot systems as a formal concept is a recent development with a IEEE technical committee only being formed in 2014\cite{MultiRobotSystemsIEEECommittee}.
+
+Multi-robot systems can consist of many intelligent agents (each of which may be comprised of many small autonomous systems) working to solve a task that any one system may not be able to solve alone. One such example is a warehouse management system. 
+
+In a warehouse, millions of items can be spread throughout miles of shelving and the requirement is that a random subset of items (those that have been bought) must arrive at a specific point (the delivery pick-up point) at a specific time (when the van is there). This task previously could be solved by having human pickers wander the isles searching for items - however given recent increases in the size of online shopping this is no longer feasible. Now, online retailers are using thousands of individual robots to intelligently move the shelving around and bring the correct items to stationary human pickers. This system requires the coordination of the individual robots, but they must all act independently in order to efficiently keep pace with the items ordered.
+
+\section{Scalability in Robotics}
+
+When creating multi-robot systems, scalability becomes an important concern. At what level does a system architect choose to switch from small highly-powered robot systems to a larger number of simpler robot systems. Several factors to consider include the processing power of each robot, the communication framework required to organise them, the cost of each robot, and the suitability of the problem to a multi-robot system.
+
+Swarm robotics is the extreme approach of creating many very simple robots which individually could not solve tasks or survive environments - however when they work together as a form of society they can work efficiently.
 
 \section{Robotic Middleware}
 
@@ -82,9 +100,13 @@ ROS is what I'll be testing out. (What is it)
 The robots used in this project are 9 identical robot cars with front-wheel steering. (What is their set up)
 
 
-\chapter{Experiment 1}
+\chapter{Experimental Analysis}
+
+\section{Experiment 1}
 
 The first experiment was designed to analyse the transfer time of messages between two machines at varying message frequencies. This would highlight whether there was some limit as to how often ROS could send and receive messages on it's topics.
+
+\subsection{Configuration}
 
 These two machines were Raspberry Pi 3 Model Bs connected via ethernet to an Asus router.
 
@@ -102,7 +124,7 @@ These issues were resolved by removing the code that executed the delay in the e
 
 The experiment was then repeated using this code, and the results from these runs agreed with the hypothesis.
 
-\chapter{Experiment 2}
+\section{Experiment 2}
 
 Experiment 2 was an investigation in to whether the performance of ROS messages was affected by previous messages sent on the system. This was tested by comparing the performance of ROS messages of 5 consecutive message passing runs vs 5 message passing runs with system reboots between runs. This was repeated at 1KHz, 4KHz, 7KHz, and 10Khz frequencies for two reasons. The first was to investigate whether areas in which we observed consistent performance before would exhibit any difference between reboot and no reboot. Secondly, it would give further insight in to where the exact barrier between `good, consistent performance' and `poor, erratic performance' is.
 
@@ -213,10 +235,7 @@ An example of running from the command line is as follows:
 
 \chapter{Generating Random Graphs (Example Appendix)}
 \label{sec:randomGraph}
-We generate Erd\'{o}s-R\"{e}nyi random graphs $G(n,p)$ where $n$ is the number of vertices and
-each edge is included in the graph with probability $p$ independent from every other edge. It produces
-a random graph in DIMACS format with vertices numbered 1 to $n$ inclusive. It can be run from the command line as follows to produce
-a clq file
+
 \begin{verbatim}
 	> java RandomGraph 100 0.9 > 100-90-00.clq
 \end{verbatim}
