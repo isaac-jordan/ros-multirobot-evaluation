@@ -1,0 +1,43 @@
+\documentclass[../dissertation.tex]{subfiles}
+
+\begin{document}
+
+\section{Robotics}
+
+Robots are the future. (Why robots are important)
+
+Robotics is the field concerning autonomous computer systems, usually involving physical interaction with it's environment. Robotics lies at the intersection between computing science, eletrical and mechanical engineering. Robotics has been common in popular culture since the 1940s, however the physical realisation of these systems did not begin to be practical until the 2000s when increases in computing power, sensor accuracy, research investment, and software algorithms allowed for useful robotics systems to be created.
+
+Today's robotic systems generally consist of many small autonomous systems working together to form a coherent whole. For example, a particular sensor (say a camera) may be constantly recording data and storing it in some buffer (erasing the oldest when full). This subsystem does not depend on any others to complete it's task (recording the envionrment), but other subsystems may rely on it's output (such as a computer vision package which needs video frame inputs).
+
+Robotics is part of a field called cyber-physical systems (CPS) that concerns computer systems that interface with the physical world. These can include Internet Of Things (IOT) networks which can (for example) be used to control things around the household, such as light switches, central heating systems, and hoovering. This is distinct from robotics as CPS generally embody a `think globally, act locally' approach (such as using data from many sources to improve the CPS' performance in each), compared to robotics which utilises a more `think locally, act locally' strategy - meaning that each instance of a robot generally makes it's own decisions, and acts upon them solely.
+
+\section{Multi-Robot Systems}
+
+Multi-robot systems are specific instances of mult-agent systems. They represent a joint problem space between robotics, artificial intelligence, and distributed systems. Multi-robot systems as a formal concept is a recent development with a IEEE technical committee only being formed in 2014\cite{MultiRobotSystemsIEEECommittee}.
+
+Multi-robot systems can consist of many intelligent agents (each of which may be comprised of many small autonomous systems) working to solve a task that any one system may not be able to solve alone. One such example is a warehouse management system.
+
+In a warehouse, millions of items can be spread throughout miles of shelving and the requirement is that a random subset of items (those that have been bought) must arrive at a specific point (the delivery pick-up point) at a specific time (when the van is there). This task previously could be solved by having human pickers wander the isles searching for items - however given recent increases in the size of online shopping this is no longer feasible. Now, online retailers are using thousands of individual robots to intelligently move the shelving around and bring the correct items to stationary human pickers. This system requires the coordination of the individual robots, but they must all act independently in order to efficiently keep pace with the items ordered.
+
+\section{Scalability in Robotics}
+
+When creating multi-robot systems, scalability becomes an important concern. At what level does a system architect choose to switch from small highly-powered robot systems to a larger number of simpler robot systems. Several factors to consider include the processing power of each robot, the communication framework required to organise them, the cost of each robot, and the suitability of the problem to a multi-robot system.
+
+Swarm robotics is the extreme approach of creating many very simple robots which individually could not solve tasks or survive environments - however when they work together as a form of society they can work efficiently.
+
+\section{Robotic Middleware}
+
+Robot designers want to work at a high level. Sensors are low level. (Why is middleware needed, whats available)
+
+Robotic middleware is a software infrastructure that is intended to provide convenient abstraction and communication paradigms for facilitating this multi-subsystem approach. In general, a robotics middleware would provide interfaces for defining each subsystem, and defning how each subsystem communicates with others.
+
+Robots consist of many individual sensors, for example a camera that can record 720p RGB video at 30fps, a LIDAR range sensor that can measure distances of up to 30m at a frequency of 1-500Hz, a tri-axis gyroscope and accelerometer capable of measuring up to 16g of force with a measurement frequency of 40Hz. These devices use a range of sophisticated technologies to measure and analyse the physical world, each recording a different data format at a different data rate. These sensor modules are all independently designed, resulting in a wide array of different software and hardware interfaces - meaning that each robot system that wishes to use these sensors must create the software to communicate with these sensors, consume their data, and then write the robotic software that makes use of it. This results in a wide variety of implementations for manipulating the same data on each sensor, increasing the likelihood of implementation mistakes, misunderstandings, and wasting researchers' time.
+
+Software called middleware is the solution to this problem. A middleware provides a common interface design so that no matter what hardware is creating the data, the results are distributed in a consistent manner. This means that hardware manufacturers (or users) need only implement one software system for each sensor that can them be distributed and reused amongst all users of that sensor, as long as those users are using that middleware. This means that creators of systems utilising that middleware have easy access to the data created by a particular sensor as they know the software the create will be able to easily consume the sensor's data stream.
+
+Another benefit of middleware is that this communication interface can be reused within the robotic system for communicating between distinct modules within the system. For example, a researcher may create a computer vision module that processes a video stream and returns a data stream containing a description of the objects in the video stream at each frame. When utilising a middleware, the researcher can make the result of their computer vision module available in a similar fashion to the sensor's video stream - meaning that higher level software can utilise the results as if there was an `object-detecting hardware sensor'. These levels of abstractions make software much more maintainable, and reusable.
+
+There are a wide variety of robotic middlewares in use currently. Many employ a free (libre) approach to software by making the source code available online, whereas others are created for commercial licensing using propriatary source.
+
+\end{document}

@@ -1,0 +1,419 @@
+\documentclass[../dissertation.tex]{subfiles}
+ 
+\begin{document}
+
+\subsection{An Overview}
+
+\begin{center}
+	\setitemize[0]{leftmargin=*}
+	\begin{longtable}{| l | l | l | l | l |}
+		\hline
+		\textbf{Name} & \textbf{Objective} & \textbf{Support} & \textbf{Capabilities} & \textbf{Supported Languages} \\ \hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		ROS (Robot Operating System) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item The goal of ROS is not to be a framework with the most features. Instead, the primary goal of ROS is to support code reuse in robotics research and development
+				\item Keep libraries ROS-agnostic
+				\item Easy to test
+				\item Scalable; appropriate for large runtime systems, and large development processes
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Large, active open source development %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Can be used in conjunction with other robot frameworks
+				\item Distributed framework of processes allows for executables to be individually designed, and loosely coupled at runtime
+				\item Encourages collaboration by easy package sharing
+				\item Not a realtime framework, although can work with realtime code
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			Python, C++, and Lisp \newline
+
+			Experimental: Java, and Lua %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		MOOS (Mission Oriented Operating Suite) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Designed to facilitate research in the mobile robotic domain
+				\item Constitute a resilient, distributed and coordinated suite of software suitable for in-the-field deployment of sub-sea and land research robots
+				\item Process communcation should be utterly robust and tolerant of repeated stop/start cycling of any process
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Not widely used (judging by GitHub stars at least) \newline
+
+			Development is stagnating (no GitHub commits since 26th May 2016), core not updated since 11th May 2016 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Platform independent, inter-process communication API
+				\item Sensor management
+				\item Navigation
+				\item Concurrent mission task execution
+				\item Vehicle safety management
+				\item Mission logging and replay
+				\item No P2P communication (client/server only)
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C++ (appears to have Python bindings) %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		YARP (Yet Another Robot Platform) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Supports collection of programs communicating P2P
+				\item Extensible family of connection types (tcp, udp, multicast, local, MPI, XML, RPC, …)
+				\item Flexible interfacing with hardware devices
+				\item Goal to increase the longevity of robot software projects
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Active, open source effort %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Data carrier method seems more flexible than ROS
+				\item General network set up seems similar to ROS. Many processes across one or more machines communicating P2P using Observer design pattern. \cite{YARP_it_notes}
+				\item Supports more operating systems than ROS
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			SWIG (binding auto-generator) %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Orocos (Open RObot Control Software) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Component based system design
+				\item Multi vendor (doesn’t aim to solve every problem, but facilitate use of many projects)
+				\item Focus (aims to be the best free software framework for realtime control of robots and machine tools, nothing more, nothing less)
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Non-active. Still in use, but by very few people (judging by forum activity, and documentation errors (listed source host has gone down). No `news' since 2013. %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Provides toolchain to create realtime robotics applications using modular, run-time configurable software components
+				\item Provides Kinematics and Dynamics Library for modelling and computation of kinematic chains, their motion specification, and interpolation (basically controlling things like robot arms)
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C++ %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		CARMEN (Carnegie Mellon Robot Navigation Toolkit) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Open source collection of software for mobile robot control
+				\item Modular software to provide basic navigation functionalities, such as base and sensor control, logging, obstacle avoidance, localization, path planning, and mapping
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Discontinued, no new releases since 2008. %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Uses inter-process communication platform IPC
+				\item Centralised parameter server
+				\item Only supports a limited number of specific mobile robot bases.
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C and Java %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Orca %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Open source framework for developing component-based robotic systems
+				\item Goal to enable software reuse by defining commonly used interfaces
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Discontinued, no new releases since 2009 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Provides some interfaces and implementations of commonly used components
+				\item No particular distributed network things
+				\item Seems to use client/server architecture
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C++, examples in Java, Python, and PHP. \newline
+
+			Interfaces can be compiled to C++, Java, Python, PHP, C\#, Visual Basic, Ruby, and Obj C. %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Microsoft Robotics Developer Studio (v4) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Goal to make creating robotics applications very accessible
+				\item Supports visual programming (drag and drop components)
+				\item Supports simple “Hello Robot” to complex applications in mutli-robot scenarios
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			No release since 2012 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item REST-style, services oriented runtime
+				\item Supports centralised, and decentralised communcation
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C\#, and Microsoft Visual Programming Language (VPL) %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		OpenRTM-aist %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Open source platform to develop component oriented robotic systems.
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Seems moderately active (last release May 2016). Moderately active community (more popular in Japan) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Supports communication based on Publisher/Subscriber model
+				\item Has a number of tools for robot system development
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C++, Python, Java %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Player %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Provides a clean and simple interface to the robot's sensors and actuators over the IP network
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Discontinued \newline
+
+			No commits since May 2016 \newline
+
+			No releases since 2012 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Supports multiple concurrent connections between devices
+				\item Supports flexible network structure (including P2P)
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			Clients in C++, Tcl, Java, and Python %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		ROS2 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Target new use cases, such as multi-robot systems (providing a standard approach), embedded systems, real-time systems, non-ideal networks, and production environments \cite{why_ros2}
+				\item Recreate ROS using existing new tech (such as Redis, WebSockets, DDS)
+				\item Overhaul of API (create consistent API without > 7 years of backward compatibility)
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Pre-release, but active daily development. Unstable but good future prospects given popularity of ROS1 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Improved communication resilience on poor networks utilising DDS \cite{kozik-ros2evaluation} \cite{Maruyama:2016:EPR:2968478.2968502}
+				\item Communication overhead of DDS shown to be non-trivial for local connection. For remote, overhead is trivial but throughput depends on DDS library used \cite{Maruyama:2016:EPR:2968478.2968502}
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C99, C++11, Python3 \newline
+
+			Speculative: JavaScript %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		OpenRDK %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Modular framework for distributed robotic systems
+				\item Communication achieved by a central `repository' into which individual agents publish variables (and can store queues)
+				\item Uses URL-like addressing scheme
+				\item Focuses on mobile robots \cite{4651213}
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Open source, no news since 2010, created for a single research group %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Created with an eye on the competition (not a copy of another framework)
+				\item Has been used in multiple environments (single rescue robotic system, assistive robots) \cite{4651213}
+				\item Has useful tools such as a graphical tool for remote inspection and management of modules, and also modules for logging and replaying \cite{4651213}
+				\item No real-time support \cite{OpenRDKIntro}
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C++ %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Miro %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Builds upon other-widely used middlewares (ACE, TAO CORBA, Qt) to provide object-oriented abstractions \cite{1044362}
+				\item Split in to 3 layers: Device, Service, and Framework
+				\item Communication achieved using CORBA client/server
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Last release was 2014 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Provides same capabilities as CORBA (type-safe and network-transparent interfaces) \cite{1044362}
+				\item Demonstrated capabilities in multirobot environment
+				\item Does not have true OS independence (all robots used Linux), but shown that this can be ported to Solaris in 1 day
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			Any that have CORBA implementations %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Xenomai %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Real-time development framework (can be used to create any kind of real-time interface)
+				\item Important goals are extensibility, portability, and maintainability
+				\item Uses a dual-kernel approach to hard realtime \cite{choi2009real}
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Sustained, active, open source development \cite{XenomaiGitRepos} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Poor availability of detailed documentation and a lack of technical support \cite{koh2013real}
+				\item Runs on top of an OS (most commonly the Linux kernel)
+				\item Shown to be suitable for 100\% hard real-time applications \cite{brown2010fast}
+				\item No communication abstractions
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			Preferred C \cite{XenomaiTutorial} \newline
+
+			Possible: C++ %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		CORBA (Common Object Request Broker Architecture) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Software-based communications interface through which objects are located and accessed
+				\item OO abstractions utilising request-response in the library (via the Object Request Broker)
+				\item Uses Interface Definition Language (IDL) to define object interfaces
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Active, open source and proprietary implementations %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Criticised for poor implementations of the standard
+				\item Good language and OS independence
+				\item `Freedom from technologies', meaning that (for example) C++ code can talk to Fortran legacy code and Java database code (and each can be changed independently without having to update the other code bases)
+				\item Strong typing of messages, reducing human error
+				\item Small overhead to adding to system (but dependent on implementation)
+				\item Has real-time implementations of related standard (realtime CORBA)
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			Ada, C++, Java, COBOL, Lisp, Python, Ruby, Smalltalk \newline
+
+			Non-standard mappings exist for C\#, Erlang, Perl, Tcl, Visual Basic %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Urbi %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Urbiscript aims to provide a programming experience tailored towards robotics (parallel, event-based, functional, OO, client/server, distributed)
+				\item Consists of defining modules called `UObject's which are shells around regular components
+				\item These UObjects are then naturally supported by urbiscript which allows easier communication and orchestration
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Doesn’t appear to be widely used, but is open source with many commits %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Interoperable with CORBA, RT-Middleware, openHRP (among others), thus URBI can act as a central platform to integrate other technologies
+				\item Brings many useful abstractions over other middlewares such as Player/Stage, Microsoft Robotics Studio, RT-Middleware, and CORBA.
+				\item Can move UObject’s after compile-time
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C++, Java \newline
+
+			Custom “urbiscript” scripting language for orchestration %
+		\end{minipage} \\
+		\hline
+
+	\end{longtable}
+\end{center}
+
+\subsection{Communication}
+
+\subsection{Computation}
+
+\subsection{Configuration}
+
+\subsection{Coordination}
+
+\end{document}
