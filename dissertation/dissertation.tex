@@ -6,6 +6,9 @@
 % put any packages here
 %
 \usepackage{float}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{listings}
 
 \begin{document}
 \title{On The Scalability of ROS}
@@ -36,7 +39,7 @@ In the 19th century the beginnings of robotics could be seen in the creation of 
 
 Technology advanced so rapidly during the 20th century that by the 1970s the Soviet Union could explore the surface of the moon using a remotely operated vehicle robot.
 
-However, these uses of robotics displayed no `intelligent behaviour' on behalf of the robotic system. Beginning in the 1980s, the growing field of Artificial Intelligence (A.I.) was revived and began creating systems which could intelligently answer domain-specific questions - called expert systems. 
+However, these uses of robotics displayed no `intelligent behaviour' on behalf of the robotic system. Beginning in the 1980s, the growing field of Artificial Intelligence (A.I.) was revived and began creating systems which could intelligently answer domain-specific questions - called expert systems.
 
 Robotics is a fast-progressing field which has seen major advances the past decades. From obvious examples such as Amazon's item pickers, to more integrated applications such as autonomous cars - the scale of robotics is increasing.
 
@@ -75,7 +78,7 @@ Robotics is part of a field called cyber-physical systems (CPS) that concerns co
 
 Multi-robot systems are specific instances of mult-agent systems. They represent a joint problem space between robotics, artificial intelligence, and distributed systems. Multi-robot systems as a formal concept is a recent development with a IEEE technical committee only being formed in 2014\cite{MultiRobotSystemsIEEECommittee}.
 
-Multi-robot systems can consist of many intelligent agents (each of which may be comprised of many small autonomous systems) working to solve a task that any one system may not be able to solve alone. One such example is a warehouse management system. 
+Multi-robot systems can consist of many intelligent agents (each of which may be comprised of many small autonomous systems) working to solve a task that any one system may not be able to solve alone. One such example is a warehouse management system.
 
 In a warehouse, millions of items can be spread throughout miles of shelving and the requirement is that a random subset of items (those that have been bought) must arrive at a specific point (the delivery pick-up point) at a specific time (when the van is there). This task previously could be solved by having human pickers wander the isles searching for items - however given recent increases in the size of online shopping this is no longer feasible. Now, online retailers are using thousands of individual robots to intelligently move the shelving around and bring the correct items to stationary human pickers. This system requires the coordination of the individual robots, but they must all act independently in order to efficiently keep pace with the items ordered.
 
@@ -99,31 +102,419 @@ Another benefit of middleware is that this communication interface can be reused
 
 There are a wide variety of robotic middlewares in use currently. Many employ a free (libre) approach to software by making the source code available online, whereas others are created for commercial licensing using propriatary source.
 
-\subsection{MOOS (Mission Oriented Operating Suite) \cite{newman2008moos}}
+\subsection{An Overview}
 
-\subsubsection{Design}
+\begin{center}
+	\setitemize[0]{leftmargin=*}
+	\begin{longtable}{| l | l | l | l | l |}
+		\hline
+		\textbf{Name} & \textbf{Objective} & \textbf{Support} & \textbf{Capabilities} & \textbf{Supported Languages} \\ \hline
 
-The designers of MOOS claim that MOOS is `a suite of libraries and executables designed and proven to run a field robot in sub-sea and land domains'\cite{newman2008moos}. MOOS is one of the few robot middlewares to explicitly target robots in a sub-sea domain. MOOS is designed to be platform independent, allowing for flexibility in the user's choice of operating system. Other design details considered during it's creation are that vehicles should be run using a network of communicating processes, each of which is specialised for a specific task. The communication should be robust failures in the stop and starting of individual processes, and processes should have no shared header file dependencies\cite{newman2008moos} - this last point means that each process can be compiled separately from any processes that it makes use of.
+		\begin{minipage}[t]{0.1\columnwidth}%
+		ROS (Robot Operating System) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item The goal of ROS is not to be a framework with the most features. Instead, the primary goal of ROS is to support code reuse in robotics research and development
+				\item Keep libraries ROS-agnostic
+				\item Easy to test
+				\item Scalable; appropriate for large runtime systems, and large development processes
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Large, active open source development %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Can be used in conjunction with other robot frameworks
+				\item Distributed framework of processes allows for executables to be individually designed, and loosely coupled at runtime
+				\item Encourages collaboration by easy package sharing
+				\item Not a realtime framework, although can work with realtime code
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			Python, C++, and Lisp \newline
 
-\subsubsection{Communication Topology}
+			Experimental: Java, and Lua %
+		\end{minipage} \\
+		\hline
 
-MOOS makes use of a star-like topology. All client 
+		\begin{minipage}[t]{0.1\columnwidth}%
+		MOOS (Mission Oriented Operating Suite) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Designed to facilitate research in the mobile robotic domain
+				\item Constitute a resilient, distributed and coordinated suite of software suitable for in-the-field deployment of sub-sea and land research robots
+				\item Process communcation should be utterly robust and tolerant of repeated stop/start cycling of any process
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Not widely used (judging by GitHub stars at least) \newline
 
-\subsection{YARP (Yet Another Robot Platform)}
+			Development is stagnating (no GitHub commits since 26th May 2016), core not updated since 11th May 2016 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Platform independent, inter-process communication API
+				\item Sensor management
+				\item Navigation
+				\item Concurrent mission task execution
+				\item Vehicle safety management
+				\item Mission logging and replay
+				\item No P2P communication (client/server only)
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C++ (appears to have Python bindings) %
+		\end{minipage} \\
+		\hline
 
-\subsection{Orocos (Open RObot Control Software)}
+		\begin{minipage}[t]{0.1\columnwidth}%
+		YARP (Yet Another Robot Platform) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Supports collection of programs communicating P2P
+				\item Extensible family of connection types (tcp, udp, multicast, local, MPI, XML, RPC, …)
+				\item Flexible interfacing with hardware devices
+				\item Goal to increase the longevity of robot software projects
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Active, open source effort %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Data carrier method seems more flexible than ROS
+				\item General network set up seems similar to ROS. Many processes across one or more machines communicating P2P using Observer design pattern. \cite{YARP_it_notes}
+				\item Supports more operating systems than ROS
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			SWIG (binding auto-generator) %
+		\end{minipage} \\
+		\hline
 
-\subsection{CARMEN (Carnegie Mellon Robot Navigation Toolkit)}
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Orocos (Open RObot Control Software) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Component based system design
+				\item Multi vendor (doesn’t aim to solve every problem, but facilitate use of many projects)
+				\item Focus (aims to be the best free software framework for realtime control of robots and machine tools, nothing more, nothing less)
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Non-active. Still in use, but by very few people (judging by forum activity, and documentation errors (listed source host has gone down). No `news' since 2013. %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Provides toolchain to create realtime robotics applications using modular, run-time configurable software components
+				\item Provides Kinematics and Dynamics Library for modelling and computation of kinematic chains, their motion specification, and interpolation (basically controlling things like robot arms)
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C++ %
+		\end{minipage} \\
+		\hline
 
-\subsection{Orca}
+		\begin{minipage}[t]{0.1\columnwidth}%
+		CARMEN (Carnegie Mellon Robot Navigation Toolkit) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Open source collection of software for mobile robot control
+				\item Modular software to provide basic navigation functionalities, such as base and sensor control, logging, obstacle avoidance, localization, path planning, and mapping
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Discontinued, no new releases since 2008. %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Uses inter-process communication platform IPC
+				\item Centralised parameter server
+				\item Only supports a limited number of specific mobile robot bases.
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C and Java %
+		\end{minipage} \\
+		\hline
 
-\subsection{Microsoft Robotics Developer Studio (v4)}
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Orca %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Open source framework for developing component-based robotic systems
+				\item Goal to enable software reuse by defining commonly used interfaces
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Discontinued, no new releases since 2009 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Provides some interfaces and implementations of commonly used components
+				\item No particular distributed network things
+				\item Seems to use client/server architecture
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C++, examples in Java, Python, and PHP. \newline
 
-\subsection{OpenRTM-aist}
+			Interfaces can be compiled to C++, Java, Python, PHP, C\#, Visual Basic, Ruby, and Obj C. %
+		\end{minipage} \\
+		\hline
 
-\subsection{Player}
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Microsoft Robotics Developer Studio (v4) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Goal to make creating robotics applications very accessible
+				\item Supports visual programming (drag and drop components)
+				\item Supports simple “Hello Robot” to complex applications in mutli-robot scenarios
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			No release since 2012 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item REST-style, services oriented runtime
+				\item Supports centralised, and decentralised communcation
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C\#, and Microsoft Visual Programming Language (VPL) %
+		\end{minipage} \\
+		\hline
 
-\subsection{ROS (Robot Operating System)}
+		\begin{minipage}[t]{0.1\columnwidth}%
+		OpenRTM-aist %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Open source platform to develop component oriented robotic systems.
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Seems moderately active (last release May 2016). Moderately active community (more popular in Japan) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Supports communication based on Publisher/Subscriber model
+				\item Has a number of tools for robot system development
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C++, Python, Java %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Player %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Provides a clean and simple interface to the robot's sensors and actuators over the IP network
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Discontinued \newline
+
+			No commits since May 2016 \newline
+
+			No releases since 2012 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Supports multiple concurrent connections between devices
+				\item Supports flexible network structure (including P2P)
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			Clients in C++, Tcl, Java, and Python %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		ROS2 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Target new use cases, such as multi-robot systems (providing a standard approach), embedded systems, real-time systems, non-ideal networks, and production environments \cite{why_ros2}
+				\item Recreate ROS using existing new tech (such as Redis, WebSockets, DDS)
+				\item Overhaul of API (create consistent API without > 7 years of backward compatibility)
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Pre-release, but active daily development. Unstable but good future prospects given popularity of ROS1 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Improved communication resilience on poor networks utilising DDS \cite{kozik-ros2evaluation} \cite{Maruyama:2016:EPR:2968478.2968502}
+				\item Communication overhead of DDS shown to be non-trivial for local connection. For remote, overhead is trivial but throughput depends on DDS library used \cite{Maruyama:2016:EPR:2968478.2968502}
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C99, C++11, Python3 \newline
+
+			Speculative: JavaScript %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		OpenRDK %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Modular framework for distributed robotic systems
+				\item Communication achieved by a central `repository' into which individual agents publish variables (and can store queues)
+				\item Uses URL-like addressing scheme
+				\item Focuses on mobile robots \cite{4651213}
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Open source, no news since 2010, created for a single research group %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Created with an eye on the competition (not a copy of another framework)
+				\item Has been used in multiple environments (single rescue robotic system, assistive robots) \cite{4651213}
+				\item Has useful tools such as a graphical tool for remote inspection and management of modules, and also modules for logging and replaying \cite{4651213}
+				\item No real-time support \cite{OpenRDKIntro}
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C++ %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Miro %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Builds upon other-widely used middlewares (ACE, TAO CORBA, Qt) to provide object-oriented abstractions \cite{1044362}
+				\item Split in to 3 layers: Device, Service, and Framework
+				\item Communication achieved using CORBA client/server
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Last release was 2014 %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Provides same capabilities as CORBA (type-safe and network-transparent interfaces) \cite{1044362}
+				\item Demonstrated capabilities in multirobot environment
+				\item Does not have true OS independence (all robots used Linux), but shown that this can be ported to Solaris in 1 day
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			Any that have CORBA implementations %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Xenomai %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Real-time development framework (can be used to create any kind of real-time interface)
+				\item Important goals are extensibility, portability, and maintainability
+				\item Uses a dual-kernel approach to hard realtime \cite{choi2009real}
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Sustained, active, open source development \cite{XenomaiGitRepos} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Poor availability of detailed documentation and a lack of technical support \cite{koh2013real}
+				\item Runs on top of an OS (most commonly the Linux kernel)
+				\item Shown to be suitable for 100\% hard real-time applications \cite{brown2010fast}
+				\item No communication abstractions
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			Preferred C \cite{XenomaiTutorial} \newline
+
+			Possible: C++ %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		CORBA (Common Object Request Broker Architecture) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Software-based communications interface through which objects are located and accessed
+				\item OO abstractions utilising request-response in the library (via the Object Request Broker)
+				\item Uses Interface Definition Language (IDL) to define object interfaces
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Active, open source and proprietary implementations %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Criticised for poor implementations of the standard
+				\item Good language and OS independence
+				\item `Freedom from technologies', meaning that (for example) C++ code can talk to Fortran legacy code and Java database code (and each can be changed independently without having to update the other code bases)
+				\item Strong typing of messages, reducing human error
+				\item Small overhead to adding to system (but dependent on implementation)
+				\item Has real-time implementations of related standard (realtime CORBA)
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			Ada, C++, Java, COBOL, Lisp, Python, Ruby, Smalltalk \newline
+
+			Non-standard mappings exist for C\#, Erlang, Perl, Tcl, Visual Basic %
+		\end{minipage} \\
+		\hline
+
+		\begin{minipage}[t]{0.1\columnwidth}%
+		Urbi %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Urbiscript aims to provide a programming experience tailored towards robotics (parallel, event-based, functional, OO, client/server, distributed)
+				\item Consists of defining modules called `UObject's which are shells around regular components
+				\item These UObjects are then naturally supported by urbiscript which allows easier communication and orchestration
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Doesn’t appear to be widely used, but is open source with many commits %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Interoperable with CORBA, RT-Middleware, openHRP (among others), thus URBI can act as a central platform to integrate other technologies
+				\item Brings many useful abstractions over other middlewares such as Player/Stage, Microsoft Robotics Studio, RT-Middleware, and CORBA.
+				\item Can move UObject’s after compile-time
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			C++, Java \newline
+
+			Custom “urbiscript” scripting language for orchestration %
+		\end{minipage} \\
+		\hline
+
+	\end{longtable}
+\end{center}
+
+\subsection{Communication}
+
+\subsection{Computation}
+
+\subsection{Configuration}
+
+\subsection{Coordination}
 
 
 \section{ROS (Robot Operating System)}
@@ -151,7 +542,7 @@ The experimental setup was that one Raspberry Pi would run a ROS master node, an
 
 The expected result of the experiment was that message latency (RTT) would be the same across all lower frequencies, until some bottleneck was reached that would then cause message latencies to exponentially increase due to congestion.
 
-Code had been written prior to execute this experiment, so initially this was used\cite{Experiment1InitialCode}. However, this gave results that were contrary to the hypothesis. An increase in message frequency resulted in a reduction in message latency. A number of messages on higher frequencies were also dropped, and never received. As this was the opposite of the hypothesis, the first step was to critique the experiment code.
+Code had been written prior to execute this experiment, so initially this was used \ref{Exp1InitCode}. However, this gave results that were contrary to the hypothesis. An increase in message frequency resulted in a reduction in message latency. A number of messages on higher frequencies were also dropped, and never received. As this was the opposite of the hypothesis, the first step was to critique the experiment code.
 
 This review highlighted two major issues, the first was the echoing machine had a delay similar to the sender when the experiment design mandated that the echoer always respond as fast as it can. The second issue was the the maximum message queue size in ROS (how many messages can be buffered at once to compensate for a slow subscriber) was set equal to the message frequency of that run.
 
@@ -248,6 +639,178 @@ Figure \ref{exp2-1khz-mean} demonstrates that for relatively low message frequen
 \caption{Experiment 2 - Full Reboot 10KHz Message Frequency}
 \label{exp2-fullreboot-10khz}
 \end{figure}
+
+\chapter{Code}
+
+\section{Experiment 1 - Initial Code}
+\label{Exp1InitCode}
+
+\subsection{Sender and Receiver}
+
+\begin{lstlisting}[language=Python]
+#!/usr/bin/env python
+
+import rospy
+from rosberry_experiments.msg import StampedMessage
+import time
+import sys
+
+N = None
+RATE = None
+f = None
+
+def listener(msg):
+    recv_time = rospy.get_rostime()
+    send_time = msg.t
+
+    f.write(str(msg.id))
+    f.write(",")
+    f.write(str(send_time))
+    f.write(",")
+    f.write(str(recv_time))
+    f.write("\n")
+
+def talker():
+    pub = rospy.Publisher('chatter_m', StampedMessage, queue_size=RATE)
+    rospy.init_node('talker', anonymous=True)
+    rate = rospy.Rate(RATE)
+    for i in xrange(N):
+        hello_str = "hello world"
+        timestamp = rospy.get_rostime()
+        pub.publish(id=i, t=timestamp ,message=hello_str )
+        rate.sleep()
+
+def main():
+    global RATE, N, f
+    RATE = int(sys.argv[1])
+    N = int(sys.argv[2])
+    f = open("times_"+str(RATE)+".txt", "w+")
+    print RATE, N
+    try:
+        sub = rospy.Subscriber("chatter_s", StampedMessage, listener)
+        talker()
+        rospy.sleep(5)
+        f.close()
+    except rospy.ROSInterruptException:
+        pass
+
+
+if __name__ == '__main__':
+    main()
+\end{lstlisting}
+
+\subsection{Echoer}
+\begin{lstlisting}[language=Python]
+#!/usr/bin/env python
+
+import rospy
+from rosberry_experiments.msg import StampedMessage
+import time
+import sys
+
+RATE = None
+
+def listener(msg, args):
+    rate = rospy.Rate(RATE)
+    pub = args[0]
+    pub.publish(msg)
+    rate.sleep()
+
+def main():
+    global RATE
+    RATE = int(sys.argv[1])
+    try:
+        rospy.init_node('talker1', anonymous=True)
+        pub = rospy.Publisher('chatter_s', StampedMessage, queue_size=RATE)
+        sub = rospy.Subscriber("chatter_m", StampedMessage, listener, callback_args=[pub])
+        rospy.spin()
+    except rospy.ROSInterruptException:
+        pass
+
+if __name__ == '__main__':
+    main()
+\end{lstlisting}
+
+\section{Experiment 1 - Revised Code}
+
+\subsection{Sender and Receiver}
+\begin{lstlisting}[language=Python]
+#!/usr/bin/env python
+
+import rospy
+from rosberry_experiments.msg import StampedMessage
+import time
+import sys
+
+N = None
+RATE = None
+f = None
+
+def listener(msg):
+    recv_time = rospy.get_rostime()
+    sent_time = msg.t
+    f.write(str(msg.id) + "," + str(sent_time) + "," + str(recv_time) + "\n")
+
+def talker():
+    pub = rospy.Publisher('chatter_m', StampedMessage, queue_size=N)
+    rospy.init_node('talker', anonymous=True)
+    rate = rospy.Rate(RATE)
+    for i in xrange(N):
+        hello_str = "hello world"
+        timestamp = rospy.get_rostime()
+        pub.publish(id=i, t=timestamp, message=hello_str )
+
+        rate.sleep()
+
+def main():
+    global RATE, N, f
+    RATE = int(sys.argv[1])
+    N = int(sys.argv[2])
+    f = open("times_"+str(RATE)+".txt", "w+")
+    print RATE, N
+    try:
+        sub = rospy.Subscriber("chatter_s", StampedMessage, listener)
+        talker()
+        rospy.sleep(5)
+        f.close()
+
+    except rospy.ROSInterruptException:
+        print "Exception: ROSInterruptException"
+
+
+if __name__ == '__main__':
+    main()
+\end{lstlisting}
+
+\subsection{Echoer}
+\begin{lstlisting}[language=Python]
+#!/usr/bin/env python
+
+import rospy
+from rosberry_experiments.msg import StampedMessage
+import time
+import sys
+
+def listener(msg, args):
+    pub = args[0]
+    pub.publish(msg)
+
+def main():
+    N = int(sys.argv[2])
+    rospy.init_node('talker1', anonymous=True)
+    pub = rospy.Publisher('chatter_s',
+						StampedMessage, queue_size=N)
+
+    sub = rospy.Subscriber("chatter_m",
+						StampedMessage, listener, callback_args=[pub])
+    try:
+        rospy.spin()
+    except rospy.ROSInterruptException:
+        print "Exception: ROSInterruptException"
+
+if __name__ == '__main__':
+    main()
+\end{lstlisting}
 
 \chapter{Running the Programs}
 
