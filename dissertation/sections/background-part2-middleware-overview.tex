@@ -1,5 +1,5 @@
 \documentclass[../dissertation.tex]{subfiles}
- 
+
 \begin{document}
 
 \subsection{An Overview}
@@ -67,6 +67,33 @@
 		\end{minipage} &
 		\begin{minipage}[t]{0.2\columnwidth}%
 			C++ (appears to have Python bindings) %
+		\end{minipage} \\
+		\hline
+
+    \begin{minipage}[t]{0.1\columnwidth}%
+		KERL (Kent Erlang Robotic Library) %
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Created as a practical way of teaching Erlang. Simple API designed
+        to let students learn Erlang, rather than learn KERL\cite{gruner2009teaching}.
+        \item Builds upon Player and Stage as a platform. Providing a simplified Erlang interface on the top\cite{gruner2009teaching}.
+        \item Contains simple single robot API for initial learning, and multi-robot APIs for advanced uses\cite{gruner2009teaching}.
+        \item Contains APIs for common tasks such as leader election, and broadcasting data to groups of processes\cite{gruner2009teaching}.
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.1\columnwidth}%
+			Open Source, but not widely used. Development has been halted. No commits/updates since 2009 \cite{KERL-SVN}.%
+		\end{minipage} &
+		\begin{minipage}[t]{0.25\columnwidth}%
+			\begin{itemize}
+				\item Has provided a good starting point of robotics in Erlang\cite{lutac2016towards}.
+        \item No full evaluation of suitability for production uses exists, however
+        is mainly an Erlang wrapper around Player, thus likely has a solid foundation.
+			\end{itemize} %
+		\end{minipage} &
+		\begin{minipage}[t]{0.2\columnwidth}%
+			Erlang, and C %
 		\end{minipage} \\
 		\hline
 
