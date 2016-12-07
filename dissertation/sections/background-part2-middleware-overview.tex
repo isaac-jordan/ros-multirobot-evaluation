@@ -435,6 +435,8 @@
 	\end{longtable}
 \end{center}
 
+Middleware designs can be broken down in to four groups of concepts: Communication, Computation, Configuration, and Coordination \cite{brugali2010component}. The majority of robotic middleware differences can be demonstrated as a difference in one of these groups. The following sections provide an overview of the approaches that the middlewares summarised above use to tackle each of these areas.
+
 \subsection{Communication}
 
 All modern robotic middlewares are comprised of multiple modules. In a non-trivial robotic system these distinct modules must exchange a variety of information in a complex web. These information channels usually have some desired bounds or characteristics, such as reliability (guarantees on information delivery), performance (general low latency, or some guarantees on delivery times), and overhead (is the communication significantly more expensive than building one monolithic module). The middlewares presented above have used a variety of approaches to inter-component communication.
@@ -457,12 +459,14 @@ ROS has a less layered system. Computations are performed by nodes and these nod
 
 \subsection{Configuration}
 
-The configuration of a robotic system using a middleware is often specified using some mechanic of the middleware. There are several distinct stages at which configuration is important, such as compile time, deployment time, and run time. Compile time configuration involves specifying what compiler settings are required, what libraries should be linked to (and their versions), and what structures and metadata should be created. At deployment time configuration involves setting up the system the robotic software is running on - such as installing libraries via a package manager, copying software to specific locations, and setting environment variables. Run time configuration has a wide variety a uses, but can consist of specifying API keys, database connection details, how many threads should be created for each process, which modules should start (and when), and how exceptions should be handled.
+The configuration of a robotic system using a middleware is often specified using some mechanic of the middleware. There are several distinct stages at which configuration is important, such as compile time, deployment time, and run time. Compile time configuration involves specifying what compiler settings are required, what libraries should be linked to (and their versions), and what structures and metadata should be created. At deployment time configuration involves setting up the system the robotic software is running on - such as installing libraries via a package manager, copying software to specific locations, and setting environment variables. Run time configuration has a wide variety a uses, but can consist of specifying API keys, database connection details, how many threads should be created for each process, which modules should start (and when), which components should interconnect, and how exceptions should be handled.
 
-
+ROS uses XML files at compile time to resolve dependencies, export version numbers, and other miscellaneous meta information such as software license and author details. The ability to define the launch of ROS nodes is provided by the `roslaunch' package. This package parses an XML file which defines which nodes should run, and also sets any required parameters on the ROS Parameter Server. It also provides some reliability functionality, such as respawning processes that have died \cite{roslaunchPage}. MOOS also utilises a text file for runtime configuration called a `Mission file' \cite{newman2009introduction}. This mission file provides the necessary runtime parameters for components to set themselves up in a system.
 
 \subsection{Coordination}
 
+Most middlewares have explicit mechanisms for creating multiple concurrently running software components. These components need to exhibit some overall system behaviour, usually by working together. It is not enough for them all to independently run and share data, there needs to be some coordination to the system to provide controlled, reliable, behaviour. For this reason, some middlewares provide concurrency libraries, either explicitly, or implicitly such as by the computation and communication model or by language features.
 
+In ROS, this concurrency is managed by running all nodes in separate threads, and designing the nodes in a reactive model. The node's computation only occurs when there is data to process, or some task to complete.
 
 \end{document}
