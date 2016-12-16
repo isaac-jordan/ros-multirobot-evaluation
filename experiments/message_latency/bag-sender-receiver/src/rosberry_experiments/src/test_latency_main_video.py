@@ -13,7 +13,10 @@ f = None
 def listener(msg):
     recv_time = rospy.get_rostime()
     sent_time = msg.t
-    f.write(str(msg.id) + "," + str(sent_time) + "," + str(recv_time) + "\n")
+    try:
+        f.write(str(msg.id) + "," + str(sent_time) + "," + str(recv_time) + "\n")
+    except IOError:
+        pass
 
 def talker():
     pub = rospy.Publisher('chatter_m', StampedImage, queue_size=N_MESSAGES)
@@ -25,7 +28,7 @@ def talker():
     i = 0
     for topic, msg, t in bag.read_messages(topics=["/camera/rgb/image_raw"]):
         timestamp = rospy.get_rostime()
-        stampedMsg = StampedLaserScan(id=i, t=timestamp, message=msg)
+        pub.publish(id=i, t=timestamp, message=msg)
         i += 1
         rate.sleep()
 
@@ -37,7 +40,7 @@ def main():
     try:
         sub = rospy.Subscriber("chatter_s", StampedImage, listener)
         talker()
-        rospy.sleep(5)
+        rospy.sleep(90)
         f.close()
 
     except rospy.ROSInterruptException:

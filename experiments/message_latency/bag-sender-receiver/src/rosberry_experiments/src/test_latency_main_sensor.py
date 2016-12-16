@@ -25,7 +25,7 @@ def talker():
     i = 0
     for topic, msg, t in bag.read_messages(topics=["/base_scan"]):
         timestamp = rospy.get_rostime()
-        stampedMsg = StampedLaserScan(id=i, t=timestamp, message=msg)
+        pub.publish(id=i, t=timestamp, message=msg)
         i += 1
         rate.sleep()
 
