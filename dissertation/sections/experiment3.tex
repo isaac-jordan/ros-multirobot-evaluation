@@ -3,6 +3,7 @@
 \begin{document}
 
 \subsection{Experiment 3 - CPU Clock Speed}
+\label{experiment3-cpu-speed}
 
 The purpose of this experiment was to identify whether the limited CPU power of the Raspberry Pi system was playing a significant role in the bottlenecking of message communication at higher frequencies.
 
@@ -16,7 +17,7 @@ One potential issue is that modern CPUs often underclock (reduce the clock speed
 
 The results agreed with the hypothesis. At 100\% CPU clock speed, only the highest 3 frequencies demonstrated sustained degradation of performance, however at 75\% the top 5 frequencies showed, and at 50\% the top 7 had reduced performance.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{images/experiment3/50_clockspeed_mean_values_by_freq_pretty.png}
 \caption{Experiment 3 - 100\% CPU Speed, All Frequencies}
@@ -25,13 +26,11 @@ The results agreed with the hypothesis. At 100\% CPU clock speed, only the highe
 
 Overall message latency was also increased as CPU core clock speed reduced. Even at the lowest frequency of 200Hz, 100\% CPU had an average message latency of 1.188ms, 75\%'s was 1.399, and 50\%'s was 1.609ms. Higher message frequencies demonstrated greater differences as shown in Figure \ref{exp3-averages}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{images/experiment3/average_per_frequency_graph.png}
 \caption{Experiment 3 - All CPU Speeds, All Frequencies}
 \label{exp3-averages}
 \end{figure}
-
-
 
 \end{document}

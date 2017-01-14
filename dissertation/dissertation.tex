@@ -80,7 +80,13 @@ Scoping experiments were quick experiments using dummy data. Designed to identif
 
 \section{Realistic Data Experiments}
 
-Realistic experiments take the knowledge gathered in the scoping experiments, and verify that the results are applicable to real world scenarios.
+Previous experiments were presented as scoping experiments. These were designed to systematically understand which variables were of concern when running tests on ROS's communication performance. However, it was not certain that these prior conclusions would translate well to using ROS in a realistic scenario. Throughout the scoping experiments, the same message of `hello world' was used as dummy data.
+
+In order to verify the conclusions were correct, samples of realistic data was explored. Two likely data types were settled on, 'sensor data` and 'video data'.
+
+Sensor data is the type of data likely the come from a physical sensor on the robot. This data is characterised by small message sizes, such as 4KB.
+
+Video data ...
 
 \subfile{sections/experiment5}
 
