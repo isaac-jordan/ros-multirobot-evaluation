@@ -82,11 +82,13 @@ Scoping experiments were quick experiments using dummy data. Designed to identif
 
 Previous experiments were presented as scoping experiments. These were designed to systematically understand which variables were of concern when running tests on ROS's communication performance. However, it was not certain that these prior conclusions would translate well to using ROS in a realistic scenario. Throughout the scoping experiments, the same message of `hello world' was used as dummy data.
 
-In order to verify the conclusions were correct, samples of realistic data was explored. Two likely data types were settled on, 'sensor data` and 'video data'.
+In order to verify the conclusions were correct, samples of realistic data was explored. Two likely data types were settled on, `sensor data' and `video data'.
 
 Sensor data is the type of data likely the come from a physical sensor on the robot. This data is characterised by small message sizes, such as 4KB.
 
-Video data ...
+Video data used was a 30Hz (30 frames-per-second) RGB video stream, with a resolution of 640 x 480 pixels. This message stream was measured to use 9.25MB/s of bandwidth, implying a message size of 308KB.
+
+Both data sets were acquired from the MIT Stata Center dataset \cite{mit-stata-center-dataset}. This dataset contains both sensor feeds (such as from a laser sensor), and video feeds (from a Kinect RGB + depth camera). These data sets are very large (20 - 50GB) which would require modification to the test system (Raspberry Pi 3’s). Thus these datasets have been filtered down to 60 seconds of recording, resulting in 1791 camera images, and 1194 LaserScan readings.
 
 \subfile{sections/experiment5}
 
