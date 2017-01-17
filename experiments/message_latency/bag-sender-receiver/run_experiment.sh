@@ -3,7 +3,7 @@
 RESULTS_FOLDER="results/experiment_6_real_wifi/wifi_extra/sensor"
 
 LOWEST_FREQ=100
-HIGHEST_FREQ=350
+HIGHEST_FREQ=600
 FREQ_STEP=50
 N_RUNS=3
 
