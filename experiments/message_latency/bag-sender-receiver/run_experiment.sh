@@ -1,10 +1,10 @@
 #!/bin/bash
 
-RESULTS_FOLDER="results/experiment_6_real_wifi/wifi/sensor"
+RESULTS_FOLDER="results/experiment_6_real_wifi/wifi_extra/sensor"
 
-LOWEST_FREQ=200
-HIGHEST_FREQ=2000
-FREQ_STEP=200
+LOWEST_FREQ=100
+HIGHEST_FREQ=350
+FREQ_STEP=50
 N_RUNS=3
 
 mkdir $RESULTS_FOLDER -p
@@ -20,8 +20,3 @@ for((CURRENT_RUN=1;$CURRENT_RUN<=$N_RUNS;++CURRENT_RUN)) do
 		mv "times_$CURRENT_FREQ.csv" $RUN_FOLDER
 	done
 done
-
-git add .
-git commit -m "Added experimental data for Experiment 5 and 6. Some modifications to code were required."
-git pull
-git push
