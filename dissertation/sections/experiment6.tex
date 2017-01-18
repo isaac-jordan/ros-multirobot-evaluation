@@ -30,5 +30,29 @@ This leads to the conclusion that WiFi is a suitable choice of communication med
 \label{exp6-sensor-wifi-all-freq-mean}
 \end{figure}
 
+\subsubsection{Further Investigation}
+
+After the results shown in Figure \ref{exp6-sensor-wifi-all-freq-mean} demonstrated a significant difference between message frequencies of 200Hz and 400Hz, it was decided that further runs should be conducted between these frequencies to investigate the point at which performance degrades.
+
+The extra runs conducted started at 100Hz (to gain information about performance below 200Hz), and increased in 50Hz increments up to 600Hz. The main areas of interest were 250Hz, 300Hz, and 350Hz.
+
+As Figure \ref{exp6-sensor-wifi-more-freq-stream} shows, message stream performance was similar as seen before. Certain streams exhibited consistent low latency throughout their streams, but above a certain frequency (350Hz and up in this case) performance begins to degrade.
+
+Figure \ref{exp6-sensor-wifi-more-freq-means} more clearly shows the jump in average message latency between 300Hz and 350Hz. This leads to the conclusion that for the sensor data message size (around 108kB), a suitable maximum frequency for publishing to ROS topics would be 300Hz.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/experiment6/sensor_data_wifi_more_freqs_stream.png}
+\caption{Experiment 6 - Sensor Data WiFi, More Frequencies}
+\label{exp6-sensor-wifi-more-freq-stream}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/experiment6/sensor_data_wifi_more_freqs_means.png}
+\caption{Experiment 6 - Sensor Data WiFi, More Frequencies}
+\label{exp6-sensor-wifi-more-freq-means}
+\end{figure}
+
 
 \end{document}
