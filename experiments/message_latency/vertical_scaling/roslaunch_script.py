@@ -6,12 +6,12 @@ def startNodes():
 	launch = roslaunch.scriptapi.ROSLaunch()
 	launch.start()
 
-	sender = Machine("sender", "ros_root", 
-		"ros_package_path", "rosworker1", 
+	sender = Machine("sender", "ros_root",
+		"ros_package_path", "rosworker1",
 		user="pi", password="raspberry")
 
-	echoer = Machine("echoer", "ros_root", 
-		"ros_package_path", "rosworker1", 
+	echoer = Machine("echoer", "ros_root",
+		"ros_package_path", "rosworker1",
 		user="pi", password="raspberry")
 
 	number_of_nodes = int(sys.argv[2])
@@ -23,6 +23,8 @@ def startNodes():
 
 	bag_name = sys.argv[4]
 
+	current_run = int(sys.argv[5])
+
 	running_echoers = Set()
 	running_senders = Set()
 
@@ -30,18 +32,18 @@ def startNodes():
 
 	for n in range(number_of_nodes / 2):
 		# Create an echoer node
-		echoerNode = Node("rosberry_experiments", 
+		echoerNode = Node("rosberry_experiments",
 			"test_latency_echo_sensor.py",
 			name="echoer_"+n, machine_name="echoer",
-			required=True, 
-			args="{} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name))
+			required=True,
+			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
 
 		# Create a sender node
-		senderNode = Node("rosberry_experiments", 
+		senderNode = Node("rosberry_experiments",
 			"test_latency_main_sensor.py",
 			name="sender_"+n, machine_name="sender",
-			required=True, 
-			args="{} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name))
+			required=True,
+			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
 
 		echoerProcess = launch.launch(echoerNode)
 		running_echoers.add(echoerProcess)
