@@ -38,7 +38,8 @@ def main():
     N_NODES = int(sys.argv[2])
     N_NODE = int(sys.argv[3])
     BAG_FILE_NAME = int(sys.argv[4])
-    f = open("times_"+str(RATE)+"_"+str(N_NODES)+"_"+str(N_NODE)+".csv", "w+")
+    RUN_NUMBER = int(sys.argv[5])
+    f = open("times_"+str(RATE)+"_"+str(N_NODES)+"_"+str(N_NODE)+"_"+str(RUN_NUMBER)+".csv", "w+")
     
     try:
         sub = rospy.Subscriber("echoer_publisher_"+N_NODE, StampedLaserScan, listener)

@@ -25,7 +25,6 @@ for((CURRENT_RUN=1;$CURRENT_RUN<=$N_RUNS;++CURRENT_RUN)) do
 			#rosrun rosberry_experiments test_latency_main_sensor.py $CURRENT_FREQ ~/realistic-dataset.bag
 			python roslaunch_script.py $CURRENT_FREQ $CURRENT_N_NODES ~/realistic-dataset.bag
 			sleep 30
-			mv "times_$CURRENT_FREQ_$CURRENT_N_NODES.csv" $RUN_FOLDER
 		done
 	done
 done
