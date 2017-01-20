@@ -8,7 +8,7 @@ def startNodes():
 	print("Starting roslaunch Python script")
 
 	print("Starting roscore")
-	roscore = subprocess.Popen('roscore')
+	roscore = subprocess.Popen('roscore', stdout="roscore_popen.log", stderr="roscore_popen_err.log")
 	time.sleep(2)  # wait a bit to be sure the roscore is really launched
 
 	print("Starting roslaunch")
