@@ -3,8 +3,11 @@ import time
 
 
 def startNodes():
+	print("Starting roslaunch Python script")
 	launch = roslaunch.scriptapi.ROSLaunch()
 	launch.start()
+
+	print("Creating machine objects")
 
 	sender = Machine("sender", "ros_root",
 		"ros_package_path", "rosworker1",
@@ -13,6 +16,8 @@ def startNodes():
 	echoer = Machine("echoer", "ros_root",
 		"ros_package_path", "rosworker1",
 		user="pi", password="raspberry")
+
+	print("Reading arguments")
 
 	number_of_nodes = int(sys.argv[2])
 	if n % 2 != 0:
@@ -59,6 +64,7 @@ def startNodes():
 				running_senders.remove(senderProcess)
 
 		time.sleep(5)
+	print("Exiting roslaunch Python script.")
 
 if __name__ == "__main__":
 	startNodes()
