@@ -26,12 +26,12 @@ def startNodes():
 
 	print("Reading arguments")
 
-	number_of_nodes = int(sys.argv[1])
+	message_frequency = int(sys.argv[1])
+	number_of_nodes = int(sys.argv[2])
 	if number_of_nodes % 2 != 0:
 		print("Number of nodes is not even! Exiting.")
 		return
 
-	message_frequency = int(sys.argv[2])
 	bag_name = sys.argv[3]
 	current_run = int(sys.argv[4])
 
