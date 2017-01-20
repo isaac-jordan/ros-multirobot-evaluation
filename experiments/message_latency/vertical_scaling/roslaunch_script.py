@@ -1,8 +1,5 @@
 import roslaunch
-import time
-
-import subprocess
-
+import time, sys, subprocess
 
 def startNodes():
 	print("Starting roslaunch Python script")
