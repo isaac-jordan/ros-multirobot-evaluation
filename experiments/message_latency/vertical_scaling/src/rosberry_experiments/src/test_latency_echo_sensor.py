@@ -15,10 +15,10 @@ def main():
     RATE = int(sys.argv[1])
     N_NODES = int(sys.argv[2])
     N_NODE = int(sys.argv[3])
-    BAG_FILE_NAME = int(sys.argv[4])
-    rospy.init_node('echoer_'+N_NODE, anonymous=True)
-    pub = rospy.Publisher('echoer_publisher_'+N_NODE, StampedLaserScan, queue_size=N_MESSAGES)
-    sub = rospy.Subscriber("chatter_publisher_"+N_NODE, StampedLaserScan, listener, callback_args=[pub])
+    BAG_FILE_NAME = sys.argv[4]
+    rospy.init_node('echoer_'+str(N_NODE), anonymous=True)
+    pub = rospy.Publisher('echoer_publisher_'+str(N_NODE), StampedLaserScan, queue_size=N_MESSAGES)
+    sub = rospy.Subscriber("chatter_publisher_"+str(N_NODE), StampedLaserScan, listener, callback_args=[pub])
     try:
         rospy.spin()
     except rospy.ROSInterruptException:
