@@ -37,7 +37,7 @@ def main():
     RATE = int(sys.argv[1])
     N_NODES = int(sys.argv[2])
     N_NODE = int(sys.argv[3])
-    BAG_FILE_NAME = int(sys.argv[4])
+    BAG_FILE_NAME = sys.argv[4]
     RUN_NUMBER = int(sys.argv[5])
     f = open("times_"+str(RATE)+"_"+str(N_NODES)+"_"+str(N_NODE)+"_"+str(RUN_NUMBER)+".csv", "w+")
     
