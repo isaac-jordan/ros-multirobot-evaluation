@@ -1,19 +1,26 @@
 import roslaunch
 import time
 
+import subprocess
+
 
 def startNodes():
 	print("Starting roslaunch Python script")
+
+	print("Starting roscore")
+	roscore = subprocess.Popen('roscore')
+	time.sleep(2)  # wait a bit to be sure the roscore is really launched
+
+	print("Starting roslaunch")
 	launch = roslaunch.scriptapi.ROSLaunch()
 	launch.start()
 
 	print("Creating machine objects")
-
-	sender = Machine("sender", "ros_root",
+	sender = roslaunch.core.Machine("sender", "ros_root",
 		"ros_package_path", "rosworker1",
 		user="pi", password="raspberry")
 
-	echoer = Machine("echoer", "ros_root",
+	echoer = roslaunch.core.Machine("echoer", "ros_root",
 		"ros_package_path", "rosworker1",
 		user="pi", password="raspberry")
 
@@ -25,9 +32,7 @@ def startNodes():
 		return
 
 	message_frequency = int(sys.argv[3])
-
 	bag_name = sys.argv[4]
-
 	current_run = int(sys.argv[5])
 
 	running_echoers = Set()
@@ -37,14 +42,14 @@ def startNodes():
 
 	for n in range(number_of_nodes / 2):
 		# Create an echoer node
-		echoerNode = Node("rosberry_experiments",
+		echoerNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_echo_sensor.py",
 			name="echoer_"+n, machine_name="echoer",
 			required=True,
 			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
 
 		# Create a sender node
-		senderNode = Node("rosberry_experiments",
+		senderNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_main_sensor.py",
 			name="sender_"+n, machine_name="sender",
 			required=True,
@@ -64,6 +69,10 @@ def startNodes():
 				running_senders.remove(senderProcess)
 
 		time.sleep(5)
+
+	print("Stopping roscore")
+	roscore.terminate()
+
 	print("Exiting roslaunch Python script.")
 
 if __name__ == "__main__":
