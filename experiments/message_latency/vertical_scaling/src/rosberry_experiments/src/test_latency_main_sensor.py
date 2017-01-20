@@ -19,8 +19,8 @@ def listener(msg):
     f.write(str(msg.id) + "," + str(sent_time) + "," + str(recv_time) + "\n")
 
 def talker():
-    pub = rospy.Publisher('chatter_publisher_' + N_NODE, StampedLaserScan, queue_size=N_MESSAGES)
-    rospy.init_node('chatter_'+N_NODE, anonymous=True)
+    pub = rospy.Publisher('chatter_publisher_' + str(N_NODE), StampedLaserScan, queue_size=N_MESSAGES)
+    rospy.init_node('chatter_'+str(N_NODE), anonymous=True)
     rate = rospy.Rate(RATE)
     bag = rosbag.Bag(BAG_FILE_NAME)
     # Topics in realistic-dataset.bag are '/base_scan' and '/camera/rgb/image_raw'
@@ -42,7 +42,7 @@ def main():
     f = open("times_"+str(RATE)+"_"+str(N_NODES)+"_"+str(N_NODE)+"_"+str(RUN_NUMBER)+".csv", "w+")
     
     try:
-        sub = rospy.Subscriber("echoer_publisher_"+N_NODE, StampedLaserScan, listener)
+        sub = rospy.Subscriber("echoer_publisher_"+str(N_NODE), StampedLaserScan, listener)
         talker()
         rospy.sleep(5)
         f.close()
