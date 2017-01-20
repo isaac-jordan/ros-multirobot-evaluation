@@ -16,12 +16,12 @@ def startNodes():
 	launch.start()
 
 	print("Creating machine objects")
-	sender = roslaunch.core.Machine("sender", "ros_root",
-		"ros_package_path", "rosworker1",
+	sender = roslaunch.core.Machine("sender", "/opt/ros/kinetic/",
+		"/opt/ros/kinetic", "rosworker1",
 		user="pi", password="raspberry")
 
-	echoer = roslaunch.core.Machine("echoer", "ros_root",
-		"ros_package_path", "rosworker1",
+	echoer = roslaunch.core.Machine("echoer", "/opt/ros/kinetic",
+		"/opt/ros/kinetic", "rosworker2",
 		user="pi", password="raspberry")
 
 	print("Reading arguments")
