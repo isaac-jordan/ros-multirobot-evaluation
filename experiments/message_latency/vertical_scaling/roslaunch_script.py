@@ -1,5 +1,6 @@
 import roslaunch
 import time, sys, subprocess
+from sets import Set
 
 def startNodes():
 	print("Starting roslaunch Python script")
@@ -43,14 +44,14 @@ def startNodes():
 		# Create an echoer node
 		echoerNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_echo_sensor.py",
-			name="echoer_"+n, machine_name="echoer",
+			name="echoer_"+str(n), machine_name="echoer",
 			required=True,
 			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
 
 		# Create a sender node
 		senderNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_main_sensor.py",
-			name="sender_"+n, machine_name="sender",
+			name="sender_"+str(n), machine_name="sender",
 			required=True,
 			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
 
