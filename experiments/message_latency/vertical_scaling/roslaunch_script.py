@@ -26,7 +26,7 @@ def startNodes():
 	print("Reading arguments")
 
 	number_of_nodes = int(sys.argv[2])
-	if n % 2 != 0:
+	if number_of_nodes % 2 != 0:
 		print("Number of nodes is not even! Exiting.")
 		return
 
