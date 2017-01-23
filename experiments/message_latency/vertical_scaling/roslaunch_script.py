@@ -98,7 +98,7 @@ def startNodes():
 			if not proc.is_alive():
 				all_procs.remove(proc)"""
 
-		print("Waiting on {} senders to finish".format(len(NODES_STILL_RUNNING))
+		print("Waiting on {} senders to finish".format(len(NODES_STILL_RUNNING)))
 		time.sleep(5)
 
 	print("All done. Stopping roslaunch.")
