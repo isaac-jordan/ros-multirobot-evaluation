@@ -10,6 +10,7 @@ NODES_STILL_RUNNING = Set()
 def listener(msg):
     str_n = msg.data
     NODES_STILL_RUNNING.remove(int(n))
+	print("Node " + n + " has finished.")
 
 def startNodes():
 	print("Starting roslaunch Python script")
@@ -60,14 +61,14 @@ def startNodes():
 		echoerNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_echo_sensor.py",
 			name="echoer_"+str(n), machine_name="echoer",
-			required=True,
+			required=False,
 			args="{} {} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run, output_dir))
 
 		# Create a sender node
 		senderNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_main_sensor.py",
 			name="sender_"+str(n), machine_name="sender",
-			required=True,
+			required=False,
 			args="{} {} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run, output_dir))
 
 		#echoerProcess = launch.launch(echoerNode)
