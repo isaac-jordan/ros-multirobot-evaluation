@@ -67,7 +67,7 @@ def main():
     except rospy.ROSInterruptException:
         print "Exception: ROSInterruptException"
 
-    finished_pub.publish(data=N_NODE)
+    finished_pub.publish(data=str(N_NODE))
 
     f.close()
 
