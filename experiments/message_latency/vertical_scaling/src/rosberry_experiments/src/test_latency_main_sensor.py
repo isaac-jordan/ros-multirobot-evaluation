@@ -2,6 +2,7 @@
 
 import rospy
 import rosbag
+import std_msgs.msg
 from rosberry_experiments.msg import StampedLaserScan
 import time
 import sys
@@ -57,12 +58,17 @@ def main():
     print("Output file located at: " + outFileName)
     print("Current Working Directory: " + os.getcwd())
 
+    finished_pub = rospy.Publisher('chatter_finished_publisher_' + str(N_NODE), std_msgs.msg.String)
+
     try:
         sub = rospy.Subscriber("echoer_publisher_"+str(N_NODE), StampedLaserScan, listener)
         talker()
         rospy.sleep(5)
     except rospy.ROSInterruptException:
         print "Exception: ROSInterruptException"
+
+    finished_pub.publish(data=N_NODE)
+
     f.close()
 
 

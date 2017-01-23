@@ -2,6 +2,14 @@ import roslaunch
 import roslaunch.remote
 import time, sys, subprocess
 from sets import Set
+import rospy
+import std_msgs.msg
+
+NODES_STILL_RUNNING = Set()
+
+def listener(msg):
+    str_n = msg.data
+    NODES_STILL_RUNNING.remove(int(n))
 
 def startNodes():
 	print("Starting roslaunch Python script")
@@ -45,6 +53,7 @@ def startNodes():
 	running_senders = Set()
 
 	print("Creating {} nodes...".format(number_of_nodes))
+	rospy.init_node('big_daddy', anonymous=True)
 
 	for n in range(number_of_nodes / 2):
 		# Create an echoer node
@@ -68,6 +77,8 @@ def startNodes():
 		#senderProcess = launch.launch(senderNode)
 		#running_senders.add(senderProcess)
 		config.add_node(senderNode)
+		NODES_STILL_RUNNING.add(n)
+		rospy.Subscriber("chatter_finished_publisher_"+str(n), std_msgs.msg.String, listener)
 
 	launch = roslaunch.scriptapi.ROSLaunch()
 	launch.start()
@@ -80,14 +91,14 @@ def startNodes():
 
 	print("All remote processes: " + str([x.get_info() for x in launch.parent.remote_runner.remote_processes]))
 
-	all_procs = [x for x in launch.parent.remote_runner.remote_processes]
-	while len(all_procs) / 2 > 0:
-		all_procs_copy = [x for x in all_procs]
+	#all_procs = [x for x in launch.parent.remote_runner.remote_processes]
+	while len(NODES_STILL_RUNNING) > 0:
+		"""all_procs_copy = [x for x in all_procs]
 		for proc in all_procs_copy:
 			if not proc.is_alive():
-				all_procs.remove(proc)
+				all_procs.remove(proc)"""
 
-		print("Waiting on {} senders to finish".format(len(all_procs) / 2))
+		print("Waiting on {} senders to finish".format(len(NODES_STILL_RUNNING))
 		time.sleep(5)
 
 	print("All done. Stopping roslaunch.")
