@@ -5,6 +5,7 @@ import rosbag
 from rosberry_experiments.msg import StampedLaserScan
 import time
 import sys
+import os
 
 N_MESSAGES = 1000
 N_NODES = None
@@ -39,16 +40,19 @@ def main():
     N_NODE = int(sys.argv[3])
     BAG_FILE_NAME = sys.argv[4]
     RUN_NUMBER = int(sys.argv[5])
-    f = open("times_"+str(RATE)+"_"+str(N_NODES)+"_"+str(N_NODE)+"_"+str(RUN_NUMBER)+".csv", "w+")
-    
+    outFileName = "times_"+str(RATE)+"_"+str(N_NODES)+"_"+str(N_NODE)+"_"+str(RUN_NUMBER)+".csv"
+    f = open(outFileName, "w+")
+
+    print("Output file located at: " + os.path.dirname(os.path.realpath(__file__)))
+    print("Current Working Directory: " + os.getcwd())
+
     try:
         sub = rospy.Subscriber("echoer_publisher_"+str(N_NODE), StampedLaserScan, listener)
         talker()
         rospy.sleep(5)
-        f.close()
-
     except rospy.ROSInterruptException:
         print "Exception: ROSInterruptException"
+    f.close()
 
 
 if __name__ == '__main__':
