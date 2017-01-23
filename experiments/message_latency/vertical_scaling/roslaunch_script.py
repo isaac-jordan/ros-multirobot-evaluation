@@ -22,8 +22,9 @@ def startNodes():
 	launch.parent._init_remote()
 	print("Remote runner: " + str(launch.parent.remote_runner))
 
+	import roslaunch.remote
 	launch.parent.remote_runner = roslaunch.remote.ROSRemoteRunner(launch.parent.run_id, launch.parent.config, launch.parent.pm, launch.parent.server)
-	print("Remote runner WHYY: " + str(launch.parent.remote_runner)) 
+	print("Remote runner WHYY: " + str(launch.parent.remote_runner))
 
 	print("Creating machine objects")
 	sender = roslaunch.core.Machine("sender", "192.168.2.105",
