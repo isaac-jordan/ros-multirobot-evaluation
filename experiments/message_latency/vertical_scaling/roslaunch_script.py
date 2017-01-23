@@ -79,7 +79,7 @@ def startNodes():
 
 	running_senders = [x for x in launch.parent.remote_runner.remote_processes if "sender" in x.get_info()["name"]]
 	print("Running senders: " + str(running_senders))
-	print("All remote processes: " + str([x.get_info() for x in launch.parent.remote_runner.remote_processes))
+	print("All remote processes: " + str([x.get_info() for x in launch.parent.remote_runner.remote_processes]))
 
 	while len(running_senders) > 0:
 		print("Waiting on {} senders to finish".format(len(running_senders)))
