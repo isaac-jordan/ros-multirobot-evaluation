@@ -9,7 +9,7 @@ NODES_STILL_RUNNING = Set()
 
 def listener(msg):
     str_n = msg.data
-    NODES_STILL_RUNNING.remove(int(n))
+    NODES_STILL_RUNNING.remove(int(str_n))
     print("Node " + str_n + " has finished.")
 
 def startNodes():
