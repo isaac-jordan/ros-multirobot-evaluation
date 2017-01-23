@@ -73,6 +73,7 @@ def startNodes():
 
 	#launch.parent.remote_runner = roslaunch.remote.ROSRemoteRunner(launch.parent.run_id, launch.parent.config, launch.parent.pm, launch.parent.server)
 	#launch.parent.start()
+	config.assign_machines()
 	launch.parent.config = config
 	launch.parent.start()
 
