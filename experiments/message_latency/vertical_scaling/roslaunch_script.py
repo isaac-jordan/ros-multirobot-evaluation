@@ -17,6 +17,7 @@ def startNodes():
 	launch = roslaunch.scriptapi.ROSLaunch()
 	launch.start()
 	launch.parent._init_remote()
+	print("Remote runner: " + str(launch.parent.remote_runner))
 
 	print("Creating machine objects")
 	sender = roslaunch.core.Machine("sender", "192.168.2.105",
