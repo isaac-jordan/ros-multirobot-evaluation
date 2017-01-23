@@ -92,12 +92,12 @@ def startNodes():
 
 	print("All remote processes: " + str([x.get_info() for x in launch.parent.remote_runner.remote_processes]))
 
-	#all_procs = [x for x in launch.parent.remote_runner.remote_processes]
-	while len(NODES_STILL_RUNNING) > 0:
-		"""all_procs_copy = [x for x in all_procs]
+	all_procs = [x for x in launch.parent.remote_runner.remote_processes]
+	while len(NODES_STILL_RUNNING) > 0 and len(all_procs) / 2 > 0:
+		all_procs_copy = [x for x in all_procs]
 		for proc in all_procs_copy:
 			if not proc.is_alive():
-				all_procs.remove(proc)"""
+				all_procs.remove(proc)
 
 		print("Waiting on {} senders to finish".format(len(NODES_STILL_RUNNING)))
 		time.sleep(5)
