@@ -77,16 +77,16 @@ def startNodes():
 	launch.parent.config = config
 	launch.parent.start()
 
-	running_senders = [x for x in launch.parent.remote_runner.remote_processes if "sender" in x.get_info()["name"]]
-	print("Running senders: " + str(running_senders))
 	print("All remote processes: " + str([x.get_info() for x in launch.parent.remote_runner.remote_processes]))
 
-	while len(launch.parent.remote_runner.remote_processes) / 2 > 0:
-		print("Waiting on {} senders to finish".format(len(running_senders) / 2))
-		"""running_senders_copy = [x for x in running_senders]
-		for senderProcess in running_senders_copy:
-			if not senderProcess.is_alive():
-				running_senders.remove(senderProcess)"""
+	all_procs = [x for x in launch.parent.remote_runner.remote_processes]
+	while len(all_procs) / 2 > 0:
+		print("Waiting on {} senders to finish".format(
+										len(all_procs) / 2))
+		all_procs_copy = [x for x in all_procs]
+		for proc in all_procs_copy:
+			if not proc.is_alive():
+				all_procs.remove(proc)
 
 		time.sleep(5)
 
