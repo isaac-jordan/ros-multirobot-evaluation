@@ -49,6 +49,7 @@ def startNodes():
 			name="echoer_"+str(n), machine_name="echoer",
 			required=True,
 			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
+		echoerNode.machine = echoer
 
 		# Create a sender node
 		senderNode = roslaunch.core.Node("rosberry_experiments",
@@ -56,6 +57,7 @@ def startNodes():
 			name="sender_"+str(n), machine_name="sender",
 			required=True,
 			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
+		senderNode.machine = sender
 
 		echoerProcess = launch.launch(echoerNode)
 		running_echoers.add(echoerProcess)
