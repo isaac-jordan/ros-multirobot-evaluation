@@ -12,16 +12,18 @@ def startNodes():
 	time.sleep(2)  # wait a bit to be sure the roscore is really launched
 
 	print("Starting roslaunch")
+	uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
+  	roslaunch.configure_logging(uuid)
 	launch = roslaunch.scriptapi.ROSLaunch()
 	launch.start()
 
 	print("Creating machine objects")
 	sender = roslaunch.core.Machine("sender", "/opt/ros/kinetic/",
-		"/opt/ros/kinetic", "rosworker1",
+		"/opt/ros/kinetic", "http://rosworker1",
 		user="pi", password="raspberry")
 
 	echoer = roslaunch.core.Machine("echoer", "/opt/ros/kinetic",
-		"/opt/ros/kinetic", "rosworker2",
+		"/opt/ros/kinetic", "http://rosworker2",
 		user="pi", password="raspberry")
 
 	print("Reading arguments")
@@ -45,6 +47,7 @@ def startNodes():
 		echoerNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_echo_sensor.py",
 			name="echoer_"+str(n), machine_name="echoer",
+			env_loader="/home/pi/isaac-project-l4/experiments/message_latency/vertical_scaling/devel/setup.sh",
 			required=True,
 			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
 
@@ -52,6 +55,7 @@ def startNodes():
 		senderNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_main_sensor.py",
 			name="sender_"+str(n), machine_name="sender",
+			env_loader="/home/pi/isaac-project-l4/experiments/message_latency/vertical_scaling/devel/setup.sh",
 			required=True,
 			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
 
@@ -70,6 +74,7 @@ def startNodes():
 
 		time.sleep(5)
 
+	launch.stop()
 	print("Stopping roscore")
 	roscore.terminate()
 
