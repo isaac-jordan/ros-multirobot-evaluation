@@ -15,20 +15,19 @@ def startNodes():
 	print("Starting roslaunch")
 	uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
   	roslaunch.configure_logging(uuid)
-	launch = roslaunch.scriptapi.ROSLaunch()
-	launch.start()
 
-	launch.parent.remote_runner = roslaunch.remote.ROSRemoteRunner(launch.parent.run_id, launch.parent.config, launch.parent.pm, launch.parent.server)
-	launch.parent.start()
+	config = roslaunch.config.ROSLaunchConfig()
 
 	print("Creating machine objects")
 	sender = roslaunch.core.Machine("sender", "192.168.2.105",
 		env_loader="/home/pi/isaac-project-l4/experiments/message_latency/vertical_scaling/devel/setup.sh",
 		user="pi", password="raspberry")
+	config.add_machine(sender)
 
 	echoer = roslaunch.core.Machine("echoer", "192.168.2.183",
 		env_loader="/home/pi/isaac-project-l4/experiments/message_latency/vertical_scaling/devel/setup.sh",
 		user="pi", password="raspberry")
+	config.add_machine(echoer)
 
 	print("Reading arguments")
 
@@ -44,7 +43,7 @@ def startNodes():
 	running_echoers = Set()
 	running_senders = Set()
 
-	print("Starting {} nodes...".format(number_of_nodes))
+	print("Creating {} nodes...".format(number_of_nodes))
 
 	for n in range(number_of_nodes / 2):
 		# Create an echoer node
@@ -53,21 +52,31 @@ def startNodes():
 			name="echoer_"+str(n), machine_name="echoer",
 			required=True,
 			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
-		echoerNode.machine = echoer
 
 		# Create a sender node
 		senderNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_main_sensor.py",
 			name="sender_"+str(n), machine_name="sender",
-			required=True,
+			required=False,
 			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
-		senderNode.machine = sender
 
-		echoerProcess = launch.launch(echoerNode)
-		running_echoers.add(echoerProcess)
+		#echoerProcess = launch.launch(echoerNode)
+		#running_echoers.add(echoerProcess)
+		config.add_node(echoerNode)
 
-		senderProcess = launch.launch(senderNode)
-		running_senders.add(senderProcess)
+		#senderProcess = launch.launch(senderNode)
+		#running_senders.add(senderProcess)
+		config.add_node(senderNode)
+
+	launch = roslaunch.scriptapi.ROSLaunch()
+	launch.start()
+
+	#launch.parent.remote_runner = roslaunch.remote.ROSRemoteRunner(launch.parent.run_id, launch.parent.config, launch.parent.pm, launch.parent.server)
+	#launch.parent.start()
+	launch.parent.config = config
+	launch.parent.start()
+
+	running_senders = [x for x in launch.parent.remote_runner.remote_processes if "sender" in x.get_info()["name"]]
 
 	while len(running_senders) > 0:
 		print("Waiting on {} senders to finish".format(len(running_senders)))
@@ -78,6 +87,7 @@ def startNodes():
 
 		time.sleep(5)
 
+	print("All done. Stopping roslaunch.")
 	launch.stop()
 	print("Stopping roscore")
 	roscore.terminate()
