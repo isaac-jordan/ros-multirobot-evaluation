@@ -20,10 +20,12 @@ def startNodes():
 	print("Creating machine objects")
 	sender = roslaunch.core.Machine("sender", "/opt/ros/kinetic/",
 		"/opt/ros/kinetic", "http://rosworker1",
+		env_loader="/home/pi/isaac-project-l4/experiments/message_latency/vertical_scaling/devel/setup.sh",
 		user="pi", password="raspberry")
 
 	echoer = roslaunch.core.Machine("echoer", "/opt/ros/kinetic",
 		"/opt/ros/kinetic", "http://rosworker2",
+		env_loader="/home/pi/isaac-project-l4/experiments/message_latency/vertical_scaling/devel/setup.sh",
 		user="pi", password="raspberry")
 
 	print("Reading arguments")
@@ -47,7 +49,6 @@ def startNodes():
 		echoerNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_echo_sensor.py",
 			name="echoer_"+str(n), machine_name="echoer",
-			env_loader="/home/pi/isaac-project-l4/experiments/message_latency/vertical_scaling/devel/setup.sh",
 			required=True,
 			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
 
@@ -55,7 +56,6 @@ def startNodes():
 		senderNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_main_sensor.py",
 			name="sender_"+str(n), machine_name="sender",
-			env_loader="/home/pi/isaac-project-l4/experiments/message_latency/vertical_scaling/devel/setup.sh",
 			required=True,
 			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
 
