@@ -18,13 +18,11 @@ def startNodes():
 	launch.start()
 
 	print("Creating machine objects")
-	sender = roslaunch.core.Machine("sender", "/opt/ros/kinetic/",
-		"/opt/ros/kinetic", "http://rosworker1",
+	sender = roslaunch.core.Machine("sender", "http://rosworker1",
 		env_loader="/home/pi/isaac-project-l4/experiments/message_latency/vertical_scaling/devel/setup.sh",
 		user="pi", password="raspberry")
 
-	echoer = roslaunch.core.Machine("echoer", "/opt/ros/kinetic",
-		"/opt/ros/kinetic", "http://rosworker2",
+	echoer = roslaunch.core.Machine("echoer", "http://rosworker2",
 		env_loader="/home/pi/isaac-project-l4/experiments/message_latency/vertical_scaling/devel/setup.sh",
 		user="pi", password="raspberry")
 
