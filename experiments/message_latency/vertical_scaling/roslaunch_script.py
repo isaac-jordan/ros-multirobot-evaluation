@@ -10,7 +10,7 @@ NODES_STILL_RUNNING = Set()
 def listener(msg):
     str_n = msg.data
     NODES_STILL_RUNNING.remove(int(n))
-	print("Node " + str_n + " has finished.")
+    print("Node " + str_n + " has finished.")
 
 def startNodes():
 	print("Starting roslaunch Python script")
