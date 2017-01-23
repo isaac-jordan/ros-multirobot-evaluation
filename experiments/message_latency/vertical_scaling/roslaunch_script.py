@@ -57,7 +57,7 @@ def startNodes():
 		senderNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_main_sensor.py",
 			name="sender_"+str(n), machine_name="sender",
-			required=False,
+			required=True,
 			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
 
 		#echoerProcess = launch.launch(echoerNode)
@@ -81,12 +81,12 @@ def startNodes():
 	print("Running senders: " + str(running_senders))
 	print("All remote processes: " + str([x.get_info() for x in launch.parent.remote_runner.remote_processes]))
 
-	while len(running_senders) > 0:
-		print("Waiting on {} senders to finish".format(len(running_senders)))
-		running_senders_copy = [x for x in running_senders]
+	while len(launch.parent.remote_runner.remote_processes) / 2 > 0:
+		print("Waiting on {} senders to finish".format(len(running_senders) / 2))
+		"""running_senders_copy = [x for x in running_senders]
 		for senderProcess in running_senders_copy:
 			if not senderProcess.is_alive():
-				running_senders.remove(senderProcess)
+				running_senders.remove(senderProcess)"""
 
 		time.sleep(5)
 
