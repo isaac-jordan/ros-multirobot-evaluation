@@ -6,6 +6,7 @@ from rosberry_experiments.msg import StampedLaserScan
 import time
 import sys
 import os
+import errno
 
 N_MESSAGES = 1000
 N_NODES = None
@@ -33,6 +34,13 @@ def talker():
         i += 1
         rate.sleep()
 
+def make_sure_path_exists(path):
+    try:
+        os.makedirs(path)
+    except OSError as exception:
+        if exception.errno != errno.EEXIST:
+            raise
+
 def main():
     global RATE, N_NODES, N_NODE, BAG_FILE_NAME, f
     RATE = int(sys.argv[1])
@@ -41,7 +49,9 @@ def main():
     BAG_FILE_NAME = sys.argv[4]
     RUN_NUMBER = int(sys.argv[5])
     OUTPUT_DIR = sys.argv[6]
-    outFileName = OUTPUT_DIR + "/times_"+str(RATE)+"_"+str(N_NODES)+"_"+str(N_NODE)+"_"+str(RUN_NUMBER)+".csv"
+
+    make_sure_path_exists(OUTPUT_DIR)
+    outFileName = os.path.join(OUTPUT_DIR, "times_"+str(RATE)+"Hz_"+str(N_NODES)+"nodes_"+str(N_NODE)+"node.csv")
     f = open(outFileName, "w+")
 
     print("Output file located at: " + outFileName)
