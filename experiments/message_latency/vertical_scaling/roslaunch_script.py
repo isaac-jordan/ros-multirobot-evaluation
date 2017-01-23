@@ -19,12 +19,12 @@ def startNodes():
 	config = roslaunch.config.ROSLaunchConfig()
 
 	print("Creating machine objects")
-	sender = roslaunch.core.Machine("sender", "192.168.2.105",
+	sender = roslaunch.core.Machine("sender", "rosworker1",
 		env_loader="/home/pi/isaac-project-l4/experiments/message_latency/vertical_scaling/devel/setup.sh",
 		user="pi", password="raspberry")
 	config.add_machine(sender)
 
-	echoer = roslaunch.core.Machine("echoer", "192.168.2.183",
+	echoer = roslaunch.core.Machine("echoer", "rosworker2",
 		env_loader="/home/pi/isaac-project-l4/experiments/message_latency/vertical_scaling/devel/setup.sh",
 		user="pi", password="raspberry")
 	config.add_machine(echoer)
