@@ -19,7 +19,7 @@ def startNodes():
 	print("Launch parent: " + str(launch.parent))
 	print("Remote runner: " + str(launch.parent.remote_runner))
 
-	launch.parent._start_remote()
+	launch.parent._init_remote()
 	print("Remote runner: " + str(launch.parent.remote_runner))
 
 	print("Creating machine objects")
