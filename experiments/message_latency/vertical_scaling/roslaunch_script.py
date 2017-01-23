@@ -82,13 +82,12 @@ def startNodes():
 
 	all_procs = [x for x in launch.parent.remote_runner.remote_processes]
 	while len(all_procs) / 2 > 0:
-		print("Waiting on {} senders to finish".format(
-										len(all_procs) / 2))
 		all_procs_copy = [x for x in all_procs]
 		for proc in all_procs_copy:
 			if not proc.is_alive():
 				all_procs.remove(proc)
 
+		print("Waiting on {} senders to finish".format(len(all_procs) / 2))
 		time.sleep(5)
 
 	print("All done. Stopping roslaunch.")
