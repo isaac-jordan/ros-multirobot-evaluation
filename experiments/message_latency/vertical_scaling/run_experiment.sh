@@ -24,7 +24,8 @@ for((CURRENT_RUN=1;$CURRENT_RUN<=$N_RUNS;++CURRENT_RUN)) do
 		for((CURRENT_N_NODES=$LOWEST_N_NODES;$CURRENT_N_NODES<=$HIGHEST_N_NODES;CURRENT_N_NODES=$((CURRENT_N_NODES*N_NODES_MULTIPLIER)))) do
 			echo "Running $CURRENT_N_NODES at message frequency: $CURRENT_FREQ Hz"
 			#rosrun rosberry_experiments test_latency_main_sensor.py $CURRENT_FREQ ~/realistic-dataset.bag
-			python roslaunch_script.py $CURRENT_FREQ $CURRENT_N_NODES /home/pi/realistic-dataset.bag $CURRENT_RUN
+			CURRENT_DIR=$(dirname $(readlink -f $0))
+			python roslaunch_script.py $CURRENT_FREQ $CURRENT_N_NODES /home/pi/realistic-dataset.bag $CURRENT_RUN "$CURRENT_DIR/results"
 			echo "Waiting 30 seconds"
 			sleep 30
 		done

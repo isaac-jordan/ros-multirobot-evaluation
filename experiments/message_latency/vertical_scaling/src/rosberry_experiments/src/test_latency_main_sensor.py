@@ -40,10 +40,11 @@ def main():
     N_NODE = int(sys.argv[3])
     BAG_FILE_NAME = sys.argv[4]
     RUN_NUMBER = int(sys.argv[5])
-    outFileName = "times_"+str(RATE)+"_"+str(N_NODES)+"_"+str(N_NODE)+"_"+str(RUN_NUMBER)+".csv"
+    OUTPUT_DIR = sys.argv[6]
+    outFileName = OUTPUT_DIR + "/times_"+str(RATE)+"_"+str(N_NODES)+"_"+str(N_NODE)+"_"+str(RUN_NUMBER)+".csv"
     f = open(outFileName, "w+")
 
-    print("Output file located at: " + os.path.dirname(os.path.realpath(__file__)))
+    print("Output file located at: " + outFileName)
     print("Current Working Directory: " + os.getcwd())
 
     try:

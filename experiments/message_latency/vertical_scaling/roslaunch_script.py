@@ -39,6 +39,7 @@ def startNodes():
 
 	bag_name = sys.argv[3]
 	current_run = int(sys.argv[4])
+	output_dir = sys.argv[5]
 
 	running_echoers = Set()
 	running_senders = Set()
@@ -51,14 +52,14 @@ def startNodes():
 			"test_latency_echo_sensor.py",
 			name="echoer_"+str(n), machine_name="echoer",
 			required=True,
-			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
+			args="{} {} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run, output_dir))
 
 		# Create a sender node
 		senderNode = roslaunch.core.Node("rosberry_experiments",
 			"test_latency_main_sensor.py",
 			name="sender_"+str(n), machine_name="sender",
 			required=True,
-			args="{} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run))
+			args="{} {} {} {} {} {}".format(message_frequency, number_of_nodes, n, bag_name, current_run, output_dir))
 
 		#echoerProcess = launch.launch(echoerNode)
 		#running_echoers.add(echoerProcess)
