@@ -4,12 +4,16 @@ import time, sys, subprocess
 from sets import Set
 import rospy
 import std_msgs.msg
+import datetime
 
 NODES_STILL_RUNNING = Set()
+
+LAST_TIME_NODES_STILL_RUNNING_CHANGED = datetime.datetime.now()
 
 def listener(msg):
     str_n = msg.data
     NODES_STILL_RUNNING.remove(int(str_n))
+	LAST_TIME_NODES_STILL_RUNNING_CHANGED = datetime.datetime.now()
     print("Node " + str_n + " has finished.")
 
 def startNodes():
@@ -99,8 +103,13 @@ def startNodes():
 			if not proc.is_alive():
 				all_procs.remove(proc)
 
-		print("Waiting on {} senders to finish".format(len(NODES_STILL_RUNNING)))
+		print("Waiting on {} senders to finish, {} processes still alive.".format(len(NODES_STILL_RUNNING), len(all_procs)))
 		time.sleep(5)
+
+		d = LAST_TIME_NODES_STILL_RUNNING_CHANGED - datetime.datetime.now()
+		if d.total_seconds() > 60 * 60:
+			print("ERROR: Count of nodes still running hasn't changed in an hour. Killing.")
+			break
 
 	print("All done. Stopping roslaunch.")
 	launch.stop()
