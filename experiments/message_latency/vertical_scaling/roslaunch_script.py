@@ -13,7 +13,7 @@ LAST_TIME_NODES_STILL_RUNNING_CHANGED = datetime.datetime.now()
 def listener(msg):
     str_n = msg.data
     NODES_STILL_RUNNING.remove(int(str_n))
-	LAST_TIME_NODES_STILL_RUNNING_CHANGED = datetime.datetime.now()
+    LAST_TIME_NODES_STILL_RUNNING_CHANGED = datetime.datetime.now()
     print("Node " + str_n + " has finished.")
 
 def startNodes():
