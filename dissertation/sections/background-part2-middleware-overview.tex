@@ -49,13 +49,13 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 			\begin{itemize}
 				\item Designed to facilitate research in the mobile robotic domain
 				\item Constitute a resilient, distributed and coordinated suite of software suitable for in-the-field deployment of sub-sea and land research robots
-				\item Process communcation should be utterly robust and tolerant of repeated stop/start cycling of any process
+				\item Process communcation should be utterly robust and tolerant of the repeated stop/start of any process
 			\end{itemize} %
 		\end{minipage} &
 		\begin{minipage}[t]{0.1\columnwidth}%
-			Not widely used (judging by GitHub stars at least) \newline
+			Not widely used (judging by GitHub popularity) \newline
 
-			Development is stagnating (no GitHub commits since 26th May 2016), core not updated since 11th May 2016 %
+			Development is possibly stagnating (no GitHub commits since 26th May 2016), core not updated since 11th May 2016 %
 		\end{minipage} &
 		\begin{minipage}[t]{0.25\columnwidth}%
 			\begin{itemize}
@@ -90,9 +90,8 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 		\end{minipage} &
 		\begin{minipage}[t]{0.25\columnwidth}%
 			\begin{itemize}
-				\item Has provided a good starting point of robotics in Erlang\cite{lutac2016towards}.
-        \item No full evaluation of suitability for production uses exists, however
-        is mainly an Erlang wrapper around Player, thus likely has a solid foundation.
+				\item Has provided a good starting point for robotics in Erlang\cite{lutac2016towards}.
+        \item No full evaluation of suitability for production uses exists, however it is primarily an Erlang wrapper around Player (which is known to be suitable for production), thus may has a solid foundation to build upon.
 			\end{itemize} %
 		\end{minipage} &
 		\begin{minipage}[t]{0.2\columnwidth}%
@@ -106,7 +105,7 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 		\begin{minipage}[t]{0.25\columnwidth}%
 			\begin{itemize}
 				\item Supports collection of programs communicating P2P
-				\item Extensible family of connection types (tcp, udp, multicast, local, MPI, XML, RPC, …)
+				\item Extensible family of connection types (tcp, udp, multicast, local, MPI, XMLRPC, …)
 				\item Flexible interfacing with hardware devices
 				\item Goal to increase the longevity of robot software projects
 			\end{itemize} %
@@ -181,6 +180,7 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 			\begin{itemize}
 				\item Open source framework for developing component-based robotic systems
 				\item Goal to enable software reuse by defining commonly used interfaces
+				\item Aims to be as flexible as possible by not applying architectural constraints
 			\end{itemize} %
 		\end{minipage} &
 		\begin{minipage}[t]{0.1\columnwidth}%
@@ -189,8 +189,7 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 		\begin{minipage}[t]{0.25\columnwidth}%
 			\begin{itemize}
 				\item Provides some interfaces and implementations of commonly used components
-				\item No particular distributed network things
-				\item Seems to use client/server architecture
+				\item Primarily client/server architecture, but allows for creation of distributed systems due to flexibility (not provided out of the box though)
 			\end{itemize} %
 		\end{minipage} &
 		\begin{minipage}[t]{0.2\columnwidth}%
@@ -215,7 +214,7 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 		\end{minipage} &
 		\begin{minipage}[t]{0.25\columnwidth}%
 			\begin{itemize}
-				\item REST-style, services oriented runtime
+				\item RESTful (Representational state transfer) communication, services oriented runtime
 				\item Supports centralised, and decentralised communcation
 			\end{itemize} %
 		\end{minipage} &
@@ -279,7 +278,7 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 			\begin{itemize}
 				\item Target new use cases, such as multi-robot systems (providing a standard approach), embedded systems, real-time systems, non-ideal networks, and production environments \cite{why_ros2}
 				\item Recreate ROS using existing new tech (such as Redis, WebSockets, DDS)
-				\item Overhaul of API (create consistent API without > 7 years of backward compatibility)
+				\item Overhaul of API (create consistent API without the 7+ years of backward compatibility that ROS1 has)
 			\end{itemize} %
 		\end{minipage} &
 		\begin{minipage}[t]{0.1\columnwidth}%
@@ -314,7 +313,7 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 		\end{minipage} &
 		\begin{minipage}[t]{0.25\columnwidth}%
 			\begin{itemize}
-				\item Created with an eye on the competition (not a copy of another framework)
+				\item Created with an eye on the competition (compares it's feature set with ORCA, OROCOS, and Player/Stage.
 				\item Has been used in multiple environments (single rescue robotic system, assistive robots) \cite{4651213}
 				\item Has useful tools such as a graphical tool for remote inspection and management of modules, and also modules for logging and replaying \cite{4651213}
 				\item No real-time support \cite{OpenRDKIntro}
@@ -342,7 +341,7 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 			\begin{itemize}
 				\item Provides same capabilities as CORBA (type-safe and network-transparent interfaces) \cite{1044362}
 				\item Demonstrated capabilities in multirobot environment
-				\item Does not have true OS independence (all robots used Linux), but shown that this can be ported to Solaris in 1 day
+				\item Does not have true OS independence (all robots used Linux), but shown that this can be ported to Solaris in 1 day \cite{1044362}
 			\end{itemize} %
 		\end{minipage} &
 		\begin{minipage}[t]{0.2\columnwidth}%
@@ -383,6 +382,7 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 		\end{minipage} &
 		\begin{minipage}[t]{0.25\columnwidth}%
 			\begin{itemize}
+				\item Much more general than a `robotic middleware', but often compared as it's communications interface is similar to many middleware's.
 				\item Software-based communications interface through which objects are located and accessed
 				\item OO abstractions utilising request-response in the library (via the Object Request Broker)
 				\item Uses Interface Definition Language (IDL) to define object interfaces
@@ -425,7 +425,7 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 			\begin{itemize}
 				\item Interoperable with CORBA, RT-Middleware, openHRP (among others), thus URBI can act as a central platform to integrate other technologies
 				\item Brings many useful abstractions over other middlewares such as Player/Stage, Microsoft Robotics Studio, RT-Middleware, and CORBA.
-				\item Can move UObject’s after compile-time
+				\item Can move UObject’s after compile-time, e.g. compile once and copy result to many hosts
 			\end{itemize} %
 		\end{minipage} &
 		\begin{minipage}[t]{0.2\columnwidth}%
