@@ -3,7 +3,7 @@ set -x
 
 RESULTS_FOLDER="results/experiment_8_vertical_scaling"
 
-FREQUENCY_OVERRIDE=(1 10 20)
+FREQUENCY_OVERRIDE=(20 10 1)
 
 LOWEST_FREQ=100
 HIGHEST_FREQ=300
