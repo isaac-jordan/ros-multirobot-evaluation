@@ -14,7 +14,7 @@ Expectations from this experiment were that the results of Experiment 4 would be
 
 Results showed what has been classified as `good' performance at only 200Hz (see Figure \ref{exp6-sensor-wifi-all-freq-stream}). Raising the message frequency to 400Hz (and higher) introduced a significant drop in performance - from an average message latency of 23.1ms at 200Hz to 726.4ms at 400Hz, and peaking with a latency of 1721.4ms at 2000Hz (see Figure \ref{exp6-sensor-wifi-all-freq-mean}).
 
-This leads to the conclusion that WiFi is a suitable choice of communication medium, as long as suitable low message frequency is chosen so as to ensure consistent performance. There was notable difference in performance at 200Hz from ethernet (23.1ms for WiFi, compared to 4.3ms for ethernet), however as the difference was consistent throughout the message stream (see Figure \ref{exp6-sensor-wifi-all-freq-stream}) this difference can be taken in to account for future experiments.
+\textit{This leads to the conclusion that WiFi is a suitable choice of communication medium, as long as suitable low message frequency is chosen so as to ensure consistent performance.} There was notable difference in performance at 200Hz from ethernet (23.1ms for WiFi, compared to 4.3ms for ethernet), however as the difference was consistent throughout the message stream (see Figure \ref{exp6-sensor-wifi-all-freq-stream}) this difference can be taken in to account for future experiments.
 
 \begin{figure}[H]
 \centering
@@ -38,7 +38,7 @@ The extra runs conducted started at 100Hz (to gain information about performance
 
 As Figure \ref{exp6-sensor-wifi-more-freq-stream} shows, message stream performance was similar as seen before. Certain streams exhibited consistent low latency throughout their streams, but above a certain frequency (350Hz and up in this case) performance begins to degrade.
 
-Figure \ref{exp6-sensor-wifi-more-freq-means} more clearly shows the jump in average message latency between 300Hz and 350Hz. This leads to the conclusion that for the sensor data message size (around 108kB), a suitable maximum frequency for publishing to ROS topics would be 300Hz.
+Figure \ref{exp6-sensor-wifi-more-freq-means} more clearly shows the jump in average message latency between 300Hz and 350Hz. \textit{This leads to the conclusion that for the sensor data message size (around 108kB), a suitable maximum frequency for publishing to ROS topics would be 300Hz.}
 
 \begin{figure}[H]
 \centering

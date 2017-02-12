@@ -14,7 +14,7 @@ This is achieved using a ROS bag provided as part of the MIT Stata Center Datase
 
 \subsubsection{Results}
 
-The experiment appeared to confirm the results of Experiment 4. For sensor data, 100\% CPU speed (1.2GHz) was the lowest latency at 7 out of 10 message frequencies, as shown in Figure \ref{exp5-sensor-means-all-freq}, and 50\% CPU speed (600MHz) was slowest at 9 out 10 frequencies.
+\textit{The experiment appeared to confirm the results of Experiment 3.} For sensor data, 100\% CPU speed (1.2GHz) was the lowest latency at 7 out of 10 message frequencies, as shown in Figure \ref{exp5-sensor-means-all-freq}, and 50\% CPU speed (600MHz) was slowest at 9 out 10 frequencies.
 
 \begin{figure}[H]
 \centering
@@ -23,7 +23,7 @@ The experiment appeared to confirm the results of Experiment 4. For sensor data,
 \label{exp5-sensor-means-all-freq}
 \end{figure}
 
-For video data, the trend held at the lower experimental frequencies (see Figure \ref{exp5-video-means-low-freq}) with low message latencies, which stepped up slightly when CPU speed was decreased. However, the change in performance was significantly less than for the smaller message sizes of the sensor data - for example, at 20Hz the top and bottom values were only 4.9\% different, whereas for sensor data at 400Hz the top and bottom values were 54\% different. This leads to the conclusion that CPU speed is less impactful as message sizes increase. CPU speed became entirely insignificant at higher message frequencies for video data, as it is thought the network interface becomes the bottleneck. Message frequencies at larger than 30Hz gave much higher average latencies (around 4 seconds at 40Hz, compared to 60 milliseconds at 20Hz), and showed no correlation with CPU speed (see Figure \ref{exp5-video-means-high-freq}.
+For video data, the trend held at the lower experimental frequencies (see Figure \ref{exp5-video-means-low-freq}) with low message latencies, which stepped up slightly when CPU speed was decreased. However, the change in performance was significantly less than for the smaller message sizes of the sensor data - for example, at 20Hz the top and bottom values were only 4.9\% different, whereas for sensor data at 400Hz the top and bottom values were 54\% different. \textit{This leads to the conclusion that CPU speed is less impactful as message sizes increase.} CPU speed became entirely insignificant at higher message frequencies for video data, as it is thought the network interface becomes the bottleneck. Message frequencies at larger than 30Hz gave much higher average latencies (around 4 seconds at 40Hz, compared to 60 milliseconds at 20Hz), and showed no correlation with CPU speed (see Figure \ref{exp5-video-means-high-freq}.
 
 \begin{figure}[H]
 \centering
