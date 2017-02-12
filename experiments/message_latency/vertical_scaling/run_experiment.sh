@@ -34,3 +34,7 @@ for((CURRENT_RUN=1;$CURRENT_RUN<=$N_RUNS;++CURRENT_RUN)) do
 		done
 	done
 done
+
+git add -A
+git commit -m "Adding results of experiment 8."
+git push
