@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 
-RESULTS_FOLDER="results/experiment_7_vertical_scaling"
+RESULTS_FOLDER="results/experiment_8_vertical_scaling"
 
 LOWEST_FREQ=100
 HIGHEST_FREQ=300
@@ -20,7 +20,8 @@ for((CURRENT_RUN=1;$CURRENT_RUN<=$N_RUNS;++CURRENT_RUN)) do
 	RUN_FOLDER="$RESULTS_FOLDER/run_$CURRENT_RUN/"
 	mkdir -p $RUN_FOLDER
 
-	for((CURRENT_FREQ=$LOWEST_FREQ;$CURRENT_FREQ<=$HIGHEST_FREQ;CURRENT_FREQ=$((CURRENT_FREQ+FREQ_STEP)))) do
+	for CURRENT_FREQ in 1 10 20 do
+	#for((CURRENT_FREQ=$LOWEST_FREQ;$CURRENT_FREQ<=$HIGHEST_FREQ;CURRENT_FREQ=$((CURRENT_FREQ+FREQ_STEP)))) do
 		for((CURRENT_N_NODES=$LOWEST_N_NODES;$CURRENT_N_NODES<=$HIGHEST_N_NODES;CURRENT_N_NODES=$((CURRENT_N_NODES*N_NODES_MULTIPLIER)))) do
 			echo "Running $CURRENT_N_NODES at message frequency: $CURRENT_FREQ Hz"
 			#rosrun rosberry_experiments test_latency_main_sensor.py $CURRENT_FREQ ~/realistic-dataset.bag
