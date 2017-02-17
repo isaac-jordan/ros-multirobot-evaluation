@@ -3,16 +3,11 @@
 \begin{document}
 
 \section{ROS (Robot Operating System)}
+\label{background-ros}
 
 The specific focal point of this investigation is ROS. ROS's primary goal is one of sharing and collaboration. Robotic systems often use custom-created software such as driver software and higher-level algorithms like pathing. ROS creators want to make this custom created software reusable across a wide variety of platforms, reducing the amount of repeated independent development, and allowing for faster creation of useful robots. On top of this primary goal, ROS also aims to be very thin, allow libraries to be ROS-agnostic, be language independent, allow easy testing (unit and integration), and easily scale to large systems.
 
-ROS achieves it's primary goal via the use of packages. A ROS package contains all the information and files needed to perform one `task'. This can include code, datasets, and configuration files.
-
-ROS computation and communication units are nodes. A ROS node represents a process that performs a particular computation. A package generally contains one or more nodes. Nodes can communcate between each other directly with the use of messages, or invoke services.
-
-The ROS Master node is a particular node which must run on every ROS system. The Master provides look-up services for nodes (so that they can find each other) with a URL-like system.
-
-The Master also provides the Parameter Server. The parameter server allows for nodes to store and retrieve data at runtime from a centralised, shared dictionary.
+ROS achieves it's primary goal via the use of packages. A ROS package contains all the information and files needed to perform one `task'. This can include code, datasets, and configuration files. ROS's computation and communication units are nodes. A ROS node represents a process that performs a particular computation. A package generally contains one or more nodes. Nodes can communcate between each other directly with the use of messages, or invoke services. The ROS Master node is a particular node which must run on every ROS system. The Master provides look-up services for nodes (so that they can find each other) with a URL-like system. The Master also provides the Parameter Server. The parameter server allows for nodes to store and retrieve data at runtime from a centralised, shared dictionary.
 
 The majority of inter-node communication is achieved using topics. A topic represents a strongly typed message bus to which one or more nodes publish messages, and zero or more nodes subscribe to receive published messages. There are no access permissions to a topic, any node can publish or subscribe as long as they use the correct data type.
 
@@ -25,7 +20,7 @@ The ROS community highly favours open source and sharing, as it aligns with the 
 
 The robots used in this project are 9 identical robot cars with front-wheel steering. (What is their set up)
 
-This project involved the use of 9 identical robot cars with front-wheel steering. The cars were previously built from a Sunfounder Smart Video Car Kit for Raspberry Pi\cite{SunfounderRobotCarKit}. 
+This project involved the use of 9 identical robot cars with front-wheel steering. The cars were previously built from a Sunfounder Smart Video Car Kit for Raspberry Pi\cite{SunfounderRobotCarKit}.
 
 The car kit includes the physical pieces required to construct a robot car, such as a frame, gears, wheels, motors, step-down converters, and wires. The kit also includes a USB camera, and Wi-Fi adapter. It also includes a space for a Raspberry Pi (B+/2/3) to be seated. The robot cars were fitted with one Raspberry Pi 3 Model B each.
 
