@@ -17,7 +17,7 @@ The data used will be the sensor data stream used in previous experiments.
 
 \subsubsection{Results}
 
-Figure \ref{exp7-100hz-allnodes} displays the averaged (across 3 runs) data for the 100Hz message frequency. This figure shows that performance degrades very rapidly for high node counts. At 100Hz using 8 total nodes (4 senders) results in poor performance with a message latency of 5 seconds by the end of the stream. 
+Figure \ref{exp7-100hz-allnodes} displays the averaged (across 3 runs) data for the 100Hz message frequency. This figure shows that performance degrades very rapidly for high node counts. At 100Hz using 8 total nodes (4 senders) results in poor performance with a message latency of 5 seconds by the end of the stream.
 
 Figure \ref{exp7-100hz-lownodes} shows only the `good' performing node counts (1 and 2 senders) for a message frequency of 100Hz. There are apparent spikes in the message latency at regular intervals. One hypothesis for these spikes is that the senders are buffering messages, perhaps to allow other system processes to use the network interface. However, these spikes do not significantly affect the wider experiment, since they are only short lived spikes.
 
@@ -64,6 +64,26 @@ In order to get a clearer idea of how adding more ROS nodes affects the system, 
 
 Thus the above set-up was repeated, but with lower message frequencies. If the CSLV hypothesis were to hold true, we should be able to calculate which node counts will begin to show issues at each message frequency.
 
-In this experiment, message frequencies of 1Hz, 10Hz, and 20Hz were used. Thus, at 1Hz we can expect greater than (300Hz / 1Hz) 300 nodes to cause issues (we can ignore message size as we are using the same message size as previously). Respectively, we can expect 30 nodes at 10Hz, and 15 nodes at 20Hz.
+In this experiment, message frequencies of 1Hz, 10Hz, and 20Hz were used. Thus, at 1Hz we can expect greater than approximately (300Hz / 1Hz) 300 nodes to cause issues (we can ignore message size as we are using the same message size as previously). Respectively, we can expect the limit to lie around 30 nodes at 10Hz, and 15 nodes at 20Hz.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/experiment8/vertical_scaling_all_freqs_log_avg_msg_latency.png}
+\caption{Experiment 8 - Logarithmic Average Message Latency, All Frequencies, All Node Counts}
+\label{exp8-all-freqs-averages}
+\end{figure}
+
+\textit{As Figure \ref{exp8-all-freqs-averages} shows (note the logarithmic latency scale), our expected supported node calculations were approximately correct, but somewhat underestimated the actual limits.} This under-estimation is expected, as the resolution of Experiment 6 was only 50Hz (300Hz was acceptable, 350Hz had poor performance), thus the true maximum is somewhere between 300Hz and 350Hz. The figure shows that performance was acceptable at $\leq$ 16 nodes at 20Hz, $\leq$ 32 nodes at 10Hz, and $\leq$ 256 nodes at 1Hz.
+
+An data series of interest is that of 256 nodes at 1Hz message frequency. We can see in Figure \ref{exp8-1hz-all-nodes} the performance at this configuration is significantly worse than that at 128 nodes and less, but the performance was not as catastrophic as seen at all other frequencies (1Hz mean is 221ms, vs 10Hz mean of 41,895ms). Performance at this level was also somewhat consistent throughout the message stream, with most messages taking ~200ms RTT - again, unlike other message frequencies at 256 nodes. \textit{This indicates that a different bottleneck is possibly coming in to play. For example, perhaps the time spent switching processes contexts (between 256 different Python processes) is causing a consistent delay.} This reduced performance at 256 nodes was unexpected, according to the CSLV equation.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/experiment8/vertical_scaling_1hz_all_node_counts.png}
+\caption{Experiment 8 - 1Hz Message Frequency, All Node Counts}
+\label{exp8-1hz-all-nodes}
+\end{figure}
+
+
 
 \end{document}
