@@ -53,7 +53,7 @@ Both of these observations hold for the 300Hz message frequency scenario, with m
 From these observations we can conclude that the results of Section \ref{experiment-6} hold true in a more general sense, these results show that each host appears to have a communication scaling limit. This can be represented as the product of three quantites: the number of sending nodes on the host ($N$), the message frequency ($f_m$), and the message size ($S_m$) - giving the following equation for a Communication Scaling Limit Volume (CSLV):
 
 \begin{center}
-$CSLV = N . f_m . S_m$
+$CSLV = N \cdot f_m \cdot S_m$
 \end{center}
 
 Using this equation, we can calculate the CSLV for our particular platform (Raspberry Pi 3 Model B, running ROS Kinetic) using experimental data. However, in order to demonstrate the robustness of this hypothesis, further experiments in varying the $S_m$ (the message size) would be required.
