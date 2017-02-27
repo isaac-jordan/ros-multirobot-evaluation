@@ -18,7 +18,7 @@ for((CURRENT_RUN=1;$CURRENT_RUN<=$N_RUNS;++CURRENT_RUN)) do
 	RUN_FOLDER="$RESULTS_FOLDER/run_$CURRENT_RUN/"
 	mkdir -p $RUN_FOLDER
 
-	for CURRENT_FREQ in $FREQUENCY_OVERRIDE; do
+	for CURRENT_FREQ in ${FREQUENCY_OVERRIDE[@]}; do
 		for((CURRENT_N_NODES=$LOWEST_N_NODES;$CURRENT_N_NODES<=$HIGHEST_N_NODES;CURRENT_N_NODES=$((CURRENT_N_NODES*N_NODES_MULTIPLIER)))) do
 			# Skip very high latency tests
 			if [ "$CURRENT_FREQ" = "10" ]; then
@@ -37,9 +37,9 @@ for((CURRENT_RUN=1;$CURRENT_RUN<=$N_RUNS;++CURRENT_RUN)) do
 
 			echo "Running $CURRENT_N_NODES at message frequency: $CURRENT_FREQ Hz"
 			CURRENT_DIR=$(dirname $(readlink -f $0))
-			python roslaunch_script_car.py $CURRENT_FREQ $CURRENT_N_NODES /home/pi/realistic-dataset.bag $CURRENT_RUN "$CURRENT_DIR/$RUN_FOLDER"
+			#python roslaunch_script_car.py $CURRENT_FREQ $CURRENT_N_NODES /home/pi/realistic-dataset.bag $CURRENT_RUN "$CURRENT_DIR/$RUN_FOLDER"
 			echo "Waiting 30 seconds"
-			sleep 30
+			#sleep 30
 		done
 	done
 done
