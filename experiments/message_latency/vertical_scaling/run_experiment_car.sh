@@ -13,7 +13,7 @@ N_RUNS=3
 
 mkdir $RESULTS_FOLDER -p
 
-for((CURRENT_RUN=1;$CURRENT_RUN<=$N_RUNS;++CURRENT_RUN)) do
+for((CURRENT_RUN=2;$CURRENT_RUN<=$N_RUNS;++CURRENT_RUN)) do
 	echo "On run number: $CURRENT_RUN"
 	RUN_FOLDER="$RESULTS_FOLDER/run_$CURRENT_RUN/"
 	mkdir -p $RUN_FOLDER
@@ -37,9 +37,11 @@ for((CURRENT_RUN=1;$CURRENT_RUN<=$N_RUNS;++CURRENT_RUN)) do
 
 			echo "Running $CURRENT_N_NODES at message frequency: $CURRENT_FREQ Hz"
 			CURRENT_DIR=$(dirname $(readlink -f $0))
-			#python roslaunch_script_car.py $CURRENT_FREQ $CURRENT_N_NODES /home/pi/realistic-dataset.bag $CURRENT_RUN "$CURRENT_DIR/$RUN_FOLDER"
+			python roslaunch_script_car.py $CURRENT_FREQ $CURRENT_N_NODES /home/pi/realistic-dataset.bag $CURRENT_RUN "$CURRENT_DIR/$RUN_FOLDER"
 			echo "Waiting 30 seconds"
-			#sleep 30
+			sleep 30
 		done
 	done
 done
+
+git push
