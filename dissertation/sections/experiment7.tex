@@ -69,19 +69,19 @@ In this experiment, message frequencies of 1Hz, 10Hz, and 20Hz were used. Thus, 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{images/experiment8/vertical_scaling_all_freqs_log_avg_msg_latency.png}
-\caption{Experiment 8 - Logarithmic Average Message Latency, All Frequencies, All Node Counts}
-\label{exp8-all-freqs-averages}
+\caption{Experiment 7 - Logarithmic Average Message Latency, All Frequencies, All Node Counts}
+\label{exp7-further-all-freqs-averages}
 \end{figure}
 
-\textit{As Figure \ref{exp8-all-freqs-averages} shows (note the logarithmic latency scale), our expected supported node calculations were approximately correct, but somewhat underestimated the actual limits.} This under-estimation is expected, as the resolution of Experiment 6 was only 50Hz (300Hz was acceptable, 350Hz had poor performance), thus the true maximum is somewhere between 300Hz and 350Hz. The figure shows that performance was acceptable at $\leq$ 16 nodes at 20Hz, $\leq$ 32 nodes at 10Hz, and $\leq$ 256 nodes at 1Hz.
+\textit{As Figure \ref{exp7-further-all-freqs-averages} shows (note the logarithmic latency scale), our expected supported node calculations were approximately correct, but somewhat underestimated the actual limits.} This under-estimation is expected, as the resolution of Experiment 6 was only 50Hz (300Hz was acceptable, 350Hz had poor performance), thus the true maximum is somewhere between 300Hz and 350Hz. The figure shows that performance was acceptable at $\leq$ 16 nodes at 20Hz, $\leq$ 32 nodes at 10Hz, and $\leq$ 256 nodes at 1Hz.
 
-An data series of interest is that of 256 nodes at 1Hz message frequency. We can see in Figure \ref{exp8-1hz-all-nodes} the performance at this configuration is significantly worse than that at 128 nodes and less, but the performance was not as catastrophic as seen at all other frequencies (1Hz mean is 221ms, vs 10Hz mean of 41,895ms). Performance at this level was also somewhat consistent throughout the message stream, with most messages taking ~200ms RTT - again, unlike other message frequencies at 256 nodes. \textit{This indicates that a different bottleneck is possibly coming in to play. For example, perhaps the time spent switching processes contexts (between 256 different Python processes) is causing a consistent delay.} This reduced performance at 256 nodes was unexpected, according to the CSLV equation.
+An data series of interest is that of 256 nodes at 1Hz message frequency. We can see in Figure \ref{exp7-further-1hz-all-nodes} the performance at this configuration is significantly worse than that at 128 nodes and less, but the performance was not as catastrophic as seen at all other frequencies (1Hz mean is 221ms, vs 10Hz mean of 41,895ms). Performance at this level was also somewhat consistent throughout the message stream, with most messages taking ~200ms RTT - again, unlike other message frequencies at 256 nodes. \textit{This indicates that a different bottleneck is possibly coming in to play. For example, perhaps the time spent switching processes contexts (between 256 different Python processes) is causing a consistent delay.} This reduced performance at 256 nodes was unexpected, according to the CSLV equation.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{images/experiment8/vertical_scaling_1hz_all_node_counts.png}
-\caption{Experiment 8 - 1Hz Message Frequency, All Node Counts}
-\label{exp8-1hz-all-nodes}
+\caption{Experiment 7 - 1Hz Message Frequency, All Node Counts}
+\label{exp7-further-1hz-all-nodes}
 \end{figure}
 
 

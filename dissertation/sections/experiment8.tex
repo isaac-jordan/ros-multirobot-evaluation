@@ -11,8 +11,15 @@ As such, this experiment consists of a re-run of Experiment 7 (as presented in S
 
 \subsection{Results}
 
+Figure \ref{exp8-all-freqs-averages} shows a similar graph as Figure \ref{exp7-further-all-freqs-averages}, but with data acquired from 3 runs on the robot car kit platform. It shows that the results gathered in Experiment 7 were valid on the robot car kit platform, as we see spikes in the message latency at the same node counts as in the previous experiment on the bare Raspberry Pis. Note that 128 node, and 256 node counts were skipped for 10Hz, and 64, 128, and 256 were skipped for 20Hz due to the extremely long time it takes those setups to conclude their runs (on the scale of several hours) - and the robot cars would run out of battery before all sending/receiving nodes can finish. However, the node counts that have been run demonstrate that the performance bottlenecks occur at the same node counts.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/experiment9/vertical_scaling_all_freqs_log_avg_msg_latency.png}
+\caption{Experiment 8 - Logarithmic Average Message Latency, All Frequencies, All Node Counts}
+\label{exp8-all-freqs-averages}
+\end{figure}
 
-
+\textit{Therefore we can conclude that CSLV as presented in Section \ref{experiment7-vertical-scaling} is a concern for real ROS systems, and that for this specific set-up (utilising Raspberry Pi 3 Model Bs on WiFi) the limit is approximately between (4.25 * 10 * 16 =) 680kB/s and (4.25 * 20 * 16 =) 1360kB/s depending on exact message latency tolerance.}
 
 \end{document}
