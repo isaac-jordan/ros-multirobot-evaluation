@@ -2,6 +2,9 @@
 
 \begin{document}
 
+% Middlewares mentioned:
+% CORBA, Player, OpenRDK, ROS, MOOS
+
 Middleware designs can be broken down in to four groups of concepts: Communication, Computation, Configuration, and Coordination \cite{brugali2010component}. The majority of robotic middleware differences can be demonstrated as a difference in one of these groups. The following sections provide an overview of the approaches that the middlewares summarised above use to tackle each of these areas.
 
 \subsection{Communication}
@@ -10,7 +13,19 @@ All modern robotic middlewares are comprised of multiple modules. In a non-trivi
 
 CORBA, and those middlewares built on top of CORBA utilise a remote object abstraction. This allows for inter-component communication to appear consistent whether the method caller and callee exists in the same address space, or in a remote address. The only explicit step to enable remote object communication is to share the object reference with the remote process (or component). This is achieved via an Object Request Broker (ORB), which objects can be registered with, and references retrieved from. This form of communication provides very neat code abstractions (as there is no need to modify how the object is used, only how the reference is acquired).
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{images/background/Orb.png}
+\caption{Illustration of the communication infrastructure when using CORBA, from Wikipedia\cite{corbaCommunicationWikipediaImage}.}
+\end{figure}
+
 Other middlewares such as ROS have a more explicit communication paradigm. ROS uses a network of software nodes which can create message queues (known as a topic), which they can publish data of a specific type to \cite{rosconcepts}. Other nodes can subscribe to topics, generally registering a callback function which is called when some new data has been published to the topic. These mechanisms are described in detail in Section \ref{background-ros}. This method of communication also allows for code to be identical whether or not the two communicating nodes are in the same address space or are remote, but the communication code itself is explicit. The programmer must define when the topics are created, when data is published, and what happens in a subscriber when the data is published.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{images/background/ROS_Explained.png}
+\caption{ROS node communication}
+\end{figure}
 
 OpenRDK utilises a blackboard model. The analogy refers to the idea of many people stood around a blackboard and communicating only via writing things in different areas of the blackboard, without direct communication between the individuals. This is a form of centralised communication. In OpenRDK the blackboard is called a repository, and each module can communicate by publishing values (called properties) to the repository \cite{OpenRDKIntro}. Properties can be simple values, or a queue object. The properties are addressed via a global hierarchical URL-like addressing scheme, similar to ROS topic addressing.
 
