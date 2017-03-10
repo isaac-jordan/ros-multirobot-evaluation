@@ -22,7 +22,7 @@
 \graphicspath{{images}{../images/}}
 
 \begin{document}
-\title{On The Scalability of ROS}
+\title{Evaluating the Scalability of ROS in Multi-Robot Systems}
 \author{Isaac Jordan}
 \date{\today}
 \maketitle
@@ -67,9 +67,18 @@ Robots, distributed systems, and middleware.
 \chapter{Communication Scalability}
 \label{communication-chapter}
 
+Multi-robot systems are types of distributed systems. The main concern in moving from a single-host distributed system to a multi-host distributed system is the introduction of more complex communication network. As the overall system is trying to complete a task, the individual nodes in the network must communicate in order to share things like the status of the node (CPU load, disk usage, etc), progress through the current task, and results of a task. The exact nature and direction of this communication is dependent on the architecture of the distributed system.
+
+In ROS, the Master node monitors the progress and status of the other nodes, but does not involve itself in the application logic of the system, meaning that it does not process or handle the results of nodes. This is handled in a peer-to-peer (P2P) fashion dictated by the application developer - each node is responsible for choosing what information to request from other nodes, and what information to emit from itself using the Publisher/Subscriber model described in Section \ref{background-ros}. The consequence of this architecture is that overall system performance can be dramatically affected by the communication performance between nodes.
+
 The communication experiments look in to the scalability of communication in ROS. How well does it handle having to send high frequency work-loads of varying sizes.
 
+In order to systematically evaluate how ROS' communication scales, we first aim to understand the aspects of the system that are of greatest importance to performance - both in terms of latency of messages, and total throughput of communication. Section \ref{communication-scoping-experiments} aims to analyse the performance bottlenecks of a simple multi-robot system when sending very controlled and artificial data. Section \ref{communication-real-data} will then aim to validate the results of Section \ref{communication-scoping-experiments} using realistic (previously recorded) data streams, with the goal that these conclusions wil then be directly applicable to real ROS multi-robot systems.
+
 \section{Scoping Experiments}
+\label{communication-scoping-experiments}
+
+
 
 Scoping experiments were quick experiments using dummy data. Designed to identify useful areas to explore in more detail in realistic experiments later.
 
@@ -82,6 +91,7 @@ Scoping experiments were quick experiments using dummy data. Designed to identif
 \subfile{sections/experiment4}
 
 \section{Realistic Data Experiments}
+\label{communication-real-data}
 
 Previous experiments were presented as scoping experiments. These were designed to systematically understand which variables were of concern when running tests on ROS's communication performance. However, it was not certain that these prior conclusions would translate well to using ROS in a realistic scenario. Throughout the scoping experiments, the same message of `hello world' was used as dummy data.
 
