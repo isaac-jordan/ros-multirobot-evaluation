@@ -14,12 +14,27 @@
 \usepackage{color}
 \usepackage{graphicx}
 
-
 \newcommand{\nc}[1]{\textcolor{magenta}{(\textbf{NC:} #1)}}
 \newcommand{\gac}[1]{\textcolor{cyan}{(\textbf{GAC:} #1)}}
 \newcommand{\pwt}[1]{\textcolor{blue}{(\textbf{PWT:} #1)}}
 
 \graphicspath{{images}{../images/}}
+
+\lstdefinestyle{codestyle}{
+    %basicstyle=\footnotesize,
+    %breakatwhitespace=false,
+    breaklines=true,
+    %captionpos=b,
+    %keepspaces=true,
+    %numbers=left,
+    %numbersep=5pt,
+    %showspaces=false,
+    %showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=codestyle}
 
 \begin{document}
 \title{Evaluating the Scalability of ROS in Multi-Robot Systems}
@@ -71,9 +86,20 @@ Multi-robot systems are types of distributed systems. The main concern in moving
 
 In ROS, the Master node monitors the progress and status of the other nodes, but does not involve itself in the application logic of the system, meaning that it does not process or handle the results of nodes. This is handled in a peer-to-peer (P2P) fashion dictated by the application developer - each node is responsible for choosing what information to request from other nodes, and what information to emit from itself using the Publisher/Subscriber model described in Section \ref{background-ros}. The consequence of this architecture is that overall system performance can be dramatically affected by the communication performance between nodes.
 
-The communication experiments look in to the scalability of communication in ROS. How well does it handle having to send high frequency work-loads of varying sizes.
+In order to systematically evaluate how ROS' communication scales, one must first aim to understand which aspects of the system that are of greatest importance to performance - both in terms of latency of messages, and total throughput of communication. Section \ref{communication-scoping-experiments} aims to analyse the performance bottlenecks of a simple multi-robot system when sending very controlled and artificial data. Section \ref{communication-real-data} will then aim to validate the results of Section \ref{communication-scoping-experiments} using realistic (previously recorded) data streams, with the goal that these conclusions wil then be directly applicable to real ROS multi-robot systems.
 
-In order to systematically evaluate how ROS' communication scales, we first aim to understand the aspects of the system that are of greatest importance to performance - both in terms of latency of messages, and total throughput of communication. Section \ref{communication-scoping-experiments} aims to analyse the performance bottlenecks of a simple multi-robot system when sending very controlled and artificial data. Section \ref{communication-real-data} will then aim to validate the results of Section \ref{communication-scoping-experiments} using realistic (previously recorded) data streams, with the goal that these conclusions wil then be directly applicable to real ROS multi-robot systems.
+\begin{table}[H]
+\centering
+\caption{Chapter \ref{communication-chapter} Experiment Overview}
+\label{communication-experiment-overview}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Experiment}    & \textbf{Description} & \textbf{Section} \\ \hline
+Revising Existing Code & Initial Analysis     & \ref{exp-1}            \\ \hline
+                       &                      &                  \\ \hline
+                       &                      &                  \\ \hline
+\end{tabular}
+\end{table}
 
 \section{Scoping Experiments}
 \label{communication-scoping-experiments}
@@ -142,61 +168,17 @@ These scalability experiments look in to how well ROS scales when introduced to 
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{images/no-reboot-1khz.png}
-\caption{Experiment 2 - No Reboot 1KHz Message Frequency}
-\label{exp2-noreboot-1khz}
-\end{figure}
-Other graphs commented out for now.
-\iffalse
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{images/no-reboot-1khz.png}
-\caption{Experiment 2 - No Reboot 1KHz Message Frequency}
-\label{exp2-fullreboot-1khz}
+\includegraphics[width=\textwidth]{images/experiment2/7khz-mean.png}
+\caption{Experiment 2 - 7KHz Message Frequency}
+\label{exp2-7khz}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{images/no-reboot-4khz.png}
-\caption{Experiment 2 - No Reboot 4KHz Message Frequency}
-\label{exp2-noreboot-4khz}
+\includegraphics[width=\textwidth]{images/experiment2/10khz-mean.png}
+\caption{Experiment 2 - 10KHz Message Frequency}
+\label{exp2-10khz}
 \end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{images/full-reboot-4khz.png}
-\caption{Experiment 2 - Full Reboot 4KHz Message Frequency}
-\label{exp2-fullreboot-4khz}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{images/no-reboot-7khz.png}
-\caption{Experiment 2 - No Reboot 7KHz Message Frequency}
-\label{exp2-noreboot-7khz}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{images/full-reboot-7khz.png}
-\caption{Experiment 2 - Full Reboot 7KHz Message Frequency}
-\label{exp2-fullreboot-7khz}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{images/no-reboot-10khz.png}
-\caption{Experiment 2 - No Reboot 10KHz Message Frequency}
-\label{exp2-noreboot-10khz}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{images/full-reboot-10khz.png}
-\caption{Experiment 2 - Full Reboot 10KHz Message Frequency}
-\label{exp2-fullreboot-10khz}
-\end{figure}
-\fi
 
 \end{appendices}
 

@@ -4,19 +4,17 @@
 
 \subsection{Experiment 4 - WiFi Connection}
 
-Experiment 4 investigates the effect of using a WiFi network connection for message passing experiments. The target robot car platform described in Section \ref{background-robot-config} utilise a WiFi connection, thus understanding the effect this will have on the communication performance is required to understand the final performance of the system.
+\paragraph{Introduction} It is also reasonable that multi-robot systems may desire each robot to be physically mobile, thus a wired network connection may not be feasible in many set-ups. It is important to understand how WiFi communication will affect performance compared to the ideal wired situation.
 
-It is also reasonable that multi-robot systems may desire each robot to be physically mobile, thus a wired network connection may not be feasible in many set-ups. It is important to understand how this technology will affect perforrmance compared to the ideal wired situation.
+\paragraph{Objective} Experiment 4 investigates the effect of using a WiFi network connection for message passing experiments. The target robot car platform described in Section \ref{background-robot-config} employ a WiFi connection, thus understanding the effect this will have on the communication performance is required to understand the final performance of the system.
 
-The Raspberry Pi 3 Model B's utilised in these experiments contain 802.11n WiFi chips which support a 2.4GHz network connection.
+\paragraph{Hypothesis} The hypothesis was that switching to WiFi would increase message latencies across all frequencies, and also reduce the maximum frequency that message latency remains consistent across the entire message stream (as in the previous experiment described in Section \ref{experiment3-cpu-speed}).
 
-The experiment consists of running the same code in both a wired (Ethernet) situation and a wireless (WiFi) situation. As before, the code will send timestamped messages from the sender host to the echoer host, which will send it back to the sender. The sender then records the message id and sent and received times to file. The code is run several times with a range of message frequencies from 200Hz to 2000Hz in 200Hz steps (200Hz, 400Hz, 600Hz, ...).
+\paragraph{Materials and Methodology} The Raspberry Pi 3 Model B utilised in these experiments contain 802.11n WiFi chips which support a 2.4GHz network connection.
 
-The hypothesis was that switching to WiFi would increase message latencies across all frequencies, and also reduce the maximum frequency that message latency remains consistent across the entire message stream (as in the previous experiment described in Section \ref{experiment3-cpu-speed}).
+The experiment consists of running the same code in both wired (Ethernet) and wireless (WiFi) settings. As before, the code will send timestamped messages from the sender host to the echoer host, which will send it back to the sender. The sender then records the message id and sent and received times to file. The code is run several times with a range of message frequencies from 200Hz to 2000Hz in 200Hz steps (200Hz, 400Hz, 600Hz, ...).
 
-\subsubsection{Results}
-
-The experimental results after 3 runs in each setup appeared to somewhat agree with the hypothesis. Overall message latency was higher across all frequencies using WiFi except 2000Hz - as shown in Figure \ref{exp4-means-all-freq}.
+\paragraph{Results and Discussion} The experimental results after 3 runs in each setup appeared to somewhat agree with the hypothesis. Overall message latency was higher across all frequencies using WiFi except 2000Hz - as shown in Figure \ref{exp4-means-all-freq}.
 
 \begin{figure}[H]
 \centering
