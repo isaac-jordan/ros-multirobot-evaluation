@@ -55,6 +55,7 @@ $CSLV = N \cdot f_m \cdot S_m$
 Using this equation, we can calculate the CSLV for our particular platform (Raspberry Pi 3 Model B, running ROS Kinetic) using experimental data. However, in order to demonstrate the robustness of this hypothesis, further experiments in varying the $S_m$ (the message size) would be required.
 
 \subsection{Further Investigation}
+\label{exp-7-further}
 
 In order to get a clearer idea of how adding more ROS nodes affects the system, it is clear that we must use a lower message frequency which allows for sustainable performance at higher node counts. Thus the above set-up was repeated, but with lower message frequencies. If the CSLV hypothesis were to hold true, we should be able to calculate which node counts will begin to show issues at each message frequency.
 

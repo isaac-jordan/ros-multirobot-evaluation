@@ -1,5 +1,5 @@
 \documentclass[../dissertation.tex]{subfiles}
- 
+
 \begin{document}
 
 \chapter{Conclusion}
@@ -19,24 +19,35 @@
 %useful rezzies for host = 1 mid para
 
 
-This project started out with a comprehensive reviewed a large range of robotics middleware, which was novel and useful because x. This also included a full description of ROS.
+This project began with a comprehensive review of a large range of robotic middlewares. This review covered a wide range of current middlewares, rarely seen in the literature of the field. An overview of the communication and computation architecture in ROS was also presented.
 
-The next phase of the project looked into what factors had an impact on high frequency communication in ROS. After analysing many different possible factors shown in Section \ref{}, it was found the processing power and connection type were the largest factors.
+The next phase of the project investigated what factors had an impact on the performance of high frequency communication between ROS nodes in a multi-robot system. Through a series of experiments in Chapter \ref{communication-chapter}, it was found the processing power and connection type of the ROS hosts were the largest factors when trying to attain reliable communication at a high message frequency. These results were verified by sending message payloads containing data of a variety of sizes (11 bytes up to 308kB), including data recorded from a real ROS system (the PR2 robot).
 
-Finally, research was done into how ROS scales vertically and horizontally. This includes 
+Finally, research was conducted in Chapter \ref{host-scalability-chapter} into how ROS scales vertically and horizontally. Vertical scaling tests resulted in the proposal of a mechanism to calculate the maximum supported combination of the number of nodes per host, the message frequency from each host, and the message size. This proposed formula was called the Communication Scaling Limit Volume (CSLV). The CSLV value for the test platform was estimated using experimental data, used to estimate the maximum number of nodes at a new range of message frequencies, and then verified experimentally at that new range. These new frequencies performed as expected, confirming the accuracy of the CSLV calculation - except in the 256 node/1Hz frequency case which unexpectedly had reduced performance. An explanation for this result was proposed in Section \ref{exp-7-further}. An experimental set-up was proposed to evaluate the horizontal scaling capabilities of ROS, however the experimented was not conducted due to time constraints in the project.
 
+%\section{Reflection}
 
-\section{Reflection}
+%About you. What did you learn. Why are you a better person. How did your skills improve.
 
-About you. What did you learn. Why are you a better person. How did your skills improve. 
-
-Throughout the project many critical lessons were learned. Firstly, I realised how critical it is to spend time planning and defining a process of which to conduct research. Additionally, I unearthed how critical it is to create detailed experimental criteria and processes. 
+%Throughout the project many critical lessons were learned. Firstly, I realised how critical it is to spend time planning and defining a process of which to conduct research. Additionally, I unearthed how critical it is to create detailed experimental criteria and processes.
 
 \section{Future Work} %1 page
 
+While conducting the research in this project a number of investigatory avenues were proposed which could not be explored due to time constraints:
+
 \begin{itemize}
 
-	\item \textbf{Do thing} Here's why to do thing
+  \item \textbf{Conduct the horizontal scaling experiment} Section \ref{experiment9-horizontal-scaling} proposes an experimental set-up to evaluate the ability of ROS to sustain many hosts all communicating at high message frequencies. This experiment was not conducted due to time constraints, however it would be required to paint a complete picture of the scalability of ROS.
+
+  \item \textbf{Investigate the effect of other network topologies} The vertical scaling experiments covered in Sections \ref{experiment7-vertical-scaling} and \ref{experiment8-vertical-scaling} utilise a pairwise network topology (each sender node is paired with a single echoer node). It was planned to experiment with a fully-interconnected network (each sender node sends to every echoer node), however this was not conducted due to time constraints.
+
+	\item \textbf{Investigate primary cause of performance discrepency between Ethernet and Wi-Fi} Using real sensor data (a message size of 4.25kB), Section \ref{experiment-6} saw latencies of only 5ms at 2KHz using Ethernet, and latencies of almost 1800ms with WiFi at the same frequency. It is possible that this discrepency could be mitigated (or further understood) by investigating what aspects of Wi-Fi is causing higher latencies (e.g. high numbers of packets being dropped, or low bandwidth).
+
+  \item \textbf{Optimisations to reduce message-sending overhead} Sections \ref{experiment3-cpu-speed} and \ref{exp-5} found that high frequency message transmission was limited by the CPU power of the test platform (Raspberry Pi 3 Model B). It is possible that this bottleneck could be reduced by investigating what function calls are consuming the majority of CPU time while sending at a high frequency. If these CPU-heavy function calls could be reduced in call frequency, or time-per-call then it is possible higher message frequencies could be sustained. One method of investigating this would be to replace ROS' communication libraries with higher performance libraries (for example, written in a faster language than Python).
+
+  \item \textbf{Comprehensive investigation of the proposed Communication Scaling Limit Volume (CSLV)} Section \ref{experiment7-vertical-scaling} proposed the CSLV, a formula which proposes there is an constant upper limit to the product of the number of nodes on the host, the message frequency of those nodes, and the message size, for a given system. A detailed investigation to validate the accuracy of this model would require a experiment which varies all three variables - however this was out of the scope of this project.
+
+  \item \textbf{Investigate new bottleneck seen at high node counts with low message frequency} Section \ref{experiment7-vertical-scaling} saw that message latencies were unexpectedly high with 128 senders on a single node, each sending at frequency of 1Hz. This result was contrary to the prediction provided by the CSLV calculation (which estimated good performance up to approximately 300 nodes). This result could indicate that a new factor is bottlenecking the communication performance of the system at high node counts. It was suggested that it could be the effect of the Raspberry Pis processor context switching between the 128 different processes, however the investigation to confirm this was outside the scope of the project.
 
 \end{itemize}
 
