@@ -140,6 +140,19 @@ Chapter \ref{communication-chapter} provided grounding work to build further exp
 
 Chapter \ref{host-scalability-chapter} now aims to investigate how well a multi-robot system can scale with ROS. As mentioned in Section \ref{background-scalability}, scalability can refer to many different concepts - in this chapter scalabiltiy will be considered in terms of vertical and horizontal scaling. Vertical scaling refers to running multiple identical processes on the same host machines. This has the opportunity to allow for more CPU cores to be utilised (in the case of a multi-core host), however can introduce issues if other system resources are a bottleneck (e.g. if there is not enough RAM to support the new processes, or the new processes are storage-heavy tasks causing resource contention). Horizontal scaling refers to distributing workloads across increasing numbers of host machines. This has the benefit that each host will generally have an entire set of resources (CPU, RAM, disk, GPU, etc) to itself, circumventing the issue of resource contention seen in vertical scaling. There are significant downsides to horizontal scaling though. Horizontal scaling introduces a need for complex communication between the hosts to organise and distribute tasks, or to communicate results. Horizontal scaling also has an economic impact, as it requires new hardware to be purchased and managed.
 
+\begin{table}[H]
+    \centering
+        \caption{Chapter \ref{host-scalability-chapter} Experiment Overview}
+        \label{chapter-4-experiment-overview}
+        \begin{tabular}{|p{0.25\columnwidth}|p{0.4\columnwidth}|p{0.1\columnwidth}|}
+            \hline
+            \textbf{Experiment}                & \textbf{Description}                                                                                                 & \textbf{Section}                       \\ \hline
+            Vertical Scaling                   & Evaluating the ability of ROS to scale communication-heavy applications vertically (more nodes on the same hosts)    & \ref{experiment7-vertical-scaling}   \\ \hline
+            Vertical Scaling On Car Platform   & Confirming the results of the previous experiment are applicable to the robot car kit platform                       & \ref{experiment8-vertical-scaling}   \\ \hline
+            Horizontal Scaling On Car Platform & A proposal to evaluate the ability of ROS to scale communication-heavy applications horizontally (adding more hosts) & \ref{experiment9-horizontal-scaling} \\ \hline
+        \end{tabular}
+\end{table}
+
 \subfile{sections/experiment7}
 
 \subfile{sections/experiment8}
