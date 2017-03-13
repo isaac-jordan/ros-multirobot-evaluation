@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\section{Robotics}
+\section{Robotics Overview}
 \label{background-robotics}
 
 %Robotics is the field of creating physical systems to automate tasks. As a concept, automation dates back hundreds of years - however the idea of replicating biological systems seen in nature (for example, humans) was not first seen until the 20th century. Robotics was mainly considered a theoretical or fictitious fantasy, however the main discussers of the concept (such as Isaac Asimov) assumed technological capability would inevitably reach the level where robotics would either be inseperable from society, or be banned due to it's impact.
@@ -17,11 +17,14 @@
 
 Robotics is the field concerning autonomous computer systems, usually involving physical interaction with it's environment. Robotics lies at the intersection between computing science, eletrical and mechanical engineering. Robotics has been common in popular culture since the 1940s\cite{hockstein2007history}, but due to the speed of technological growth, has quickly become widely ingrained in many industries. The first industrial use of robotics was in manufacturing, with General Motors putting the first robot into service in 1961\cite{hagele2016ashorthistory}. Nowadays, with great increases in computing power, sensor accuracy, research investment, and software algorithms, example applications of robotics include manufacturing, agriculture, construction, mining, disaster recovery, medicine, health care, and surveillance\cite{hagele2016robotsatwork}.
 
-Today's robotic systems generally consist of many small autonomous systems working together to form a coherent whole\cite{4058987}. For example, a particular sensor (say a camera) may be constantly recording data and storing it in some buffer (erasing the oldest when full). This subsystem does not depend on any others to complete its task (recording the environment), but other subsystems may rely on its output (such as a computer vision package which needs video frame inputs). This style of robot design is becoming increasingly prevelant, with many robotic middlewares adopting this distributed approach, as discussed in Section \ref{overview-of-robotic-middleware}.
+Today's robotic systems generally consist of many small autonomous systems working together to form a coherent whole\cite{4058987}. For example, a particular sensor (say a camera) may be constantly recording data and storing it in some buffer (erasing the oldest when full). This subsystem does not depend on any others to complete its task (recording the environment), but other subsystems may rely on its output (such as a computer vision package which needs video frame inputs). This style of robot design is becoming increasingly prevelant, with many robotic middlewares adopting this distributed approach.
 
 Robotics is related to a field called cyber-physical systems (CPS) that concerns integrating computer systems with the physical world\cite{Lee:EECS-2008-8}. These can include Internet Of Things (IoT) networks\cite{atzori2010internet} which can (for example) be used to control things around the household, such as light switches, central heating systems, and hoovering. This is distinct from robotics as CPS generally embody a `think globally, act locally' approach\cite{gordonthink} (such as using data from many sources to improve the CPS' performance in each), compared to robotics which utilises a more `think locally, act locally' strategy - meaning that each instance of a robot generally makes it's own decisions, and acts upon them solely.
 
+This chapter aims to provide the background knowledge required to understand the significance of the results presented in this paper. Section \ref{section-multi-robot-systems} discusses the concept of multi-robot systems, as well as their application in society. Section \ref{background-scalability} outlines what scaling refers to in the context of a robotic system. Next, Section \ref{robotic-middleware} introduces robotic middleware, and why it is useful when constructing a robotic system. This section also presents a tabular overview of a range of common robot middlewares, and discusses the main concepts seen in many middlewares. Section \ref{background-ros} then outlines the architecture of ROS, which is the middleware of particular study in this paper. Finally, Section \ref{background-robot-config} discusses the configuration of the robot car kit platform used in later experiments.
+
 \section{Multi-Robot Systems}
+\label{section-multi-robot-systems}
 
 Multi-robot systems are specific instances of mult-agent systems. They represent a joint problem space between robotics, artificial intelligence, and distributed systems. Multi-robot systems as a formal concept is a recent development with a IEEE technical committee only being formed in 2014\cite{MultiRobotSystemsIEEECommittee}.
 
@@ -32,13 +35,14 @@ In a warehouse, millions of items can be spread throughout miles of shelving and
 \section{Scalability in Robotics}
 \label{background-scalability}
 
-When creating multi-robot systems, scalability becomes an important concern\cite{klavins2004communication}. At what level does a system architect choose to switch from a small number of expensive highly-powered robot systems to a larger number of simpler, cheaper robot systems. Several factors to consider include the processing power of each robot, the communication framework required to organise them, the cost of each robot, and the suitability of the problem to a multi-robot system.
+When creating multi-robot systems, scalability becomes an important concern\cite{klavins2004communication}. It is a crucial decision for a system architect to choose between using a small number of expensive highly-powered robot systems and using a larger number of simpler, cheaper robot systems to improve overall system performance. There are several factors to consider include the processing power of each robot, the communication framework required to organise them, the cost of each robot, and the suitability of the problem to a multi-robot system.
 
-Scalability can refer to many different concepts. Some define it as the ability to handle more code, others as more processes, and yet others as more hardware\cite{Bondi:2000:CSI:350391.350432}. In this report, we will deal with the latter two definitions. We will refer to increasing the number of processes running on the same amount of hardware as `vertical` scaling, and increasing the amount of hardware (e.g. number of host machines) as `horizontal' scaling.
+Scalability can refer to many different concepts. Some define it as the ability to handle more code, others as more processes, and yet others as more hardware\cite{Bondi:2000:CSI:350391.350432}. This paper will consider the latter two definitions. We will refer to increasing the number of processes running on the same amount of hardware as `vertical' scaling, and increasing the amount of hardware (e.g. number of host machines) as `horizontal' scaling.
 
 Swarm robotics is the extreme approach of creating many very simple robots which individually could not solve tasks or survive environments - however when they work together as a form of society they can work efficiently\cite{csahin2004swarm}.
 
 \section{Robotic Middleware}
+\label{robotic-middleware}
 
 Robot software developers want to work at a high level. Sensors are low level. (Why is middleware needed, whats available)
 
