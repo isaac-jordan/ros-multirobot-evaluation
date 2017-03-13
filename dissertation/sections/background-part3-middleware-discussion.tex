@@ -16,7 +16,7 @@ CORBA, and those middlewares built on top of CORBA utilise a remote object abstr
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{images/background/Orb.png}
-\caption{Illustration of the communication infrastructure when using CORBA, from Wikipedia\cite{corbaCommunicationWikipediaImage}.}
+\caption{Illustration of the communication infrastructure when using CORBA\cite{corbaCommunicationWikipediaImage}.}
 \end{figure}
 
 Other middlewares such as ROS have a more explicit communication paradigm. ROS uses a network of software nodes which can create message queues (known as a topic), which they can publish data of a specific type to \cite{rosconcepts}. Other nodes can subscribe to topics, generally registering a callback function which is called when some new data has been published to the topic. These mechanisms are described in detail in Section \ref{background-ros}. This method of communication also allows for code to be identical whether or not the two communicating nodes are in the same address space or are remote, but the communication code itself is explicit. The programmer must define when the topics are created, when data is published, and what happens in a subscriber when the data is published.
