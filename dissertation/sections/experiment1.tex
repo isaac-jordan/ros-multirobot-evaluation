@@ -24,6 +24,12 @@ As mentioned in the experiment introduction, the code base utilised to begin thi
 \label{exp1-architecture}
 \end{figure}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{images/experiment1/bare-pis.jpg}
+\caption{Photo of the three Raspberry Pi Model Bs and Asus router utilised in Experiment 1}
+\end{figure}
+
 %The experimental setup was that one Raspberry Pi would run a ROS master node, another Raspberry Pi runs a sender program that notes down the message-sent time, and sends it to a 3rd Raspberry Pi which merely echoes the message back to the sender. Upon receiving the message, the sender/receiver notes the current time, and writes `message X which was sent at Y, was received at Z' to a text file. The resulting Round Trip Time (RTT) for each message would therefore be the difference between the message-sent time and the message-received time.
 
 %Code had been written prior to execute this experiment, so initially this was used\cite{Experiment1InitialCode}. However, this gave results that were contrary to the hypothesis. An increase in message frequency resulted in a reduction in message latency. A number of messages on higher frequencies were also dropped, and never received. As this was the opposite of the hypothesis, the first step was to critique the experiment code.
