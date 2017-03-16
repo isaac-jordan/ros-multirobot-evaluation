@@ -8,6 +8,7 @@
 Middleware designs can be broken down in to four groups of concepts: Communication, Computation, Configuration, and Coordination \cite{brugali2010component}. The majority of robotic middleware differences can be demonstrated as a difference in one of these groups. The following sections provide an overview of the approaches that the middlewares summarised above use to tackle each of these areas.
 
 \subsection{Communication}
+\label{communication-section}
 
 All modern robotic middlewares are comprised of multiple modules. In a non-trivial robotic system these distinct modules must exchange a variety of information in a complex web. These information channels usually have some desired bounds or characteristics, such as reliability (guarantees on information delivery), performance (general low latency, or some guarantees on delivery times), and overhead (is the communication significantly more expensive than building one monolithic module). The middlewares presented in Section \ref{overview-of-robotic-middleware} have used a variety of approaches to inter-component communication.
 
@@ -52,6 +53,7 @@ MOOS also utilises a text file for runtime configuration called a `Mission file'
 OpenRDK utilises an XML configuration file to do similar tasks. However it is closer to ROS in terms of flexibility than MOOS, providing advanced key-value store mechanics, as well as a `yellow pages' - a lookup table to contact the various agents running in the system.
 
 \subsection{Coordination}
+\label{coordination-section}
 
 Most middlewares have explicit mechanisms for creating multiple concurrently running software components. These components need to exhibit some overall system behaviour, usually by working together. It is not enough for each component to independently run and share data, there needs to be some coordination to the system to provide controlled, reliable, behaviour. For this reason, some middlewares provide concurrency libraries, either explicitly, or implicitly such as by the computation and communication model or by language features.
 

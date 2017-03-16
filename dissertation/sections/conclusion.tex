@@ -7,23 +7,13 @@
 
 \section{Summary}
 
-%Summary - 2 paragraphs
-%Important results - 1 page
-%Lessons learned - 1 page
+This project began with a comprehensive review of a large range of robotic middlewares in Section \ref{robotic-middleware}. This review covered a wide range of current middlewares, rarely seen in the literature of the field. An overview of the communication and computation architecture in ROS was also presented in Sections \ref{communication-section} through \ref{coordination-section}.
 
-% similar to achievements
-% refer to specific figures
+The next phase of the project investigated what factors had an impact on the performance of high frequency communication between ROS nodes in a multi-robot system. Through a series of experiments in Chapter \ref{communication-chapter}, it was found the processing power (Sections \ref{experiment3-cpu-speed}, and \ref{exp-5}) and connection type (Sections \ref{exp-4}, and \ref{experiment-6}) of the ROS hosts were the largest factors when trying to attain reliable communication at a high message frequency. These results were verified by sending message payloads containing data of a variety of sizes (11 bytes up to 308kB), including data recorded from a real ROS system (the PR2 robot).
 
-%wot a did + backgroond = 1 smol paragraph
-%more rezzies for communication = 1 mid para
-%useful rezzies for host = 1 mid para
+Finally, research was conducted in Chapter \ref{host-scalability-chapter} into how ROS scales vertically and horizontally. Vertical scaling tests resulted in the proposal of a mechanism to calculate the maximum supported combination of the number of nodes per host, the message frequency from each host, and the message size (Section \ref{experiment7-vertical-scaling}). This proposed formula was called the Communication Scaling Limit Volume (CSLV). The CSLV value for the test platform was estimated using experimental data, used to estimate the maximum number of nodes at a new range of message frequencies, and then verified experimentally at that new range. These new frequencies performed as expected, confirming the accuracy of the CSLV calculation - except in the 256 node/1Hz frequency case which unexpectedly had reduced performance. An explanation for this result was proposed in Section \ref{exp-7-further}. An experimental set-up was proposed to evaluate the horizontal scaling capabilities of ROS, however the experimented was not conducted due to time constraints in the project.
 
-
-This project began with a comprehensive review of a large range of robotic middlewares. This review covered a wide range of current middlewares, rarely seen in the literature of the field. An overview of the communication and computation architecture in ROS was also presented.
-
-The next phase of the project investigated what factors had an impact on the performance of high frequency communication between ROS nodes in a multi-robot system. Through a series of experiments in Chapter \ref{communication-chapter}, it was found the processing power and connection type of the ROS hosts were the largest factors when trying to attain reliable communication at a high message frequency. These results were verified by sending message payloads containing data of a variety of sizes (11 bytes up to 308kB), including data recorded from a real ROS system (the PR2 robot).
-
-Finally, research was conducted in Chapter \ref{host-scalability-chapter} into how ROS scales vertically and horizontally. Vertical scaling tests resulted in the proposal of a mechanism to calculate the maximum supported combination of the number of nodes per host, the message frequency from each host, and the message size. This proposed formula was called the Communication Scaling Limit Volume (CSLV). The CSLV value for the test platform was estimated using experimental data, used to estimate the maximum number of nodes at a new range of message frequencies, and then verified experimentally at that new range. These new frequencies performed as expected, confirming the accuracy of the CSLV calculation - except in the 256 node/1Hz frequency case which unexpectedly had reduced performance. An explanation for this result was proposed in Section \ref{exp-7-further}. An experimental set-up was proposed to evaluate the horizontal scaling capabilities of ROS, however the experimented was not conducted due to time constraints in the project.
+Finally, research was conducted in Chapter \ref{host-scalability-chapter} into how ROS scales vertically and horizontally. Section \ref{experiment7-vertical-scaling} proposed the hypothesis that there exists a calculable Communication Scaling Limit Volume (CSLV) which could be used to predict the performance of a particular ROS node configuration on a given host. In order to calculate an initial CSLV value for the Raspberry Pi 3 Model B platform, several node counts were tested at 100Hz, 200Hz, and 300Hz and the configurations that caused low performance were noted. Using this information to calculate an approximate CSLV value would then allow performance predictions to be made on new (untested) configurations. This was tested by calculating the maximum number of nodes that could be sustainably run for a set of new message frequencies: 1Hz, 10Hz, and 20Hz (Figure \ref{exp7-further-all-freqs-averages}). Section \ref{exp-7-further} tested these predictions, and found the results generally agreed with the predictions - establishing the CSLV hypothesis.
 
 %\section{Reflection}
 
@@ -50,7 +40,5 @@ While conducting the research in this project a number of investigatory avenues 
   \item \textbf{Investigate new bottleneck seen at high node counts with low message frequency} Section \ref{experiment7-vertical-scaling} saw that message latencies were unexpectedly high with 128 senders on a single node, each sending at frequency of 1Hz. This result was contrary to the prediction provided by the CSLV calculation (which estimated good performance up to approximately 300 nodes). This result could indicate that a new factor is bottlenecking the communication performance of the system at high node counts. It was suggested that it could be the effect of the Raspberry Pis processor context switching between the 128 different processes, however the investigation to confirm this was outside the scope of the project.
 
 \end{itemize}
-
-% different network topologies
 
 \end{document}
