@@ -5,7 +5,7 @@
 \subsection{An Overview Of Robotic Middleware}
 \label{overview-of-robotic-middleware}
 
-There is a wide variety of robotic middlewares in use currently. Many employ a free (libre) approach to software by making the source code available online, whereas others are created for commercial licensing using propriatary source. This overview predominantely covers open source middlewares, as there is a greater amount of information available on the design and implementation of these projects. Several of the covered middlewares have fallen out of use and/or development, and this has been noted where applicable. A discussion of the major aspects of the covered middlewares is presented after the table. \textit{Note that several more middlewares were reviewed than are presented in this table, the other middlewares are presented in Appendix \ref{middlewares-overview-appendix}.}
+There is a wide variety of robotic middlewares in use currently. Many employ a free (libre) approach to software by making the source code available online, whereas others are created for commercial licensing using proprietary source. This overview predominantly covers open source middlewares, as there is a greater amount of information available on the design and implementation of these projects. Several of the covered middlewares have fallen out of use and/or development, and this has been noted where applicable. A discussion of the major aspects of the covered middlewares is presented after the table. \textit{Note that several more middlewares were reviewed than are presented in this table, the other middlewares are presented in Appendix \ref{middlewares-overview-appendix}.}
 
 \begin{center}
 	\setitemize[0]{leftmargin=*}
@@ -21,7 +21,7 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 				\item The goal of ROS is not to be a framework with the most features. Instead, the primary goal of ROS is to support code reuse in robotics research and development
 				\item Keep libraries ROS-agnostic
 				\item Easy to test
-				\item Scalable; appropriate for large runtime systems, and large development processes
+				\item Scalable; appropriate for large run-time systems, and large development processes
 			\end{itemize} %
 		\end{minipage} &
 		\begin{minipage}[t]{0.1\columnwidth}%
@@ -30,9 +30,9 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 		\begin{minipage}[t]{0.25\columnwidth}%
 			\begin{itemize}
 				\item Can be used in conjunction with other robot frameworks
-				\item Distributed framework of processes allows for executables to be individually designed, and loosely coupled at runtime
+				\item Distributed framework of processes allows for executables to be individually designed, and loosely coupled at run-time
 				\item Encourages collaboration by easy package sharing
-				\item Not a realtime framework, although can work with realtime code
+				\item Not a real-time framework, although can work with real-time code
 			\end{itemize} %
 		\end{minipage} &
 		\begin{minipage}[t]{0.2\columnwidth}%
@@ -49,7 +49,7 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 			\begin{itemize}
 				\item Designed to facilitate research in the mobile robotic domain
 				\item Constitute a resilient, distributed and coordinated suite of software suitable for in-the-field deployment of sub-sea and land research robots
-				\item Process communcation should be utterly robust and tolerant of the repeated stop/start of any process
+				\item Process communication should be utterly robust and tolerant of the repeated stop/start of any process
 			\end{itemize} %
 		\end{minipage} &
 		\begin{minipage}[t]{0.1\columnwidth}%
@@ -157,7 +157,7 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 		\end{minipage} &
 		\begin{minipage}[t]{0.25\columnwidth}%
 			\begin{itemize}
-				\item Much more general than a `robotic middleware', but often compared as it's communications interface is similar to many middleware's.
+				\item Much more general than a `robotic middleware', but often compared as it's communications interface is similar to many middlewares.
 				\item Software-based communications interface through which objects are located and accessed
 				\item OO abstractions utilising request-response in the library (via the Object Request Broker)
 				\item Uses Interface Definition Language (IDL) to define object interfaces
@@ -170,10 +170,10 @@ There is a wide variety of robotic middlewares in use currently. Many employ a f
 			\begin{itemize}
 				\item Criticised for poor implementations of the standard
 				\item Good language and OS independence
-				\item `Freedom from technologies', meaning that (for example) C++ code can talk to Fortran legacy code and Java database code (and each can be changed independently without having to update the other code bases)
+				\item `Freedom from technologies', meaning that (for example) C++ code can talk to FORTRAN legacy code and Java database code (and each can be changed independently without having to update the other code bases)
 				\item Strong typing of messages, reducing human error
 				\item Small overhead to adding to system (but dependent on implementation)
-				\item Has real-time implementations of related standard (realtime CORBA)
+				\item Has real-time implementations of related standard (real-time CORBA)
 			\end{itemize} %
 		\end{minipage} &
 		\begin{minipage}[t]{0.2\columnwidth}%
