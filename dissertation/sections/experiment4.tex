@@ -15,7 +15,7 @@ Given that it is plausible for a multi-robot system to use Wi-Fi as it's communi
 
 \paragraph{Materials and Methodology} The hardware platform (Raspberry Pi 3 Model B) utilised in these experiments contains Broadcom 802.11n WiFi chips which support a 2.4GHz network connection. This should give the Raspberry Pis an average data throughput of 25 Mbps, according to Cisco data\cite{florwick2013wireless}.
 
-The experiment consists of running the same code in both wired (Ethernet) and wireless (Wi-Fi) settings. As before, the code will send timestamped messages from the sender host to the echoer host, which will send it back to the sender. The sender then records the message ID and sent and received times to file. The code is run 3 times with a range of message frequencies from 200Hz to 2000Hz in 200Hz steps (200Hz, 400Hz, ..., 1800Hz, 2000Hz) to obtain averaged results for each message frequency.
+The experiment consists of running the same code as created in Experiment 1\cite{Experiment1NoEchoDelayCode}, in both wired (Ethernet) and wireless (Wi-Fi) settings. As before, the code will send timestamped messages from the sender host to the echoer host, which will send it back to the sender. The sender then records the message ID and sent and received times to file. The code is run 3 times with a range of message frequencies from 200Hz to 2000Hz in 200Hz steps (200Hz, 400Hz, ..., 1800Hz, 2000Hz) to obtain averaged results for each message frequency.
 
 \paragraph{Results and Discussion} The experimental results after 3 runs in each setup appeared to mostly agree with the hypothesis. Overall message latencies were higher (as expected) across all frequencies using WiFi except 2000Hz - as shown in Figure \ref{exp4-means-all-freq}.
 

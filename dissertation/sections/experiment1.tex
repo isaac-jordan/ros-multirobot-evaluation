@@ -30,10 +30,6 @@ As mentioned in the experiment introduction, the code base utilised to begin thi
 \caption{Photo of the three Raspberry Pi Model Bs and Asus router utilised in Experiment 1}
 \end{figure}
 
-%The experimental setup was that one Raspberry Pi would run a ROS master node, another Raspberry Pi runs a sender program that notes down the message-sent time, and sends it to a 3rd Raspberry Pi which merely echoes the message back to the sender. Upon receiving the message, the sender/receiver notes the current time, and writes `message X which was sent at Y, was received at Z' to a text file. The resulting Round Trip Time (RTT) for each message would therefore be the difference between the message-sent time and the message-received time.
-
-%Code had been written prior to execute this experiment, so initially this was used\cite{Experiment1InitialCode}. However, this gave results that were contrary to the hypothesis. An increase in message frequency resulted in a reduction in message latency. A number of messages on higher frequencies were also dropped, and never received. As this was the opposite of the hypothesis, the first step was to critique the experiment code.
-
 \paragraph{Results and Discussion} This set-up was coded and ran, however as mentioned, the results were unexpected - as Figure \ref{exp1-all-freqs}, the set-up gave results that were contrary to intuition. As the sending message frequency increased, better performance (lower message latency) was seen - although at very high frequencies a number of messages were completely dropped at the start. These correlations can be seen in Figure \ref{exp1-all-freqs}. \textit{The results matched what was previously seen by Andreea - which directly conflicts with the hypothesis that increasing message frequency would eventually increase message latency.} Another interesting observation is that for 10KHz the first 169 messages were completely dropped (never received back from the echoer), and for 1MHz the first 312 messages were dropped. Figure \ref{exp1-dropped-messages} shows the total number of messages received for each frequency. \textit{These dropped messages indicate that the publisher message queues for either the sender or the echoer reached max capacity (causing some messages to be overwritten before they are sent)}.
 
 \begin{figure}[H]
@@ -81,7 +77,7 @@ if __name__ == '__main__':
 	  main()
 \end{lstlisting}
 
-These issues were resolved by removing the code that executed the delay in the echoer, and by setting the maximum queue size to be equal to 1000 in every experiment (the number of messages expected to be sent). These modifications can be seen in Listing \ref{exp1-modified-listing}.
+These issues were resolved by removing the code that executed the delay in the echoer, and by setting the maximum queue size to be equal to 1000 in every experiment (the number of messages expected to be sent). These modifications can be seen in Listing \ref{exp1-modified-listing}. At this point a Bash script was created to automate this and future experiments. The script runs through a specific range of message frequency values multiple times (depending on the number of experimental runs specified). This allowed for reliable, repeatable experiments by reducing the margin for human error - and reducing the work required to repeat experiments.
 
 \begin{lstlisting}[language=Python, caption=Echoer Modified, label={exp1-modified-listing}]
 import rospy
@@ -109,7 +105,7 @@ if __name__ == '__main__':
     main()
 \end{lstlisting}
 
-The experiment was then repeated using this new echoer code. Figure \ref{exp1-modified-all-freqs} shows the message latency for each message at all frequencies. All frequencies less than 10KHz had concistent message latencies around 1.5ms, but 10KHz, 100Khz, and 1MHz exhibited very erratic performance - indicating that beginning around 10KHz the system begins experiencing a bottleneck. Figure \ref{exp1-modified-mean-latency-all-freqs} shows mean latencies across the entire message streams for each frequency - \textit{clearly demonstrating that performance is very consistent up until 10KHz for this set-up}.
+The experiment was then repeated using this new echoer code\cite{Experiment1NoEchoDelayCode}. Figure \ref{exp1-modified-all-freqs} shows the message latency for each message at all frequencies. All frequencies less than 10KHz had concistent message latencies around 1.5ms, but 10KHz, 100Khz, and 1MHz exhibited very erratic performance - indicating that beginning around 10KHz the system begins experiencing a bottleneck. Figure \ref{exp1-modified-mean-latency-all-freqs} shows mean latencies across the entire message streams for each frequency - \textit{clearly demonstrating that performance is very consistent up until 10KHz for this set-up}.
 
 \begin{figure}[H]
 \centering
@@ -127,6 +123,6 @@ The experiment was then repeated using this new echoer code. Figure \ref{exp1-mo
 
 \subsubsection{Disk Writing}
 
-At this point it was theorized that writing the results to disk during the experiment (as the sender receives messages back from the echoer) could be adversely affecting the performance at high message frequencies. Thus, an informal experiment was conducted to investigate if it was feasible to postpone writing the records to disk until the end of the message stream. This was coded, however unexpectedly gave rise to significantly higher message latencies. It is presumed this was an issue with the implementation - but it was then noted that Python uses the operating system's buffering mechanic to efficiently write to disk in blocks. \textit{Thus this idea was discarded, as it not expected that saving writing to disk until the end would be significantly faster than the buffering provided by Linux.}
+At this point it was theorized that writing the results to disk during the experiment (as the sender receives messages back from the echoer) could be adversely affecting the performance at high message frequencies. Thus, an informal experiment was conducted to investigate if it was feasible to postpone writing the records to disk until the end of the message stream. This was coded\cite{Experiment1NoDiskWriteCode}, however unexpectedly gave rise to significantly higher message latencies. It is presumed this was an issue with the implementation - but it was then noted that Python uses the operating system's buffering mechanic to efficiently write to disk in blocks. \textit{Thus this idea was discarded, as it not expected that saving writing to disk until the end would be significantly faster than the buffering provided by Linux.}
 
 \end{document}
