@@ -86,6 +86,8 @@ In ROS, the Master node monitors the progress and status of the other nodes, but
 
 In order to systematically evaluate how ROS' communication scales, one must first aim to understand which aspects of the system that are of greatest importance to performance - both in terms of latency of messages, and total throughput of communication. Section \ref{communication-scoping-experiments} aims to analyse the performance bottlenecks of a simple multi-robot system when sending very controlled and artificial data. Section \ref{communication-real-data} will then aim to validate the results of Section \ref{communication-scoping-experiments} using previously recorded data streams that are representative of a typical ROS system, with the goal that these conclusions will then be directly applicable to real ROS multi-robot systems. This chapter aims to provide an understanding of the fundamental communication performance characteristics of a multi-robot ROS system, so that vertical and horizontal scaling experiments can be contextualised.
 
+Full datasets and extra graphs of all experiments can be found in the experiment repository\cite{experimentGitHubRepo}.
+
 \begin{table}[H]
 \centering
 \caption{Chapter \ref{communication-chapter} Experiment Overview}
@@ -138,6 +140,8 @@ Chapter \ref{communication-chapter} provided grounding work to build further exp
 
 Chapter \ref{host-scalability-chapter} now aims to investigate how well a multi-robot system can scale with ROS. As mentioned in Section \ref{background-scalability}, scalability can refer to many different concepts - in this chapter scalability will be considered in terms of vertical and horizontal scaling. Vertical scaling refers to running multiple identical processes on the same host machines. This has the opportunity to allow for more CPU cores to be utilised (in the case of a multi-core host), however can introduce issues if other system resources are a bottleneck (e.g. if there is not enough RAM to support the new processes, or the new processes are storage-heavy tasks causing resource contention). Horizontal scaling refers to distributing workloads across increasing numbers of host machines. This has the benefit that each host will generally have an entire set of resources (CPU, RAM, disk, GPU, etc) to itself, circumventing the issue of resource contention seen in vertical scaling. There are significant downsides to horizontal scaling though. Horizontal scaling introduces a need for complex communication between the hosts to organise and distribute tasks, or to communicate results. Horizontal scaling also has an economic impact, as it requires new hardware to be purchased and managed.
 
+Full datasets and extra graphs from all experiments can be found in the experiment repository\cite{experimentGitHubRepo}.
+
 \begin{table}[H]
     \centering
         \caption{Chapter \ref{host-scalability-chapter} Experiment Overview}
@@ -161,10 +165,6 @@ Chapter \ref{host-scalability-chapter} now aims to investigate how well a multi-
 
 \subfile{sections/conclusion}
 
-
-
-
-
 %%%%%%%%%%%%%%%%
 %              %
 %  APPENDICES  %
@@ -175,23 +175,6 @@ Chapter \ref{host-scalability-chapter} now aims to investigate how well a multi-
 \chapter{Continued Middlewares Overview}
 \label{middlewares-overview-appendix}
 \subfile{sections/background-part2-middleware-overview-appendix}
-
-\chapter{Experiment 2 Other Graphs}
-\label{exp2-appendix-results}
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{images/experiment2/7khz-mean.png}
-\caption{Experiment 2 - 7KHz Message Frequency}
-\label{exp2-7khz}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{images/experiment2/10khz-mean.png}
-\caption{Experiment 2 - 10KHz Message Frequency}
-\label{exp2-10khz}
-\end{figure}
 
 \end{appendices}
 

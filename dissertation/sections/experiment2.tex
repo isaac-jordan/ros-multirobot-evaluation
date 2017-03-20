@@ -13,20 +13,20 @@
 
 \paragraph{Materials and Methodology} The hardware set-up is identical as Experiment 1 (see Section \ref{exp-1}), however the methodology is different. This experiment compares two set-ups: the first, `Full Reboot' involves executed a full system reboot of all involved Raspberry Pis between each experiment run, and the second, `No Reboot' involves simply waiting a few seconds before executing the next run. Both configurations are to be repeated 5 times in total, and latencies averaged across the 5 datasets. The messages being sent are also identical as Experiment 1. The software used in these experiments was the same as the revised software\cite{Experiment1NoEchoDelayCode} in Experiment 1, although a different range of message frequencies was specified in the Bash script used to automate the experiment.
 
-\paragraph{Results and Discussion} Figure \ref{exp2-1khz-mean} demonstrates that for relatively low message frequencies the mean message latency was consistently 1 - 1.5ms (the peak around message 500 in the full reboot data was due to a single erroneous run, possibly indicating a system update or some other scheduled background process took place). Figure \ref{exp2-4khz-mean} is characteristic of the higher frequency runs - the no reboot runs generally gave equal or better performance compared to the full reboot runs. See Appendix \ref{exp2-appendix-results} for other mean graphs, and individual run graphs.
-
-We can conclude from this that \textit{rebooting the host systems between experimental runs would result in worse communication performance for ROS}, thus in future experiments the host systems will not be rebooted between runs. Secondly, we can also conclude that \textit{the exact frequency that message latencies begin increasing above nominal values is somewhere between 1KHz and 4KHz.}
+\paragraph{Results and Discussion} Figure \ref{exp2-1khz-mean} demonstrates that for relatively low message frequencies the mean message latency was consistently 1 - 1.5ms (the peak around message 500 in the full reboot data was due to a single erroneous run, possibly indicating a system update or some other scheduled background process took place). Figure \ref{exp2-4khz-mean} is characteristic of the higher frequency runs - the no reboot runs generally gave equal or better performance compared to the full reboot runs.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{images/experiment2/1khz-mean.png}
+\includegraphics[width=0.8\textwidth]{images/experiment2/1khz-mean.png}
 \caption{Experiment 2 - Mean Message Latency 1KHz Message Frequency}
 \label{exp2-1khz-mean}
 \end{figure}
 
-\begin{figure}[H]
+We can conclude from this that \textit{rebooting the host systems between experimental runs would result in worse communication performance for ROS}, thus in future experiments the host systems will not be rebooted between runs. Secondly, we can also conclude that \textit{the exact frequency that message latencies begin increasing above nominal values is somewhere between 1KHz and 4KHz.}
+
+\begin{figure}[tb]
 \centering
-\includegraphics[width=\textwidth]{images/experiment2/4khz-mean.png}
+\includegraphics[width=0.8\textwidth]{images/experiment2/4khz-mean.png}
 \caption{Experiment 2 - Mean Message Latency 4KHz Message Frequency}
 \label{exp2-4khz-mean}
 \end{figure}

@@ -13,7 +13,7 @@
 
 \paragraph{Materials and Methodology} As this experiment is effectively a re-run of Experiment 7 (as presented in Section \ref{experiment7-vertical-scaling}), this experiment has the same methodology as Experiment 7, but conducted on the robot car platform. This presents some new challenges in the execution of the experiment. Due to the battery power supply, the entire experiment (3 runs at 3 message frequencies with 8 different node counts) cannot be run in a single battery lifetime. A single charge lasts long enough for 1.5 runs, however in order to reduce likelihood of inconsistent data it was decided to conduct the experiment 1 run at a time, with a battery charge conducted between runs - thus the experiment had to be executed over a number of days.
 
-\paragraph{Results and Discussion} Figure \ref{exp8-all-freqs-averages} shows a similar graph as Figure \ref{exp7-further-all-freqs-averages}, but with data acquired from 3 runs on the robot car kit platform. It shows that the results gathered in Experiment 7 were valid on the robot car kit platform, as we see spikes in the message latency at the same node counts as in the previous experiment on the bare Raspberry Pis. Note that 128 node, and 256 node counts were skipped for 10Hz, and 64, 128, and 256 were skipped for 20Hz due to the extremely long time it takes those setups to conclude their runs (on the scale of several hours) - and the robot cars would run out of battery before all sending/receiving nodes can finish. However, the node counts that have been run demonstrate that the performance bottlenecks occur at the same node counts.
+\paragraph{Results and Discussion} Analysing the results was of similar complexity to Experiment 7, and thus were analysed in the same fashion - by averaging across the 3 runs by message ID for each configuration. This results in a mean latency value for each message ID, these values can then be averaged to produce a final single value for a particular configuration. Figure \ref{exp8-all-freqs-averages} shows a similar graph as Figure \ref{exp7-further-all-freqs-averages}, but with data acquired from 3 runs on the robot car kit platform. It shows that the results gathered in Experiment 7 were valid on the robot car kit platform, as we see spikes in the message latency at the same node counts as in the previous experiment on the bare Raspberry Pis. Note that 128 node, and 256 node counts were skipped for 10Hz, and 64, 128, and 256 were skipped for 20Hz due to the extremely long time it takes those setups to conclude their runs (on the scale of several hours) - and the robot cars would run out of battery before all sending/receiving nodes can finish. However, the node counts that have been run demonstrate that the performance bottlenecks occur at the same node counts, including the unexpected increase in latency seen at 1Hz/256 nodes - as shown in Figure \ref{exp8-1hz}.
 
 \begin{figure}[H]
 \centering
@@ -23,5 +23,12 @@
 \end{figure}
 
 Therefore, it is possible conclude that \textit{CSLV as presented in Section \ref{experiment7-vertical-scaling} is a concern for real ROS systems, and that for this specific set-up (utilising Raspberry Pi 3 Model Bs on Wi-Fi) the limit is approximately between (4.25 * 10 * 16 =) 680kB/s and (4.25 * 20 * 16 =) 1360kB/s depending on exact message latency tolerance.}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/experiment9/vertical_scaling_1Hz_all_freqs.png}
+\caption{Experiment 8 - 1Hz Message Frequency, All Node Counts}
+\label{exp8-1hz}
+\end{figure}
 
 \end{document}
